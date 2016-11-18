@@ -1,0 +1,850 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+ Copyright (c) 2016 AT&T Intellectual Property. All rights reserved.
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.att.ajsc</groupId>
+		<artifactId>ajsc-bom</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+		<relativePath>../ajsc-bom</relativePath>
+	</parent>
+	<artifactId>ajsc-archetype-parent</artifactId>
+	<packaging>pom</packaging>
+
+	<properties>
+		<dependency.scope>provided</dependency.scope>
+	</properties>
+
+
+	<profiles>
+		<profile>
+			<id>runLocal</id>
+			<build>
+				<defaultGoal>initialize</defaultGoal>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-antrun-plugin</artifactId>
+						<executions>
+							<execution>
+								<phase>initialize</phase>
+								<configuration>
+									<target name="runLocal">
+										<ant antfile="${basedir}/antBuild/build.xml" target="runLocal" />
+									</target>
+								</configuration>
+								<goals>
+									<goal>run</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<id>runJetty</id>
+			<build>
+				<defaultGoal>initialize</defaultGoal>
+				<plugins>
+					<plugin>
+						<groupId>org.eclipse.jetty</groupId>
+						<artifactId>jetty-maven-plugin</artifactId>
+						<version>${jetty.version}</version>
+						<executions>
+							<execution>
+								<phase>initialize</phase>
+								<configuration>
+									<jvmArgs>-DMAVEN_OPTS=com.sun.management.jmxremote</jvmArgs>
+									<systemProperties>
+										<systemProperty>
+											<name>AJSC_HOME</name>
+											<value>${runAjscHome}</value>
+										</systemProperty>
+										<systemProperty>
+											<name>CadiAuthN</name>
+											<value>authentication-scheme-2</value>
+										</systemProperty>
+										<systemProperty>
+											<name>authN</name>
+											<value>authentication-scheme-2</value>
+										</systemProperty>
+										<systemProperty>
+											<name>logback.configurationFile</name>
+											<value>${runAjscHome}/etc/logback.xml</value>
+										</systemProperty>
+										<systemProperty>
+											<name>ajscPersistence</name>
+											<value>file</value>
+										</systemProperty>
+										<systemProperty>
+											<name>hawtio.authenticationEnabled</name>
+											<value>false</value>
+										</systemProperty>
+										<systemProperty>
+											<name>hawtio.config.pullOnStartup</name>
+											<value>false</value>
+										</systemProperty>
+										<systemProperty>
+											<name>enableSSL</name>
+											<value>true</value>
+										</systemProperty>
+										<systemProperty>
+											<name>csiEnable</name>
+											<value>false</value>
+										</systemProperty>
+										<systemProperty>
+											<name>sslport</name>
+											<value>${sslport}</value>
+										</systemProperty>
+										<systemProperty>
+											<name>SOA_CLOUD_ENV</name>
+											<value>false</value>
+										</systemProperty>
+										<!-- GRM/DME2 System Properties -->
+										<systemProperty>
+											<name>AJSC_SERVICE_NAMESPACE</name>
+											<value>${module.ajsc.namespace.name}</value>
+										</systemProperty>
+										<systemProperty>
+											<name>AJSC_SERVICE_VERSION</name>
+											<value>${module.ajsc.namespace.version}</value>
+										</systemProperty>
+										<systemProperty>
+											<name>AJSC_ENV</name>
+											<value>SOACLOUD</value>
+										</systemProperty>
+										<systemProperty>
+											<name>SOACLOUD_NAMESPACE</name>
+											<value>com.att.ajsc</value>
+										</systemProperty>
+										<systemProperty>
+											<name>SOACLOUD_ENV_CONTEXT</name>
+											<value>DEV</value>
+										</systemProperty>
+										<systemProperty>
+											<name>SOACLOUD_PROTOCOL</name>
+											<value>http</value>
+										</systemProperty>
+										<systemProperty>
+											<name>SOACLOUD_SERVICE_VERSION</name>
+											<value>${project.version}</value>
+										</systemProperty>
+										<systemProperty>
+											<name>AFT_LATITUDE</name>
+											<value>23.4</value>
+										</systemProperty>
+										<systemProperty>
+											<name>AFT_LONGITUDE</name>
+											<value>33.6</value>
+										</systemProperty>
+										<systemProperty>
+											<name>SOACLOUD_ROUTE_OFFER</name>
+											<value>DEFAULT</value>
+										</systemProperty>
+										<systemProperty>
+											<name>AFT_ENVIRONMENT</name>
+											<value>AFTUAT</value>
+										</systemProperty>
+										<systemProperty>
+											<name>AJSC_JETTY_ThreadCount_MIN</name>
+											<value>1</value>
+										</systemProperty>
+										<systemProperty>
+											<name>AJSC_JETTY_ThreadCount_MAX</name>
+											<value>200</value>
+										</systemProperty>
+										<systemProperty>
+											<name>AJSC_JETTY_IDLETIME_MAX</name>
+											<value>3000</value>
+										</systemProperty>
+										<systemProperty>
+											<name>AFT_DME2_CONN_IDLE_TIMEOUTMS</name>
+											<value>5000</value>
+										</systemProperty>
+
+										<!-- server.port is necessary for proper GRM Registration -->
+										<systemProperty>
+											<name>server.port</name>
+											<value>${serverPort}</value>
+										</systemProperty>
+										<!-- End of GRM/DME2 System Property Variables -->
+
+									</systemProperties>
+									<jettyXml>${runAjscHome}/etc/ajsc-jetty.xml</jettyXml>
+								</configuration>
+								<goals>
+									<goal>run</goal>
+								</goals>
+							</execution>
+						</executions>
+						<dependencies>
+							<dependency>
+								<groupId>com.att.ajsc</groupId>
+								<artifactId>ajsc-war</artifactId>
+								<version>${ajscRuntimeVersion}</version>
+								<type>war</type>
+								<scope>runtime</scope>
+							</dependency>
+							<dependency>
+								<groupId>${jettyGroupId}</groupId>
+								<artifactId>jetty-deploy</artifactId>
+								<version>${jetty.version}</version>
+								<scope>runtime</scope>
+							</dependency>
+						</dependencies>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+
+		<!-- This non-default profile allows you to run ajsc war and jolokia war 
+			in jetty container by having your run configuration execute: mvn -P runJolokia -->
+		<profile>
+			<id>runJolokia</id>
+			<build>
+				<defaultGoal>initialize</defaultGoal>
+				<plugins>
+					<plugin>
+						<groupId>org.eclipse.jetty</groupId>
+						<artifactId>jetty-maven-plugin</artifactId>
+						<version>${jetty.version}</version>
+						<executions>
+							<execution>
+								<phase>initialize</phase>
+								<configuration>
+									<jvmArgs>-DMAVEN_OPTS=com.sun.management.jmxremote</jvmArgs>
+									<systemProperties>
+										<systemProperty>
+											<name>AJSC_HOME</name>
+											<value>${runAjscHome}</value>
+										</systemProperty>
+										<systemProperty>
+											<name>CadiAuthN</name>
+											<value>authentication-scheme-2</value>
+										</systemProperty>
+										<systemProperty>
+											<name>authN</name>
+											<value>authentication-scheme-2</value>
+										</systemProperty>
+										<systemProperty>
+											<name>logback.configurationFile</name>
+											<value>${runAjscHome}/etc/logback.xml</value>
+										</systemProperty>
+										<systemProperty>
+											<name>ajscPersistence</name>
+											<value>file</value>
+										</systemProperty>
+										<systemProperty>
+											<name>hawtio.authenticationEnabled</name>
+											<value>false</value>
+										</systemProperty>
+										<systemProperty>
+											<name>hawtio.config.pullOnStartup</name>
+											<value>false</value>
+										</systemProperty>
+										<systemProperty>
+											<name>enableSSL</name>
+											<value>enable</value>
+										</systemProperty>
+										<systemProperty>
+											<name>csiEnable</name>
+											<value>false</value>
+										</systemProperty>
+										<systemProperty>
+											<name>sslport</name>
+											<value>${sslport}</value>
+										</systemProperty>
+										<systemProperty>
+											<name>SOA_CLOUD_ENV</name>
+											<value>false</value>
+										</systemProperty>
+										<!-- GRM/DME2 System Properties -->
+										<systemProperty>
+											<name>AJSC_SERVICE_NAMESPACE</name>
+											<value>${module.ajsc.namespace.name}</value>
+										</systemProperty>
+										<systemProperty>
+											<name>AJSC_SERVICE_VERSION</name>
+											<value>${module.ajsc.namespace.version}</value>
+										</systemProperty>
+										<systemProperty>
+											<name>AJSC_ENV</name>
+											<value>SOACLOUD</value>
+										</systemProperty>
+										<systemProperty>
+											<name>SOACLOUD_NAMESPACE</name>
+											<value>com.att.ajsc</value>
+										</systemProperty>
+										<systemProperty>
+											<name>SOACLOUD_ENV_CONTEXT</name>
+											<value>DEV</value>
+										</systemProperty>
+										<systemProperty>
+											<name>SOACLOUD_PROTOCOL</name>
+											<value>http</value>
+										</systemProperty>
+										<systemProperty>
+											<name>SOACLOUD_SERVICE_VERSION</name>
+											<value>${project.version}</value>
+										</systemProperty>
+										<systemProperty>
+											<name>AFT_LATITUDE</name>
+											<value>23.4</value>
+										</systemProperty>
+										<systemProperty>
+											<name>AFT_LONGITUDE</name>
+											<value>33.6</value>
+										</systemProperty>
+										<systemProperty>
+											<name>SOACLOUD_ROUTE_OFFER</name>
+											<value>DEFAULT</value>
+										</systemProperty>
+										<systemProperty>
+											<name>AFT_ENVIRONMENT</name>
+											<value>AFTUAT</value>
+										</systemProperty>
+										<systemProperty>
+											<name>AJSC_JETTY_ThreadCount_MIN</name>
+											<value>1</value>
+										</systemProperty>
+										<systemProperty>
+											<name>AJSC_JETTY_ThreadCount_MAX</name>
+											<value>200</value>
+										</systemProperty>
+										<systemProperty>
+											<name>AJSC_JETTY_IDLETIME_MAX</name>
+											<value>3000</value>
+										</systemProperty>
+										<systemProperty>
+											<name>AFT_DME2_CONN_IDLE_TIMEOUTMS</name>
+											<value>5000</value>
+										</systemProperty>
+
+										<!-- server.port is necessary for proper GRM Registration -->
+										<systemProperty>
+											<name>server.port</name>
+											<value>${serverPort}</value>
+										</systemProperty>
+										<!-- End of GRM/DME2 System Property Variables -->
+
+									</systemProperties>
+									<webApp>
+										<contextPath>/</contextPath>
+										<!-- Uncomment this section to run without /ajsc in path <contextPath>/</contextPath> -->
+										<!-- <descriptor>${runAjscHome}/etc/runner-web.xml</descriptor> -->
+										<!-- <overrideDescriptor>${runAjscHome}/etc/ajsc-jolokia-override-web.xml</overrideDescriptor> -->
+									</webApp>
+									<jettyXml>${runAjscHome}/etc/ajsc-jetty.xml</jettyXml>
+								</configuration>
+								<goals>
+									<goal>run</goal>
+								</goals>
+							</execution>
+						</executions>
+						<dependencies>
+							<dependency>
+								<groupId>com.att.ajsc</groupId>
+								<artifactId>ajsc-war</artifactId>
+								<version>${ajscRuntimeVersion}</version>
+								<type>war</type>
+							</dependency>
+							<dependency>
+								<groupId>org.jolokia</groupId>
+								<artifactId>jolokia-jvm</artifactId>
+								<version>1.1.5</version>
+								<classifier>agent</classifier>
+							</dependency>
+							<dependency>
+								<groupId>${jettyGroupId}</groupId>
+								<artifactId>jetty-deploy</artifactId>
+								<version>${jetty.version}</version>
+								<scope>runtime</scope>
+							</dependency>
+						</dependencies>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<id>defaultbuild</id>
+			<activation>
+				<file>
+					<missing>src</missing>
+				</file>
+			</activation>
+			<build>
+			</build>
+		</profile>
+		<profile>
+			<id>standardbuild</id>
+			<activation>
+				<file>
+					<exists>src</exists>
+				</file>
+			</activation>
+			<build>
+				<resources>
+					<resource>
+						<directory>src/main/resources</directory>
+						<excludes>
+							<exclude>extApps/*.*</exclude>
+							<exclude>${module.ajsc.namespace.name}/**</exclude>
+						</excludes>
+					</resource>
+					<resource>
+						<directory>src/main/ajsc/\${namespace}_${namespaceVersion}/\${namespace}/\${namespaceVersion}</directory>
+						<excludes>
+							<exclude>**/*.route</exclude>
+							<exclude>**/*.props</exclude>
+							<exclude>**/*.xslt</exclude>
+							<exclude>**/*.vm</exclude>
+							<exclude>**/*.jar</exclude>
+							<exclude>**/*.xml</exclude>
+						</excludes>
+					</resource>
+					<!-- <resource> -->
+					<!-- <directory>${basedir}/bundleconfig</directory> -->
+					<!-- <filtering>true</filtering> -->
+					<!-- <excludes> -->
+					<!-- <exclude>**/*csm*</exclude> -->
+					<!-- </excludes> -->
+					<!-- </resource> -->
+				</resources>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-compiler-plugin</artifactId>
+						<version>3.1</version>
+					</plugin>
+					<plugin>
+						<groupId>org.codehaus.groovy</groupId>
+						<artifactId>groovy-eclipse-compiler</artifactId>
+					</plugin>
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>exec-maven-plugin</artifactId>
+						<executions>
+							<execution>
+								<goals>
+									<goal>exec</goal>
+								</goals>
+							</execution>
+						</executions>
+						<configuration>
+							<executable>bash</executable>
+							<arguments>
+								<argument>runServer.sh</argument>
+							</arguments>
+						</configuration>
+					</plugin>
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>build-helper-maven-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>add-source-groovy-ajsc-arch-parent</id>
+								<phase>generate-sources</phase>
+								<goals>
+									<goal>add-source</goal>
+								</goals>
+								<configuration>
+									<sources>
+										<source>src/main/groovy</source>
+									</sources>
+								</configuration>
+							</execution>
+							<execution>
+								<id>add-test-source-groovy-ajsc-arch-parent</id>
+								<phase>generate-test-sources</phase>
+								<goals>
+									<goal>add-test-source</goal>
+								</goals>
+								<configuration>
+									<sources>
+										<source>src/test/groovy</source>
+									</sources>
+								</configuration>
+							</execution>
+							<!-- <execution> <id>regex-property-ajsc-arch-parent</id> <phase>initialize</phase> 
+								<goals> <goal>regex-property</goal> </goals> <configuration> <name>replaceWinFilePath</name> 
+								<value>${runAjscHome}</value> <regex>\\</regex> <replacement>/</replacement> 
+								<failIfNoMatch>false</failIfNoMatch> </configuration> </execution> -->
+							<execution>
+								<id>regex-properties-ajsc-arch-parent</id>
+								<phase>initialize</phase>
+								<goals>
+									<goal>regex-properties</goal>
+								</goals>
+								<configuration>
+									<regexPropertySettings>
+										<regexPropertySetting>
+											<name>replaceWinFilePath</name>
+											<value>${runAjscHome}</value>
+											<regex>\\</regex>
+											<replacement>/</replacement>
+											<failIfNoMatch>false</failIfNoMatch>
+										</regexPropertySetting>
+										<regexPropertySetting>
+											<name>replaceWinBasedirPath</name>
+											<value>${basedir}</value>
+											<regex>\\</regex>
+											<replacement>/</replacement>
+											<failIfNoMatch>false</failIfNoMatch>
+										</regexPropertySetting>
+									</regexPropertySettings>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>properties-maven-plugin</artifactId>
+						<version>1.0-alpha-2</version>
+						<executions>
+							<execution>
+								<id>write-project-properties-ajsc-arch-parent</id>
+								<phase>generate-resources</phase>
+								<goals>
+									<goal>write-project-properties</goal>
+								</goals>
+								<configuration>
+									<outputFile>
+										${project.build.outputDirectory}/build.properties
+									</outputFile>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-assembly-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>make-assembly-ajsc-arch-parent</id>
+								<phase>package</phase>
+								<goals>
+									<goal>single</goal>
+								</goals>
+							</execution>
+						</executions>
+						<configuration>
+							<finalName>${project.artifactId}</finalName>
+							<descriptors>
+								<descriptor>src/main/assemble/ajsc_runtime_assembly.xml</descriptor>
+							</descriptors>
+						</configuration>
+					</plugin>
+					<plugin>
+						<groupId>org.codehaus.groovy.maven</groupId>
+						<artifactId>gmaven-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>gmaven-ajsc-arch-parent</id>
+								<phase>package</phase>
+								<goals>
+									<goal>execute</goal>
+								</goals>
+								<configuration>
+									<sourcepath>src/main/groovy</sourcepath>
+									<source>
+										import ajsc.AssemblyService;
+										ajsc.AssemblyService.getBasedir(project.basedir.getAbsolutePath(),"${distFilesRoot}")
+									</source>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-antrun-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>prep_service_runtime-ajsc-arch-parent</id>
+								<phase>generate-resources</phase>
+								<configuration>
+									<target name="prep_service_runtime">
+										<echo message="ENTERING 'copy_services_template' ant tasks" />
+										<!-- <filter token="basedir" value="${basedir}" /> -->
+										<!-- delete any prior stating stuff before package phase -->
+										<delete dir="target/versioned-ajsc" includes="**/*" />
+										<delete dir="target/versioned-runtime" includes="**/*" />
+										<delete dir="target/CDP" includes="**/*" />
+
+										<!-- This is where replacer plugin replaces tokens (Example: __module_ajsc_namespace_name__ 
+											is replaced by module.ajsc.namespace.name) -->
+										<copy todir="target/versioned-ajsc">
+											<fileset dir="src/main/ajsc" includes="**/*" />
+										</copy>
+
+										<!-- Copying the CDP, bundleconfig, and StaticContent to the target 
+											directory for future use by replacer plugin -->
+										<copy todir="target/CDP" failonerror="false">
+											<fileset dir="CDP" includes="**/*.sh" />
+										</copy>
+										<copy flatten="true" file="CDP/SampleBlueprint.xml"
+											failonerror="false"
+											tofile="target/CDP/${module.ajsc.namespace.name}Blueprint.xml" />
+										<copy todir="target/staticContent" failonerror="false">
+											<fileset dir="staticContent" includes="**/*" />
+										</copy>
+										<copy todir="target/bundleconfig" failonerror="false">
+											<!-- filtering="true"> -->
+											<fileset dir="bundleconfig" />
+										</copy>
+
+										<echo message="EXITING 'copy_services_template' ant tasks" />
+										<echo message="ENTERING 'copy_runtime_template' ant tasks" />
+										<copy todir="target/versioned-runtime">
+											<fileset dir="src/main/runtime" includes="**/*" />
+										</copy>
+										<delete
+											file="target/versioned-runtime/context/__module.ajsc.namespace.name__#__module.ajsc.namespace.version__.context" />
+										<copy flatten="true"
+											file="src/main/runtime/context/__module.ajsc.namespace.name__#__module.ajsc.namespace.version__.context"
+											tofile="target/versioned-runtime/context/${module.ajsc.namespace.name}#${module.ajsc.namespace.version}.context" />
+										<delete
+											file="target/versioned-runtime/deploymentPackage/__module.ajsc.namespace.name__#__module.ajsc.namespace.version__.json" />
+										<copy flatten="true"
+											file="src/main/runtime/deploymentPackage/__module.ajsc.namespace.name__#__module.ajsc.namespace.version__.json"
+											tofile="target/versioned-runtime/deploymentPackage/${module.ajsc.namespace.name}#${module.ajsc.namespace.version}.json" />
+										<delete
+											file="target/versioned-runtime/shiroRole/contextadmin#__module.ajsc.namespace.name__.json" />
+										<copy flatten="true"
+											file="src/main/runtime/shiroRole/contextadmin#__module.ajsc.namespace.name__.json"
+											tofile="target/versioned-runtime/shiroRole/contextadmin#${module.ajsc.namespace.name}.json" />
+										<delete
+											file="target/versioned-runtime/shiroUserRole/ajsc#contextAdmin#__module.ajsc.namespace.name__.json" />
+										<copy flatten="true"
+											file="src/main/runtime/shiroUserRole/ajsc#contextadmin#__module.ajsc.namespace.name__.json"
+											tofile="target/versioned-runtime/shiroUserRole/ajsc#contextadmin#${module.ajsc.namespace.name}.json" />
+										<echo message="EXITING 'copy_runtime_template' ant tasks" />
+									</target>
+								</configuration>
+								<goals>
+									<goal>run</goal>
+								</goals>
+							</execution>
+							<execution>
+								<id>clrf</id>
+								<phase>package</phase>
+								<configuration>
+									<tasks>
+										<fixcrlf
+											srcdir="${basedir}/target/swm/package/nix/dist_files${distFilesRoot}"
+											includes="**/*.sh,**/*.xml,**/*.properties,**/*.xsd" />
+									</tasks>
+								</configuration>
+								<goals>
+									<goal>run</goal>
+								</goals>
+							</execution>
+							<execution>
+								<id>prep_home_directory_for_swm_pkgcreate-ajsc-arch-parent</id>
+								<phase>package</phase>
+								<configuration>
+									<target name="prep_home_directory_for_swm_pkgcreate">
+										<ant antfile="${basedir}/antBuild/build.xml" target="prep_home_directory_for_swm_pkgcreate" />
+									</target>
+								</configuration>
+								<goals>
+									<goal>run</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-dependency-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>copy-dependencies-ajsc-arch-parent</id>
+								<phase>prepare-package</phase>
+								<goals>
+									<goal>copy-dependencies</goal>
+								</goals>
+								<configuration>
+									<includeScope>runtime</includeScope>
+									<excludeArtifactIds>ajsc-bom,ajsc-core,ajsc-runner,ajsc-war</excludeArtifactIds>
+									<outputDirectory>${project.build.directory}/userjars</outputDirectory>
+									<silent>true</silent>
+								</configuration>
+							</execution>
+							<execution>
+								<id>copy-dependencies-ajsc-arch-parent-commonLibs</id>
+								<phase>prepare-package</phase>
+								<goals>
+									<goal>copy-dependencies</goal>
+								</goals>
+								<configuration>
+									<includeScope>provided</includeScope>
+									<includeGroupIds>net.cingular.enterprise,com.att.aft,dom4j</includeGroupIds>
+									<!-- <includeGroupIds>com.att.aft</includeGroupIds> -->
+									<outputDirectory>${project.build.directory}/commonLibs</outputDirectory>
+									<silent>true</silent>
+								</configuration>
+							</execution>
+							<execution>
+								<id>copyrunner</id>
+								<phase>prepare-package</phase>
+								<goals>
+									<goal>copy-dependencies</goal>
+								</goals>
+								<configuration>
+									<includeArtifactIds>ajsc-runner</includeArtifactIds>
+									<outputDirectory>${basedir}/target/swm/package/nix/dist_files${distFilesRoot}/lib</outputDirectory>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<artifactId>maven-resources-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>copyconfig</id>
+								<phase>package</phase>
+								<goals>
+									<goal>copy-resources</goal>
+								</goals>
+								<configuration>
+									<outputDirectory>${basedir}/target/swm/package/nix/dist_files${distFilesRoot}/etc</outputDirectory>
+									<resources>
+										<resource>
+											<directory>src/main/config</directory>
+										</resource>
+									</resources>
+								</configuration>
+							</execution>
+							<execution>
+								<id>copyscript</id>
+								<phase>package</phase>
+								<goals>
+									<goal>copy-resources</goal>
+								</goals>
+								<configuration>
+									<outputDirectory>${basedir}/target/swm/package/nix/dist_files${distFilesRoot}/bin</outputDirectory>
+									<resources>
+										<resource>
+											<directory>src/main/scripts</directory>
+										</resource>
+									</resources>
+								</configuration>
+							</execution>
+
+						</executions>
+					</plugin>
+					<!-- <plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-antrun-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>clrf</id>
+								<phase>package</phase>
+								<configuration>
+									<tasks>
+										<fixcrlf
+											srcdir="${basedir}/target/swm/package/nix/dist_files${distFilesRoot}"
+											includes="**/*.sh,**/*.xml,**/*.properties,**/*.xsd" />
+									</tasks>
+								</configuration>
+								<goals>
+									<goal>run</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin> -->
+					<plugin>
+						<groupId>com.google.code.maven-replacer-plugin</groupId>
+						<artifactId>replacer</artifactId>
+						<executions>
+							<execution>
+								<id>google-replacer-ajsc-arch-parent</id>
+								<phase>prepare-package</phase>
+								<goals>
+									<goal>replace</goal>
+								</goals>
+								<configuration>
+									<basedir>${project.build.directory}</basedir>
+									<includes>
+										<include>staticContent/**/*.html</include>
+										<include>CDP/**</include>
+										<include>bundleconfig/**</include>
+										<include>versioned-runtime/**/*.context</include>
+										<include>versioned-runtime/**/*.json</include>
+										<include>versioned-ajsc/**/*.route</include>
+										<include>versioned-ajsc/**/*.groovy</include>
+										<include>versioned-ajsc/**/*.xml</include>
+										<include>classes/*.properties</include>
+										<include>swm/package/nix/dist_files${distFilesRoot}/etc/*.properties</include>
+									</includes>
+									<escape>true</escape>
+									<replacements>
+										<replacement>
+											<token>__module_ajsc_namespace_name__</token>
+											<value>${module.ajsc.namespace.name}</value>
+										</replacement>
+										<replacement>
+											<token>__module_ajsc_namespace_version__</token>
+											<value>${module.ajsc.namespace.version}</value>
+										</replacement>
+										<replacement>
+											<token>__ajscHome__</token>
+											<value>${replaceWinFilePath}</value>
+										</replacement>
+										<replacement>
+											<token>__projectGroupId__</token>
+											<value>${project.groupId}</value>
+										</replacement>
+										<replacement>
+											<token>__projectArtifactId__</token>
+											<value>${project.artifactId}</value>
+										</replacement>
+										<replacement>
+											<token>__projectVersion__</token>
+											<value>${project.version}</value>
+										</replacement>
+										<replacement>
+											<token>__basedir__</token>
+											<value>${replaceWinBasedirPath}</value>
+										</replacement>
+									</replacements>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+				<pluginManagement>
+					<plugins>
+						<plugin>
+							<groupId>org.apache.maven.plugins</groupId>
+							<artifactId>maven-surefire-plugin</artifactId>
+							<version>2.14.1</version>
+							<configuration>
+								<excludes>
+									<exclude>**/AbstractTest.java</exclude>
+								</excludes>
+							</configuration>
+						</plugin>
+					</plugins>
+				</pluginManagement>
+			</build>
+		</profile>
+	</profiles>
+	<dependencies>
+		<dependency>
+			<groupId>com.att.ajsc</groupId>
+			<artifactId>ajsc-runner</artifactId>
+			<version>${project.parent.version}</version>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.att.ajsc</groupId>
+			<artifactId>ajsc-core</artifactId>
+			<version>${project.parent.version}</version>
+			<scope>${dependency.scope}</scope>
+		</dependency>
+	</dependencies>
+</project>

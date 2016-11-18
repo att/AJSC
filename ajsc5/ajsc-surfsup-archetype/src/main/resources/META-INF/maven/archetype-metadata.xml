@@ -1,0 +1,187 @@
+<archetype-descriptor
+	xmlns="http://maven.apache.org/plugins/maven-archetype-plugin/archetype-descriptor/1.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/plugins/maven-archetype-plugin/archetype-descriptor/1.0.0 http://maven.apache.org/xsd/archetype-descriptor-1.0.0.xsd"
+	name="ajsc-archetype" partial="false">
+	<id>ajsc-surfsup-archetype</id>
+	<requiredProperties>
+		<requiredProperty key="installOwnerUser" >
+			<defaultValue>aft</defaultValue>
+		</requiredProperty>
+		<requiredProperty key="installOwnerGroup" >
+			<defaultValue>aft</defaultValue>
+		</requiredProperty>
+		<requiredProperty key="ownerManagementGroup" >
+			<defaultValue>com.att.ajsc</defaultValue>
+		</requiredProperty>
+		<requiredProperty key="ajscRuntimeVersion">
+			<defaultValue>${project.version}</defaultValue>
+		</requiredProperty>
+		<requiredProperty key="namespaceVersion">
+			<defaultValue>v1</defaultValue>
+		</requiredProperty>
+		<requiredProperty key="port">
+			<defaultValue>8080</defaultValue>
+		</requiredProperty>
+		<requiredProperty key="SSLport">
+			<defaultValue>0</defaultValue>
+		</requiredProperty>
+	</requiredProperties>
+	
+	<fileSets>
+		<fileSet encoding="UTF-8">
+			<directory></directory>
+			<includes>
+				<include>**/.classpath</include>
+				<include>**/.project</include>
+			</includes>
+		</fileSet>
+		<fileSet filtered="true" encoding="UTF-8">
+			<directory>src/main/assemble</directory>
+			<includes>
+				<include>**/*assembly.xml</include>
+			</includes>
+		</fileSet>
+		<fileSet filtered="true" encoding="UTF-8">
+			<directory>src/main/config</directory>
+			<includes>
+				<include>**/**</include>
+			</includes>
+		</fileSet>
+		<fileSet filtered="true" encoding="UTF-8">
+			<directory>src/main/swm/dist_files/appl/__artifactId__</directory>
+			<includes>
+				<include>**/**</include>
+			</includes>
+		</fileSet>
+		<fileSet filtered="true" encoding="UTF-8">
+			<directory>src/main/assemble</directory>
+			<includes>
+				<include>**/*.xml</include>
+			</includes>
+		</fileSet>
+		<fileSet filtered="false" encoding="UTF-8">
+			<directory>ajsc-shared-config</directory>
+			<includes>
+				<include>**/**</include>
+			</includes>
+		</fileSet>
+		<fileSet filtered="true" encoding="UTF-8">
+			<directory>antBuild</directory>
+			<includes>
+				<include>**/*.xml</include>
+			</includes>
+		</fileSet>
+		<fileSet filtered="true" encoding="UTF-8">
+			<directory>bundleconfig-local</directory>
+			<includes>
+				<include>**/**</include>
+			</includes>
+		</fileSet>
+		<fileSet filtered="true" encoding="UTF-8">
+			<directory>bundleconfig-csi</directory>
+			<includes>
+				<include>**/**</include>
+			</includes>
+		</fileSet>
+		<fileSet filtered="true" encoding="UTF-8">
+			<directory>services</directory>
+			<includes>
+				<include>**/**</include>
+			</includes>
+		</fileSet>
+		<fileSet filtered="false" encoding="UTF-8">
+			<directory>staticContent</directory>
+			<includes>
+				<include>**/**</include>
+			</includes>
+		</fileSet>
+		<fileSet filtered="false" encoding="UTF-8">
+			<directory>CDP</directory>
+			<includes>
+				<include>**/**</include>
+			</includes>
+		</fileSet>
+		<fileSet filtered="false" encoding="UTF-8">
+			<directory>etc</directory>
+			<includes>
+				<include>**/**</include>
+			</includes>
+		</fileSet>
+		<fileSet filtered="false" encoding="UTF-8">
+			<directory>src/main/runtime</directory>
+			<includes>
+				<include>**/**</include>
+			</includes>
+		</fileSet>
+		<fileSet filtered="true" encoding="UTF-8">
+			<directory>src/main/ajsc</directory>
+			<includes>
+				<include>**/**</include>
+			</includes>
+		</fileSet>
+		<fileSet filtered="true" encoding="UTF-8">
+			<directory>src/main/swm</directory>
+			<includes>
+				<include>**/**</include>
+			</includes>
+			<excludes>
+				<exclude>**/*.sh</exclude>
+			</excludes>
+		</fileSet>
+		<fileSet filtered="false" encoding="UTF-8">
+			<directory>src/main/swm</directory>
+			<includes>
+				<include>**/*.sh</include>
+			</includes>
+		</fileSet>
+		<fileSet filtered="true" encoding="UTF-8" packaged="true">
+			<directory>src/main/java</directory>
+			<includes>
+				<include>**/**</include>
+			</includes>
+		</fileSet>
+		<fileSet filtered="true" encoding="UTF-8" packaged="true">
+			<directory>src/test/java</directory>
+			<includes>
+				<include>**/**</include>
+			</includes>
+		</fileSet>
+		<fileSet filtered="true" encoding="UTF-8" packaged="true">
+			<directory>src/main/groovy</directory>
+			<includes>
+				<include>**/**</include>
+			</includes>
+		</fileSet>
+		<fileSet filtered="true" encoding="UTF-8" packaged="true">
+			<directory>src/test/groovy</directory>
+			<includes>
+				<include>**/**</include>
+			</includes>
+		</fileSet>
+		<fileSet filtered="true" encoding="UTF-8" >
+			<directory>src/main/resources</directory>
+			<includes>
+				<include>**/**</include>
+			</includes>
+		</fileSet>
+		<fileSet filtered="true" encoding="UTF-8">
+			<directory>src/main/resources/extApps</directory>
+			<includes>
+				<include>**/**</include>
+			</includes>
+		</fileSet>
+		<fileSet filtered="true" encoding="UTF-8" lineEnding="unix">
+			<directory></directory>
+			<includes>
+				<include>*.sh</include>
+			</includes>
+		</fileSet>
+		<fileSet filtered="true" encoding="UTF-8">
+			<directory></directory>
+			<includes>
+				<include>*.bat</include>
+			</includes>
+		</fileSet>
+	</fileSets>
+</archetype-descriptor>

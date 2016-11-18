@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns2:ManagedResourceList xmlns="http://scld.att.com/lrm/commontypes"
+	xmlns:ns2="http://scld.att.com/lrm/util" xmlns:ns3="http://scld.att.com/lrm/types">
+	<ns2:ManagedResource>
+		<ResourceDescriptor>
+			<ResourceName>__AFTSWM_ACTION_ARTIFACT_GROUP__.__AFTSWM_ACTION_ARTIFACT_NAME__</ResourceName>
+			<ResourceVersion>
+				<Major>__MAJOR_VERSION__</Major>
+				<Minor>__MINOR_VERSION__</Minor>
+				<Patch>__PATCH_VERSION__</Patch>
+			</ResourceVersion>
+			<RouteOffer>__SCLD_ROUTE_OFFER__</RouteOffer>
+		</ResourceDescriptor>
+		<ResourceType>Java</ResourceType>
+		<ResourceContainerType>Ajsc</ResourceContainerType>
+		<ResourceContainerTypeVendor>ATT</ResourceContainerTypeVendor>
+		<ResourcePath>__INSTALL_ROOT__//opt/app/__AFTSWM_ACTION_ARTIFACT_GROUP__/__AFTSWM_ACTION_ARTIFACT_NAME__</ResourcePath>
+		<ResourceProps>
+			<Tag>process.path</Tag>
+			<Value>/usr/bin:/usr/sbin:$\{PATH}</Value>
+		</ResourceProps>
+		<ResourceProps>
+			<Tag>process.workdir</Tag>
+			<Value>__INSTALL_ROOT__//opt/app/__AFTSWM_ACTION_ARTIFACT_GROUP__/__AFTSWM_ACTION_ARTIFACT_NAME__</Value>
+		</ResourceProps>
+		<ResourceProps>
+			<Tag>process.libpath</Tag>
+			<Value>$\{LD_LIBRARY_PATH}</Value>
+		</ResourceProps>
+		<!-- <ResourceProps> <Tag>process.args</Tag> <Value>etc/hydra.xml</Value> 
+			</ResourceProps> -->
+		<!-- this tells standalone version of ajsc what the webroot context will 
+			be -->
+		<ResourceProps>
+			<Tag>process.args</Tag>
+			<Value>port=__AJSC_SVC_PORT__ 
+			sslport=__SSL_PORT__</Value>
+		</ResourceProps>
+		<ResourceProps>
+			<Tag>jvm.version</Tag>
+			<Value>__JAVA_VERSION__</Value>
+		</ResourceProps>
+
+		<ResourceProps>
+			<Tag>jvm.classpath</Tag>
+			<Value>__JAVA_PRE_CLASSPATH__.:$\{CLASSPATH}:lib/*:__JAVA_POST_CLASSPATH__
+			</Value>
+		</ResourceProps>
+
+		<!-- To add oauthentication to your Service, add the following -D parameter 
+			to the following jvm.args.pre -->
+		<!-- -Dspring.profiles.active=oauth -->
+
+		<!-- For Cassandra Connectivity add the following, changing the values 
+			depending on your environment -->
+		<!-- -Dcassandra.ip=hostname -->
+		<!-- -Dcassandra.port=9042 -->
+		<ResourceProps>
+			<Tag>jvm.args.pre</Tag>
+			<Value>__JVM_PRE_ARGS__ -XX:MaxPermSize=__JVM_MAX_PERM_SIZE__
+				-XX:PermSize=__JVM_PERM_SIZE__ -verbose:gc -DAJSC_ENV=SOACLOUD
+				-DSOACLOUD_NAMESPACE=__SOA_CLOUD_NAMESPACE__
+				-DSOACLOUD_ROUTE_OFFER=__SCLD_ROUTE_OFFER__
+				-DSCLD_ROUTE_OFFER=DEFAULT -DSOACLOUD_SERVICE_VERSION=1.0.0
+				-DSOACLOUD_PROTOCOL=http -DAJSC_HOME=/opt/app/__AFTSWM_ACTION_ARTIFACT_GROUP__/__AFTSWM_ACTION_ARTIFACT_NAME__
+				-Dserver.port=__AJSC_SVC_PORT__ -DauthN=authN=${ajsc.templateLRM.authN}
+				-DajscPersistence=${ajsc.templateLRM.ajscPersistence}
+				-DenableSSL=${ajsc.templateLRM.enableSSL}
+				-Dsslport=__AJSC_SSL_PORT__
+				-Dlogback.configurationFile=/opt/app/__AFTSWM_ACTION_ARTIFACT_GROUP__/__AFTSWM_ACTION_ARTIFACT_NAME__/conf/logback.xml
+				-Djava.util.logging.config.file=etc/jul-redirect.properties
+				-DAFT_LATITUDE=__LATITUDE__ -DAFT_LONGITUDE=__LONGITUDE__
+				-DAJSC_SERVICE_NAMESPACE=__AJSC_SERVICE_NAMESPACE__
+				-DAJSC_SERVICE_VERSION=__AJSC_SERVICE_VERSION__
+				-DAFT_ENVIRONMENT=__AFT_ENVIRONMENT__ __JVM_POST_ARGS__
+				__SCLD_OPTIONAL_PLATFORM_FLAG__
+			</Value>
+		</ResourceProps>
+		<ResourceProps>
+			<Tag>jvm.heap.min</Tag>
+			<Value>__JVM_MIN_HEAP_SIZE__</Value>
+		</ResourceProps>
+		<ResourceProps>
+			<Tag>jvm.heap.max</Tag>
+			<Value>__JVM_MAX_HEAP_SIZE__</Value>
+		</ResourceProps>
+
+		<ResourceProps>
+			<Tag>start.class</Tag>
+			<Value>-jar lib/ajsc-runner-__AJSC_RUNTIME_VERSION__.jar</Value>
+		</ResourceProps>
+
+		<ResourceProps>
+			<Tag>stdout.redirect</Tag>
+			<Value>logs/stdout.log</Value>
+		</ResourceProps>
+		<ResourceProps>
+			<Tag>stderr.redirect</Tag>
+			<Value>logs/stdout.log</Value>
+		</ResourceProps>
+		<ResourceProps>
+			<Tag>validatePID.waitime.seconds</Tag>
+			<Value>__LRM_VALIDATEPID_WAITTIME_SECONDS__</Value>
+		</ResourceProps>
+		<ResourceProps>
+			<Tag>mbean.name</Tag>
+			<!-- <Value>JmxInterface:type=Ajsc,JmxInterface:type=DME2</Value> -->
+			<Value>JmxInterface:type=DME2</Value>
+		</ResourceProps>
+		<ResourceOSID>__USER__</ResourceOSID>
+		<ResourceStartType>__LRM_RESOURCE_START_TYPE__</ResourceStartType>
+		<ResourceStartPriority>__LRM_START_PRIORITY__</ResourceStartPriority>
+		<ResourceStartTimeout>__LRM_START_TIMEOUT__</ResourceStartTimeout>
+		<ResourceMinCount>__LRM_RESOURCE_MIN_COUNT__</ResourceMinCount>
+		<ResourceMaxCount>__LRM_RESOURCE_MAX_COUNT__</ResourceMaxCount>
+		<ResourceMaxRestart>__LRM_RESOURCE_MAX_RESTART__</ResourceMaxRestart>
+		<ResourceHeartBeat>__LRM_RESOURCE_HEARTBEAT__</ResourceHeartBeat>
+		<ResourceHeartBeatFailedLimit>__LRM_RESOURCE_HEARTBEAT_FAILED_LIMIT__
+		</ResourceHeartBeatFailedLimit>
+		<ResourceHeartBeatTimeout>__LRM_RESOURCE_HEARTBEAT_TIMEOUT__
+		</ResourceHeartBeatTimeout>
+		<ResourceShutdownWaitTimeInSecs>__LRM_RESOURCE_MANAGER_WAIT_TIME_IN_SECONDS__
+		</ResourceShutdownWaitTimeInSecs>
+		<ResourceRegistration>__LRM_RESOURCE_REGISTRATION__
+		</ResourceRegistration>
+		<GroupName>__USER__</GroupName>
+	</ns2:ManagedResource>
+</ns2:ManagedResourceList>

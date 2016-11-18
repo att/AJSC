@@ -1,0 +1,15 @@
+#Copyright (c) 2016 AT&T Intellectual Property. All rights reserved.
+#This file is for SWM node variable default replacement. SWM node variables will already exist on CSI nodes. This file is used
+#for dev teams to override the default SWM node variables. The examples given are meant to be just that: EXAMPLES. Please,
+#REMOVE/DELETE/ADD/MODIFY these values for YOUR SWM package based on the needs of your project.
+
+
+#MAX_HEAP_SIZE[com.att.csid:CommonProvisioningServices-E911Address,*,*,N,]=512m
+#PRE_JVM_ARGS[com.att.csid:CommonProvisioningServices-E911Address,*,*,N,]=-Xss256k
+#AJSC_CONF_HOME[com.att.csid:CommonProvisioningServices-E911Address,*,*,N,]=$INSTALL_ROOT/apps/m2e/$AFTSWM_ACTION_ARTIFACT_GROUP/$AFTSWM_ACTION_ARTIFACT_NAME/$AFTSWM_ACTION_NEW_VERSION_MAJOR.$AFTSWM_ACTION_NEW_VERSION_MINOR
+#MIN_HEAP_SIZE[com.att.csid:CommonProvisioningServices-E911Address,*,*,N,]=512m
+#INTROSCOPE_AGENTPROFILE[com.att.csid:CommonProvisioningServices-E911Address,*,*,N,]=$INSTALL_ROOT/apps/m2e/$AFTSWM_ACTION_ARTIFACT_GROUP/$AFTSWM_ACTION_ARTIFACT_NAME/$AFTSWM_ACTION_NEW_VERSION_MAJOR.$AFTSWM_ACTION_NEW_VERSION_MINOR/symlinks/link_introscope_agent_profile
+#POST_JVM_ARGS[com.att.csid:CommonProvisioningServices-E911Address,*,*,N,]=-XX:NewRatio=1 -XX:SurvivorRatio=8 -XX:-UseBiasedLocking -XX:+DisableExplicitGC -XX:+UseParNewGC -XX:+CMSParallelRemarkEnabled -XX:ParallelGCThreads=12 -XX:+UseConcMarkSweepGC
+#AJSC_SHARED_CONFIG[com.att.csid:CommonProvisioningServices-E911Address,*,*,N,]=$INSTALL_ROOT/apps/m2e/$AFTSWM_ACTION_ARTIFACT_GROUP/$AFTSWM_ACTION_ARTIFACT_NAME/$AFTSWM_ACTION_NEW_VERSION_MAJOR.$AFTSWM_ACTION_NEW_VERSION_MINOR/shared
+#JAVA_HOME[com.att.csid:CommonProvisioningServices-E911Address,*,*,N,]=$INSTALL_ROOT/apps/m2e/$AFTSWM_ACTION_ARTIFACT_GROUP/$AFTSWM_ACTION_ARTIFACT_NAME/$AFTSWM_ACTION_NEW_VERSION_MAJOR.$AFTSWM_ACTION_NEW_VERSION_MINOR/symlinks/link_jre
+#INTROSCOPE_LIB[com.att.csid:CommonProvisioningServices-E911Address,*,*,N,]=$INSTALL_ROOT/apps/m2e/$AFTSWM_ACTION_ARTIFACT_GROUP/$AFTSWM_ACTION_ARTIFACT_NAME/$AFTSWM_ACTION_NEW_VERSION_MAJOR.$AFTSWM_ACTION_NEW_VERSION_MINOR/symlinks/link_introscope_lib

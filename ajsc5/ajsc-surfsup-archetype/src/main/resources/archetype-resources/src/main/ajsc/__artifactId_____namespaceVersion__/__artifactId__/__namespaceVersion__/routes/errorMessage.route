@@ -1,0 +1,4 @@
+<route xmlns="http://camel.apache.org/schema/spring" trace="true">
+    <from uri="servlet:/__module_ajsc_namespace_name__/__module_ajsc_namespace_version__/errorMessageLookupService2"/>
+    <to uri="bean:errorMessageLookupService?method=getExceptionDetails"/>
+</route>

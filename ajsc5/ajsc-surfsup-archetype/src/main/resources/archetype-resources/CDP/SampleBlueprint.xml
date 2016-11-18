@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- 
+ Copyright (c) 2016 AT&T Intellectual Property. All rights reserved.
+-->
+<blueprint xmlns="http://cdp.att.com" schemaVersion="1.0">
+  <name>__module_ajsc_namespace_name__BluePrint</name>
+  <version>__projectVersion__</version>
+  <!-- tie the version of the project to the blueprint and update with mvn/swm builds -->
+<!--   <version>__projectVersion__</version> -->
+  <description>__module_ajsc_namespace_name__ Blueprint used to deploy to CDP</description>
+  <authors>
+    <author>
+      <name>Henry Werner</name>
+      <phone>4049869571</phone>
+      <attid>hw231v</attid>
+      <email>hw231v@att.com</email>
+      <description>BluePrint Creator for __module_ajsc_namespace_name__</description>
+    </author>
+  </authors>
+  <nodes>
+    <node id="__module_ajsc_namespace_name__Node" override="false" floatingIp="true" SSHProxy="false">
+      <name>__module_ajsc_namespace_name__Node</name>
+      <description>__module_ajsc_namespace_name__ Node</description>
+      <cpus>1</cpus>
+      <memory>2</memory>
+      <bootDisk>20</bootDisk>
+      <architecture>X86_64</architecture>
+      <osType>RHEL</osType>
+      <images>
+        <image>${IMAGE_RHEL}</image>
+     </images>
+      <export path="/etc/cdp/metadata" name="stack__module_ajsc_namespace_name__.xml" replace="true"/>
+    </node>
+  </nodes>
+  <constraints>
+		<constraint id="__module_ajsc_namespace_name__Cons" override="false">
+			<elastic>
+				<minimum>1</minimum>
+				<maximum>5</maximum>
+				<description>Defines Minimum and Maximum number of __module_ajsc_namespace_name__ nodes.</description>
+			</elastic>
+		</constraint>
+	</constraints>
+  <components>
+    <component id="jdk6all" override="false" type="SWM">
+      <package>com.att.java:jdk6all:1.6-08</package>
+    </component>
+    <component id="jdk7all" override="false" type="SWM">
+      <package>com.att.java:jdk7all:1.7-17</package>
+    </component>
+    <component id="initd" override="false" type="SWM">
+      <package>com.att.platform:initd:1.0.25</package>
+    </component>
+    <component id="mergecron" override="false" type="SWM">
+      <package>com.att.platform:mergecron:1.0.9</package>
+    </component>
+     <component id="dme2" override="false" type="SWM">
+      <package>com.att.aft:dme2:2.6.29</package>
+    </component>
+    <component id="lrm-server" override="false" type="SWM">
+      <package>com.att.scld:lrm-server:1.4.15</package>
+    </component>
+    <component id="__module_ajsc_namespace_name__" override="false" type="SWM">
+    <!-- update package with mvn builds -->
+<!--       <package>${project.groupId}:${project.artifactId}:__projectVersion__</package> -->
+      <package>__projectGroupId__:__projectArtifactId__:__projectVersion__</package>
+    </component>
+    <component id="uamauto" override="false" type="SWM">
+			<package>com.att.platform:uamauto:1.0.7</package>
+	</component>
+  </components>
+  <networks>
+    <network id="NETWORK_ID" override="false">
+      <name>${NETWORK_NAME}</name>
+    </network>
+  </networks>
+  <subnets>
+    <subnet id="SUBNET_ID" override="false">
+      <name>${SUBNET_NAME}</name>
+      <network>NETWORK_ID</network>
+    </subnet>
+  </subnets>
+  <environment>
+  	<variable name="MUAM_USER_ROLES" override="yes" required="true" default="Hadoop PaaS - NonProd,CSSA-RI-Team-Dev,CSSA POC,NIMBUS_DEV"/>
+    <variable name="JAVA_HOME" override="false" required="true" description="Java Home Location Used by Cassandra" default="/opt/app/java/jdk/jdk160"/>
+    <variable name="SCLD_JAVA_HOME" override="false" required="false" description="SOA Cloud Java Home used by LRM" default="/opt/app/java/jdk/jdk160"/>
+    <variable name="SCLD_ENV" override="false" required="true" description="Logical environment that allows service providers to advertise services in seperate namespaces within a single SOA Cloud physical platform" default="DEV"/>
+    <variable name="SCLD_PLATFORM" override="false" required="true" description="SOA Cloud physical platform" default="NON-PROD"/>
+    <variable name="AFT_ENVIRONMENT" override="false" required="true" description="AFT environment" default="AFTUAT"/>
+    <variable name="CLDLRM_JVM_REGISTRY_VERSIONS" override="false" required="false" description="Creates entries in etc/jvm-registry.properties,defaults to creating a single entry for the currently set JAVA_HOME if not set" default="1.6 1.7"/>
+    <variable name="CLDLRM_JVM_REGISTRY_VERSION_1_6" override="false" required="false" description="Creates entries in etc/jvm-registry.properties,defaults to creating a single entry for the currently set JAVA_HOME if not set" default="/opt/app/java/jdk/jdk160"/>
+    <variable name="CLDLRM_JVM_REGISTRY_VERSION_1_7" override="false" required="false" description="Creates entries in etc/jvm-registry.properties,defaults to creating a single entry for the currently set JAVA_HOME if not set" default="/opt/app/java/jdk/jdk170"/>
+  </environment>
+  <deployments>
+    <deployment id="__module_ajsc_namespace_name__Deployment" override="false">
+      <node>__module_ajsc_namespace_name__Node</node>
+      <constraint>__module_ajsc_namespace_name__Cons</constraint>
+      <connections>
+        <connection>
+          <subnet>SUBNET_ID</subnet>
+        </connection>
+      </connections>
+      <component failOnError="true">jdk6all</component>
+      <component failOnError="true">jdk7all</component>
+      <component failOnError="true">initd</component>
+      <component failOnError="true">mergecron</component>
+      <component failOnError="true">dme2</component>
+      <component failOnError="true">lrm-server</component>
+      <component failOnError="true">__module_ajsc_namespace_name__</component>
+      <component failOnError="true">uamauto</component>
+    </deployment>
+  </deployments>
+</blueprint>

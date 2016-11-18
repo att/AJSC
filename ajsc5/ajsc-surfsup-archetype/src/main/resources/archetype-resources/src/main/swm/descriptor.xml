@@ -1,0 +1,347 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This file is the main deployment descriptor for the SWM package generated 
+	for the project. -->
+	
+<!-- For installing multiple versions of a Service onto the same SOA Cloud Node and maintaining former versions to switch between the
+	versions installed, you will have to change the following line to this:
+	
+	<descriptor version="1" concurrent="true" xmlns="http://aft.att.com/swm/descriptor"> 
+	
+	Adding the 'concurrent="true"' will allow for the concurrency of this Service. Please, NOTE, however, before creating a SWM Package
+	with this Service, you MUST update your Service through SWMCLI with the following command:
+	swmcli component update -c <componentName> -conc true
+	Once your Service has been updated to be concurrent, you MUST add the 'concurrent="true"' to ALL Versions of the Service -->
+	
+<descriptor version="1" xmlns="http://aft.att.com/swm/descriptor">
+	<!-- This section describes what OS's and architectures are supported. Since 
+		this is Java, we'll default to supporting any OS and architecture. -->
+	<platforms>
+		<platform os="*" architecture="*" osVersions="*" />
+	</platforms>
+	<!-- This section describes the file locations and permissions and ownership 
+		of those files. Only authorized users and groups for the component may be 
+		used. -->
+	<paths>
+	<path name="${absoluteDistFilesRoot}" type="d"
+			user="\${installOwnerUser}" group="\${installOwnerGroup}" permissions="0755,0644"
+			recursive="true" />
+		<path name="${distFilesRoot}" type="d"
+			user="\${installOwnerUser}" group="\${installOwnerGroup}" permissions="0755,0644"
+			recursive="true" />
+		<path name="${distFilesRoot}/bin" type="d"
+			user="\${installOwnerUser}" group="\${installOwnerGroup}" permissions="0755"
+			recursive="true" />
+		<path name="${distFilesRoot}/etc" type="d"
+			user="\${installOwnerUser}" group="\${installOwnerGroup}" permissions="0755"
+			recursive="true" />
+		<path name="${distFilesRoot}/extJars" type="d"
+			user="\${installOwnerUser}" group="\${installOwnerGroup}" permissions="0755"
+			recursive="true" />
+		<path name="${distFilesRoot}/extApps" type="d"
+			user="\${installOwnerUser}" group="\${installOwnerGroup}" permissions="0755"
+			recursive="true" />
+		<path name="${distFilesRoot}/conf" type="d"
+			user="\${installOwnerUser}" group="\${installOwnerGroup}" permissions="0755"
+			recursive="true" />
+		<path name="${distFilesRoot}/lib" type="d"
+			user="\${installOwnerUser}" group="\${installOwnerGroup}" permissions="0755"
+			recursive="true" />
+		<path name="${distFilesRoot}/docs" type="d"
+			user="\${installOwnerUser}" group="\${installOwnerGroup}" permissions="0755"
+			recursive="true" />
+		<path name="${distFilesRoot}/runtime" type="d"
+			user="\${installOwnerUser}" group="\${installOwnerGroup}" permissions="0755"
+			recursive="true" />
+		<path name="${distFilesRoot}/services" type="d"
+			user="\${installOwnerUser}" group="\${installOwnerGroup}" permissions="0755"
+			recursive="true" />
+
+	</paths>
+	<!-- This section describes the package lifecycle scripts and the users 
+		and groups they should run as. Only authorized users and groups for the component 
+		may be used. -->
+	<actions>
+		<action type="DINST">
+			<proc stage="POST" user="\${installOwnerUser}" group="\${installOwnerGroup}" />
+			<proc stage="PRE" user="\${installOwnerUser}" group="\${installOwnerGroup}" />
+		</action>
+		<action type="FALL">
+			<proc stage="POST" user="\${installOwnerUser}" group="\${installOwnerGroup}" />
+			<proc stage="PRE" user="\${installOwnerUser}" group="\${installOwnerGroup}" />
+		</action>
+		<action type="INIT">
+			<proc stage="POST" user="\${installOwnerUser}" group="\${installOwnerGroup}" />
+			<proc stage="PRE" user="\${installOwnerUser}" group="\${installOwnerGroup}" />
+		</action>
+		<action type="INST">
+			<proc stage="POST" user="\${installOwnerUser}" group="\${installOwnerGroup}" />
+			<proc stage="PRE" user="\${installOwnerUser}" group="\${installOwnerGroup}" />
+		</action>
+	</actions>
+	<!-- This section describes the variables that are used during package installation. 
+		Where required=true, the installer must ensure the environment contains this 
+		variable by attaching a value for the variable to the SWM node or a node 
+		group which the SWM node is a member of. The installer may also override 
+		items that have a defaultValue. Additional variables can be added to this 
+		list and used in template.* files in your project. To use one, put template 
+		replacement text starting and ending with double-underscores and the variable 
+		key in between. Example: __MY_VAR_KEY__. During installation, these are replaced 
+		in the template.* file and the template.* file is renamed to remove the template. 
+		from the name. -->
+	<variableDescriptions>
+		<variableDescription key="JAVA_VERSION"
+			description="The Java version to use." defaultValue="1.7" required="false" />
+		<variableDescription key="JAVA_PRE_CLASSPATH"
+			description="Additional classpath information to preprend to the installed classpath."
+			defaultValue=":" required="false" />
+		<variableDescription key="JAVA_POST_CLASSPATH"
+			description="Additional classpath information to preprend to the installed classpath."
+			defaultValue=":" required="false" />
+		<variableDescription key="JVM_PRE_ARGS"
+			description="Additional JVM arguments to prepend to the JVM startup command."
+			defaultValue=" " required="false" />
+		<variableDescription key="JVM_POST_ARGS"
+			description="Additional JVM arguments to append to the end of the JVM startup command."
+			defaultValue=" " required="false" />
+		<variableDescription key="JVM_MAX_PERM_SIZE"
+			description="The maximum perm size to use when starting the JVM"
+			defaultValue="256m" required="false" />
+		<variableDescription key="JVM_PERM_SIZE"
+			description="The initial perm size to use when starting the JVM"
+			defaultValue="32m" required="false" />
+		<variableDescription key="JVM_MIN_HEAP_SIZE"
+			description="The mimimum heap size to use when starting the JVM."
+			defaultValue="256m" required="false" />
+		<variableDescription key="JVM_MAX_HEAP_SIZE"
+			description="The maximum heap size to use when starting the JVM."
+			defaultValue="512m" required="false" />
+			
+		<variableDescription key="LRM_VALIDATEPID_WAITTIME_SECONDS"
+			description="The amount of time LRM should wait to validate the health of the PID after startup"
+			defaultValue="4" required="false" />
+		<variableDescription key="LRM_RESOURCE_START_TYPE"
+			description="The type of startup LRM should perform on the resource."
+			defaultValue="AUTO" required="false" />
+		<variableDescription key="LRM_START_PRIORITY"
+			description="The priority sequence to use when starting the resource."
+			defaultValue="1" required="false" />
+		<variableDescription key="LRM_START_TIMEOUT"
+			description="The timeout on the startup." defaultValue="480"
+			required="false" />
+		<variableDescription key="LRM_RESOURCE_MIN_COUNT"
+			description="The default minimum number of instances LRM should maintain."
+			defaultValue="1" required="false" />
+		<variableDescription key="LRM_RESOURCE_MAX_COUNT"
+			description="The maximum number of instances LRM should allow."
+			defaultValue="5" required="false" />
+		<variableDescription key="LRM_RESOURCE_MAX_RESTART"
+			description="The maximum number of restarts LRM should perform before giving up."
+			defaultValue="10" required="false" />
+		<variableDescription key="LRM_RESOURCE_HEARTBEAT"
+			description="Time in seconds indicating how long to wait between heartbeat attempts."
+			defaultValue="300" required="false" />
+		<variableDescription key="LRM_RESOURCE_HEARTBEAT_FAILED_LIMIT"
+			description="Consecutive heartbeat failure threshold before an error is assumed and appropriate action taken."
+			defaultValue="3" required="false" />
+		<variableDescription key="LRM_RESOURCE_HEARTBEAT_TIMEOUT"
+			description="Timeout of heartbeats" defaultValue="10" required="false" />
+		<variableDescription key="LRM_RESOURCE_MANAGER_WAIT_TIME_IN_SECONDS"
+			description="Indicates the time in seconds that LRM waits for the resource to shutdown."
+			defaultValue="480" required="false" />
+		<variableDescription key="LRM_RESOURCE_REGISTRATION"
+			description="Flag that indicates if resource needs to be registered in the SOA Cloud."
+			defaultValue="true" required="false" />
+		<variableDescription key="PROC_SKIP_START_NEW_ON_ZERO_INSTANCES"
+			description="Indicates that the postproc should not start an initial instance of the service during installation."
+			defaultValue="false" required="false" />
+		<variableDescription key="AJSC_RUNTIME_VERSION"
+			description="the version of ajsc" defaultValue="${ajscRuntimeVersion}"
+			required="false" />
+		<variableDescription key="AJSC_CONF_HOME"
+			description="External location where AJSC can locate all required config files for its boot up"
+			defaultValue="$INSTALL_ROOT${distFilesRoot}/bundleconfig" required="false" />
+		<variableDescription key="AJSC_SHARED_CONFIG"
+			description="External location where AJSC can locate the logback configuration file for system wide logging"
+			defaultValue="$INSTALL_ROOT${distFilesRoot}/bundleconfig" required="false" />			
+		<variableDescription key="AJSC_CONTEXT"
+			description="The context in which the service will run. Defaults to the root context, /"
+			defaultValue="/" required="false" />
+		<variableDescription key="AJSC_APP_SERVLET_URL_PATTERN"
+			description="This is required for proper GRM Registration of your att-dme2-serlet endpoints. This should match the value from ajsc-override-web.xml"
+			defaultValue="/services" required="false" />
+		<variableDescription key="AJSC_SVC_PORT"
+			description="the port for the embedded jetty server to listen on. A value of 0 will utilize ephemeral port selection"
+			defaultValue="${serverPort}" required="false" />
+		<variableDescription key="AJSC_SSL_PORT"
+			description="the port for SSL" defaultValue="${sslport}" required="false" />
+		<variableDescription key="AJSC_AUTH_SCHEME"
+			description="AJSC Basic Authentication scheme - authentication-scheme-1 turns on, authentication-scheme-2 turns off" defaultValue="authentication-scheme-2"
+			required="false" />
+		<variableDescription key="AJSC_PERSISTENCE"
+			description="meta data persistence. Can be riak, cassandra, or file" defaultValue="file"
+			required="false" />
+		<variableDescription key="AJSC_ENABLE_SSL"
+			description="ssl true/false. A value of true will enable, and a value of false will disable" defaultValue="false"
+			required="false" />
+		<variableDescription key="CSI_ENABLE"
+			description="csi logging true/false. A value of true will enable, and a value of false will disable" defaultValue="true"
+			required="false" />
+		<variableDescription key="JMS_TIBCO_PROVIDER_URL"
+			description="JMS TIBCO PROVIDER URL" defaultValue="tcp://q27csi1c3.vci.att.com:27812"
+			required="false" />
+		<variableDescription key="JMS_LOGGER_USER_NAME"
+			description="JMS LOGGER USER NAME" defaultValue="sg"
+			required="false" />
+		<variableDescription key="JMS_LOGGER_PASSWORD"
+			description="JMS LOGGER PASSWORD" defaultValue="its4test"
+			required="false" />
+		<variableDescription key="JMS_LOGGER_AUDIT_QUEUE_BINDING"
+			description="JMS LOGGER AUDIT QUEUE_BINDING" defaultValue="pub.m2e.AJSC.Audit.logger.queue"
+			required="false" />
+		<variableDescription key="JMS_LOGGER_PERF_QUEUE_BINDING"
+			description="JMS LOGGER PERF QUEUE BINDING" defaultValue="pub.m2e.AJSC.Perf.logger.queue"
+			required="false" />
+		<variableDescription key="LOGBACK_CONFIG_FILE"
+			description="The location of the logback.xml file which controls the loggin configuration."
+			defaultValue="$INSTALL_ROOT${distFilesRoot}/bundleconfig/etc/logback.xml" required="false" />
+		<variableDescription key="LOGBACK_LOG_LEVEL"
+			description="The logging level to use when configuring logback logging backend."
+			defaultValue="INFO" required="false" />
+		<variableDescription key="END_POINT_LEVEL_LOGGING"
+			description="endpointLogging true/false. A value of true will enable, and a value of false will disable" defaultValue="false"
+			required="false" />
+		<variableDescription key="AJSC_CADI_AUTHN"
+			description="Cadi enabled/disabled. If you are using GLO Cadi filter, use authentication-scheme-1.
+				If you do NOT want to use the Cadi filter, use authentication-scheme-2" defaultValue="authentication-scheme-1"
+			required="false" />
+		<variableDescription key="AJSC_SERVICE_NAMESPACE"
+			description="AJSC Service Namespace" defaultValue="${module.ajsc.namespace.name}"
+			required="false" />
+		<variableDescription key="AJSC_SERVICE_VERSION"
+			description="AJSC Service Version" defaultValue="${module.ajsc.namespace.version}"
+			required="false" />
+		<variableDescription key="AJSC_JETTY_ThreadCount_MIN"
+			description="AJSC Jetty Min Thread Count" defaultValue="10" required="false" />
+		<variableDescription key="AJSC_JETTY_ThreadCount_MAX"
+			description="AJSC Jetty Max Thread Count" defaultValue="200"
+			required="false" />
+		<variableDescription key="AJSC_JETTY_IDLETIME_MAX"
+			description="AJSC Jetty Max Idle TimeOut" defaultValue="60000"
+			required="false" />
+		<variableDescription key="SOA_CLOUD_NAMESPACE"
+			description="the Namespace used for GRM service registrations"
+			defaultValue="com.att.ajsc" required="false" />
+		<variableDescription key="AFT_SERVICE_ENV"
+			description="the AFT Servie Env found within CSI used for GRM service registrations (routeOffer)"
+			defaultValue="DEFAULT" required="false" />
+		<variableDescription key="SOA_CLOUD_ENV"
+			description="Set to TRUE for service to register with DME2 in a SOA Cloud Environment"
+			defaultValue="TRUE" required="false" />
+		<variableDescription key="SOACLOUD_ENV_CONTEXT"
+			description="This is the value that will be used as envContext in DME2 registration of service and should match the SCLD_ENV of the Node already set"
+			defaultValue="DEV" required="false" />
+		<variableDescription key="AJSC_ENV"
+			description="Production Environment for the AJSC. Select from SOACLOUD, DEV, QA, PROD, and PREPROD"
+			defaultValue="DEV" required="false" />
+		<variableDescription key="SCLD_ROUTE_OFFER"
+			description="The routing offer which endpoints published from this container will be published to the endpoint registry with."
+			defaultValue="DEFAULT" required="false" />
+		<variableDescription key="SOACLOUD_PROTOCOL"
+			description="Protocol being used by the service"
+			defaultValue="http" required="false" />
+		<variableDescription key="SCAMPER_ENABLED"
+			description="Indicate if Scamper config file generation is enabled"
+			defaultValue="false" required="false" />
+		<variableDescription key="DME2_LIB"
+			description="DME2 Library Location for external dme2 library"
+			defaultValue="$INSTALL_ROOT/opt/app/aft/dme2/lib" required="false" />
+		<variableDescription key="CSM_LIB"
+			description="CSM Library Location for external dme2 library"
+			defaultValue="$INSTALL_ROOT/appl/external_libs/csi-csm/1.1.1/lib" required="false" />
+		<variableDescription key="AJSC_SSF_FILE_MONITOR_POLLING_INTERVAL"
+			description="AJSC Internal File Monitor Polling Interval in Seconds" defaultValue="5"
+			required="false" />	
+		<variableDescription key="AJSC_SSF_FILE_MONITOR_THREAD_POOL_SIZE"
+			description="AJSC Internal File Monitor ThreadPool Size" defaultValue="10"
+			required="false" />
+		<variableDescription key="AFT_DME2_CONN_IDLE_TIMEOUTMS"
+			description="DME2 Idle Connection TimeOut In ms" defaultValue="5000"
+			required="false" />
+		<variableDescription key="HAWTIO_AUTHENTICATION_ENABLED"
+			description="HawtIO Authentication Flag" defaultValue="false"
+			required="false" />
+		<variableDescription key="HAWTIO_CONFIG_PULLONSTARTUP"
+			description="HawtIO Config Pull on Startup" defaultValue="false"
+			required="false" />
+		<variableDescription key="CAMEL_POOL_SIZE"
+			description="Pool size to set in default threadPool profile for Camel Context" defaultValue="10"
+			required="false" />
+		<variableDescription key="CAMEL_MAX_POOL_SIZE"
+			description="Max pool size to set in default threadPool profile for Camel Context" defaultValue="20"
+			required="false" />
+		<variableDescription key="CAMEL_KEEP_ALIVE_TIME"
+			description="Idle time (in Seconds) for excess threads to wait before they are discarded." defaultValue="60"
+			required="false" />
+		<variableDescription key="CAMEL_MAX_QUEUE_SIZE"
+			description="The task queue can contain up to n tasks before the pool is exhausted." defaultValue="1000"
+			required="false" />									
+		<variableDescription key="LOGBACK_CONFIG_FILE"
+			description="Logback configuration file location" defaultValue="${distFilesRoot}/bundleconfig/etc/logback.xml"
+			required="false" />		
+		<variableDescription key="RESTLET_COMPONENT_CONTROLLER_DAEMON"
+			description="Indicates if the controller thread should be a daemon (not blocking JVM exit)." defaultValue="true"
+			required="false" />
+		<variableDescription key="RESTLET_COMPONENT_CONTROLLER_SLEEP_TIME_MS"
+			description="Time for the controller thread to sleep between each control." defaultValue="100"
+			required="false" />
+		<variableDescription key="RESTLET_COMPONENT_INBOUND_BUFFER_SIZE"
+			description="The size of the buffer when reading messages." defaultValue="8192"
+			required="false" />		
+		<variableDescription key="RESTLET_COMPONENT_MIN_THREADS"
+			description="Minimum threads waiting to service requests." defaultValue="1"
+			required="false" />
+		<variableDescription key="RESTLET_COMPONENT_MAX_THREADS"
+			description="Maximum threads that will service requests." defaultValue="10"
+			required="false" />	
+		<variableDescription key="RESTLET_COMPONENT_LOW_THREADS"
+			description="Number of worker threads determining when the connector is considered overloaded." defaultValue="8"
+			required="false" />	
+		<variableDescription key="RESTLET_COMPONENT_MAX_QUEUED"
+			description="Maximum number of calls that can be queued if there aren't any worker thread available to service them." defaultValue="0"
+			required="false" />	
+		<variableDescription key="RESTLET_COMPONENT_MAX_CONNECTIONS_PER_HOST"
+			description="Maximum number of concurrent connections per host (IP address)." defaultValue="-1"
+			required="false" />
+		<variableDescription key="RESTLET_COMPONENT_MAX_TOTAL_CONNECTIONS"
+			description="Maximum number of concurrent connections in total." defaultValue="-1"
+			required="false" />	
+		<variableDescription key="RESTLET_COMPONENT_OUTBOUND_BUFFER_SIZE"
+			description="The size of the buffer when writing messages." defaultValue="8192"
+			required="false" />
+		<variableDescription key="RESTLET_COMPONENT_PERSISTING_CONNECTIONS"
+			description="Indicates if connections should be kept alive after a call." defaultValue="true"
+			required="false" />	
+		<variableDescription key="RESTLET_COMPONENT_PIPELINING_CONNECTIONS"
+			description="Indicates if pipelining connections are supported." defaultValue="false"
+			required="false" />
+		<variableDescription key="RESTLET_COMPONENT_THREAD_MAX_IDLE_TIME_MS"
+			description="Time for an idle thread to wait for an operation before being collected." defaultValue="60000"
+			required="false" />	
+		<variableDescription key="RESTLET_COMPONENT_USE_FORWARDED_HEADER"
+			description="Lookup the X-Forwarded-For header supported by popular proxies and caches and uses it to populate the Request.getClientAddresses() method result." defaultValue="false"
+			required="false" />
+		<variableDescription key="RESTLET_COMPONENT_REUSE_ADDRESS"
+			description="Enable/disable the SO_REUSEADDR socket option. See java.io.ServerSocket#reuseAddress property for additional details." defaultValue="true"
+			required="false" />	
+		<variableDescription key="AJSC_EXTERNAL_LIB_FOLDERS"
+			description="Location of external libs to be used by AJSC. Values here will be in addition to libs in template.sys-props.properties." defaultValue=""
+			required="false" />	
+		<variableDescription key="AJSC_EXTERNAL_PROPERTIES_FOLDERS"
+			description="Location of external property folders that may be needed on the classpath (ex: csm) to be used by AJSC. Values here will be in addition to libs in template.sys-props.properties." defaultValue=""
+			required="false" />		
+		<variableDescription key="DIRECT_INVOCATION_ENABLE"
+			description="enable direct call" defaultValue="false"
+			required="false" />
+	</variableDescriptions>
+</descriptor>
+

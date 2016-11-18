@@ -1,0 +1,4 @@
+<route xmlns="http://camel.apache.org/schema/spring" trace="true">
+    <from uri="att-dme2-servlet:/SurfsUpGui/?matchOnUriPrefix=true" />
+    <to uri="att-static-content://{{AJSC_HOME}}/staticContent/" />
+</route>

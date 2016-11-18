@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+ Copyright (c) 2016 AT&T Intellectual Property. All rights reserved.
+-->
+<beans 
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jee="http://www.springframework.org/schema/jee"
+	xsi:schemaLocation="
+       http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd
+       http://camel.apache.org/schema/spring
+       http://camel.apache.org/schema/spring/camel-spring.xsd
+       http://www.springframework.org/schema/jee 
+       http://www.springframework.org/schema/jee/spring-jee.xsd
+       ">
+  	<bean class="org.springframework.web.context.support.ServletContextPropertyPlaceholderConfigurer"/>
+ 	<!-- <bean id="loggingConfigurationService" class="ajsc.LoggingConfigurationService" /> -->
+ 	<bean id="persistenceService" class="ajsc.FilePersistenceService" />
+	<bean id="propertiesService" class="ajsc.PropertiesService" />
+	<bean id="docService" class="ajsc.DocService" />
+	<bean id="swaggerService" class="ajsc.SwaggerService">
+		<property name="docService"><ref local="docService"/></property>
+	</bean>
+	<bean id="vandelayService" class="ajsc.VandelayService" >
+		<property name="swaggerService"><ref local="swaggerService"/></property>
+	</bean>
+	<bean id="userDefinedBeansDefService" class="ajsc.UserDefinedBeansDefService" />
+	
+	<bean id="userDefinedJarService" class="ajsc.UserDefinedJarService" />
+<!-- 	<beans profile="oauth"> -->
+<!-- 	<bean id="clientDataService" class="ajsc.ClientDataService" init-method="init"> -->
+<!-- 		<property name="dbAdapter"><ref local="clientDataAdapter"/></property> -->
+<!-- 	</bean> -->
+<!-- 	<bean id="clientDataAdapter" class="ajsc.providers.FilePersistenceClient" /> -->
+<!-- 	<bean id="ajscClientDetailsService" class="ajsc.security.oauth2.provider.AjscClientDetailsService" > -->
+<!-- 		<constructor-arg ref="cassandraConnectionManager" /> -->
+<!-- 	</bean> -->
+<!-- 	</beans> -->
+	<beans profile="nooauth">
+		<bean id="springSecurityFilterChain" class="ajsc.filter.PassthruFilter"/>
+	</beans>
+	<beans>
+	<bean id="computeService" class="ajsc.ComputeService" >
+		<property name="restletComponentFactory"><ref local="restletComponentFactory"/></property>
+	</bean>
+	<bean id="restletComponent" class="org.restlet.Component" />
+	<bean id="restletComponentFactory" class="ajsc.restlet.RestletComponentFactory" />
+ 
+ <!-- jmsConnectionFactory is no longer needed to be instantiated as a Spring bean. Therefore commenting it out. -->
+<!--  <bean id="jmsConnectionFactory" class="com.tibco.tibjms.TibjmsQueueConnectionFactory"> 
+      <property name="serverUrl" value="#{systemProperties['JMS_TIBCO_PROVIDER_URL']}" /> 
+     
+     </bean> -->
+<!--         <value>"#{systemProperties['ProviderURL']}"</value>  -->
+<!--       </property>  -->
+<!--       -->
+    
+    <!-- This is for WMQ -->
+<!--     <bean id="jmsConnectionFactory" class="com.ibm.mq.jms.MQQueueConnectionFactory">  -->
+<!--       <property name="serverUrl">  -->
+<!--         <value>tcp://servername:port</value>  -->
+<!--       </property>  -->
+<!--     </bean>  -->
+ <!-- This is for ActiveMQ -->
+<!--     <bean id="jmsConnectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">  -->
+<!--     <property name="brokerURL">  -->
+<!--      <value>tcp://localhost:61616</value>  -->
+<!--     </property>  -->
+<!-- </bean> -->
+
+ 	
+<!-- 		<bean id="csiLogging" class="com.att.ajsc.csi.logging.CsiLogging"/> -->
+	
+<!--  	<bean id="csiAuditRecordLoggingProcessor" factory-bean="csiLoggingUtils"   factory-method="getLogAuditRecordProcessorInstance"></bean>  -->
+<!--   	<bean id="csiPerfTrackRecordLoggingProcessor" factory-bean="csiLoggingUtils" factory-method="getLogPerfTrackerRecordProcessorInstance"></bean>  -->
+<!--   	<bean id="csiTimerLogRecordLoggingProcessor" factory-bean="csiLoggingUtils" factory-method="getLogTimerLogRecordProcessorInstance"></bean>  -->
+	
+	<bean id="routeMgmtService" class="ajsc.RouteMgmtService">
+		<property name="propertiesService"><ref local="propertiesService"/></property>
+		<property name="vandelayService"><ref local="vandelayService"/></property>
+		<property name="persistenceService"><ref local="persistenceService"/></property>
+		<property name="userDefinedBeansDefService"><ref local="userDefinedBeansDefService"/></property>
+		<property name="docService"><ref local="docService"/></property>
+		<property name="userDefinedJarService"><ref local="userDefinedJarService"/></property>
+		<property name="computeService"><ref local="computeService"/></property>
+		<!-- <property name="loggingConfigurationService"><ref local="loggingConfigurationService"/></property> -->
+	</bean>
+	
+	
+
+	<bean id="restletComponentService" class="org.apache.camel.component.restlet.RestletComponent">
+		<constructor-arg index="0">
+			<ref bean="restletComponent" />
+		</constructor-arg>
+		<property name="controllerDaemon" value="#{systemProperties['RESTLET_COMPONENT_CONTROLLER_DAEMON']}" />
+		<property name="controllerSleepTimeMs" value="#{systemProperties['RESTLET_COMPONENT_CONTROLLER_SLEEP_TIME_MS']}" />
+		<property name="inboundBufferSize" value="#{systemProperties['RESTLET_COMPONENT_INBOUND_BUFFER_SIZE']}" />
+		<property name="minThreads" value="#{systemProperties['RESTLET_COMPONENT_MIN_THREADS']}" />
+		<property name="maxThreads" value="#{systemProperties['RESTLET_COMPONENT_MAX_THREADS']}" />
+		<property name="lowThreads" value="#{systemProperties['RESTLET_COMPONENT_LOW_THREADS']}" />
+		<property name="maxQueued" value="#{systemProperties['RESTLET_COMPONENT_MAX_QUEUED']}" />
+		<property name="maxConnectionsPerHost" value="#{systemProperties['RESTLET_COMPONENT_MAX_CONNECTIONS_PER_HOST']}" />
+		<property name="maxTotalConnections" value="#{systemProperties['RESTLET_COMPONENT_MAX_TOTAL_CONNECTIONS']}" />
+		<property name="outboundBufferSize" value="#{systemProperties['RESTLET_COMPONENT_OUTBOUND_BUFFER_SIZE']}" />
+		<property name="persistingConnections" value="#{systemProperties['RESTLET_COMPONENT_PERSISTING_CONNECTIONS']}" />
+		<property name="pipeliningConnections" value="#{systemProperties['RESTLET_COMPONENT_PIPELINING_CONNECTIONS']}" />
+		<property name="threadMaxIdleTimeMs" value="#{systemProperties['RESTLET_COMPONENT_THREAD_MAX_IDLE_TIME_MS']}" />
+		<property name="useForwardedForHeader" value="#{systemProperties['RESTLET_COMPONENT_USE_FORWARDED_HEADER']}" />
+		<property name="reuseAddress" value="#{systemProperties['RESTLET_COMPONENT_REUSE_ADDRESS']}" />
+	</bean>
+	
+	<bean id="contextManager" class="ajsc.ContextMgr">
+		<property name="rmgr">
+			<ref local="routeMgmtService"/>
+		</property>
+	</bean>
+	
+	
+	<bean class="org.springframework.context.annotation.CommonAnnotationBeanPostProcessor" />
+	
+	<bean id="AJSCPropertiesMap" class="com.att.ajsc.filemonitor.AJSCPropertiesMap" />
+
+	<bean id="AJSCPropertyService" class="com.att.ajsc.filemonitor.AJSCPropertyService">
+		<property name="filePropertiesMap" ref="AJSCPropertiesMap" />
+	</bean>  
+	  
+	<!-- bean for gracefully shutting down the AJSC container -->  
+	<bean id="AJSCShutdownBean" name="AJSCShutdownBean" class="ajsc.util.AJSCShutdownBean" />  
+	
+	</beans>
+</beans>

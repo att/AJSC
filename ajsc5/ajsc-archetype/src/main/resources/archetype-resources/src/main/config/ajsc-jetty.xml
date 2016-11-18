@@ -1,0 +1,115 @@
+<?xml version="1.0"  encoding="UTF-8"?>
+<!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure_9_0.dtd">
+<Configure id="ajsc-server" class="org.eclipse.jetty.server.Server">
+	<!-- DO NOT REMOVE!!!! This is setting up the AJSC Context -->
+	<New id="ajscContext" class="org.eclipse.jetty.webapp.WebAppContext">
+		<Set name="contextPath"><SystemProperty name="AJSC_CONTEXT_PATH" /></Set>
+		<Set name="extractWAR">true</Set>
+		<Set name="tempDirectory"><SystemProperty name="AJSC_TEMP_DIR" /></Set>
+		<Set name="war"><SystemProperty name="AJSC_WAR_PATH" /></Set>
+		<Set name="descriptor"><SystemProperty name="AJSC_HOME" />/etc/runner-web.xml</Set>
+		<Set name="overrideDescriptor"><SystemProperty name="AJSC_HOME" />/etc/ajsc-override-web.xml</Set>
+		<Set name="throwUnavailableOnStartupException">true</Set>
+		<Set name="servletHandler">
+			<New class="org.eclipse.jetty.servlet.ServletHandler">
+				<Set name="startWithUnavailable">false</Set>
+			</New>
+		</Set>
+	</New>
+	
+	<Set name="handler">
+		<New id="Contexts" class="org.eclipse.jetty.server.handler.ContextHandlerCollection">
+			<Set name="Handlers">
+				<Array type="org.eclipse.jetty.webapp.WebAppContext">
+					<Item>
+						<Ref refid="ajscContext" />
+					</Item>
+				</Array>
+			</Set>
+		</New>
+	</Set>
+	
+	<Call name="addBean">
+		<Arg>
+			<New id="DeploymentManager" class="org.eclipse.jetty.deploy.DeploymentManager">
+				<Set name="contexts">
+					<Ref refid="Contexts" />
+				</Set>
+				<Call id="extAppHotDeployProvider" name="addAppProvider">
+					<Arg>
+						<New class="org.eclipse.jetty.deploy.providers.WebAppProvider">
+							<Set name="monitoredDirName"><SystemProperty name="AJSC_HOME" />/extApps</Set>
+							<Set name="scanInterval">10</Set>
+							<Set name="extractWars">true</Set>
+						</New>
+					</Arg>
+				</Call>
+			</New>
+		</Arg>
+	</Call>
+	
+	<Call name="addConnector">
+		<Arg>
+			<New class="org.eclipse.jetty.server.ServerConnector">
+				<Arg name="server">
+					<Ref refid="ajsc-server" />
+				</Arg>
+				<Set name="port"><SystemProperty name="AJSC_HTTP_PORT" default="8080" /></Set>
+			</New>
+		</Arg>
+	</Call>
+	
+<!-- The following commented out code is for ssl connection setup. Default setup is for the AJSC to run as http server and 
+allow other components (such as CSI Gateway) to handle the https calls to end user. Please, verify with your team and/or
+CSI/CSTEM whether or not you would need to add an ssl connector.  -->
+<!-- 	<New id="sslContextFactory" class="org.eclipse.jetty.util.ssl.SslContextFactory"> -->
+<!-- 		<Set name="KeyStorePath">file:<SystemProperty name="AJSC_TEMP_DIR" />/webapp/WEB-INF/ajscJetty.jks</Set> -->
+<!-- 		<Set name="KeyStorePassword">ajscrocks!</Set> -->
+<!-- 		<Set name="KeyManagerPassword">ajscrocks!</Set> -->
+<!-- 	</New> -->
+
+<!-- 	<Call id="sslConnector" name="addConnector"> -->
+<!-- 		<Arg> -->
+<!-- 			<New class="org.eclipse.jetty.server.ServerConnector"> -->
+<!-- 				<Arg name="server"> -->
+<!-- 					<Ref refid="ajsc-server" /> -->
+<!-- 				</Arg> -->
+<!-- 				<Arg name="factories"> -->
+<!-- 					<Array type="org.eclipse.jetty.server.ConnectionFactory"> -->
+<!-- 						<Item> -->
+<!-- 							<New class="org.eclipse.jetty.server.SslConnectionFactory"> -->
+<!-- 								<Arg name="next">http/1.1</Arg> -->
+<!-- 								<Arg name="sslContextFactory"> -->
+<!-- 									<Ref refid="sslContextFactory" /> -->
+<!-- 								</Arg> -->
+<!-- 							</New> -->
+<!-- 						</Item> -->
+<!-- 						<Item> -->
+<!-- 							<New class="org.eclipse.jetty.server.HttpConnectionFactory"> -->
+<!-- 								<Arg name="config"> -->
+<!-- 									<New class="org.eclipse.jetty.server.HttpConfiguration"> -->
+<!-- 										<Call name="addCustomizer"> -->
+<!-- 											<Arg> -->
+<!-- 												<New class="org.eclipse.jetty.server.SecureRequestCustomizer" /> -->
+<!-- 											</Arg> -->
+<!-- 										</Call> -->
+<!-- 									</New> -->
+<!-- 								</Arg> -->
+<!-- 							</New> -->
+<!-- 						</Item> -->
+<!-- 					</Array> -->
+<!-- 				</Arg> -->
+<!-- 				<Set name="port"><SystemProperty name="AJSC_HTTPS_PORT" default="0" /></Set> -->
+<!-- 				<Set name="idleTimeout">30000</Set> -->
+<!-- 			</New> -->
+<!-- 		</Arg> -->
+<!-- 	</Call> -->
+
+<!--	<Get name="ThreadPool">
+		<Set name="minThreads"><SystemProperty name="AJSC_JETTY_ThreadCount_MIN" /></Set>
+		<Set name="maxThreads"><SystemProperty name="AJSC_JETTY_ThreadCount_MAX" /></Set>
+		<Set name="idleTimeout"><SystemProperty name="AJSC_JETTY_IDLETIME_MAX" /></Set>
+		<Set name="detailedDump">false</Set>
+	</Get>-->
+	
+</Configure>
