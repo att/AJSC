@@ -16,7 +16,7 @@ node {
     // Run the maven build
     //sh for unix bat for windows
    
-    sh "${mvnHome}/bin/mvn -f AJSC/ajsc5/pom.xml clean deploy"
+    sh "${mvnHome}/bin/mvn -f ajsc5/pom.xml clean deploy"
     
     
 }
