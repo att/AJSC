@@ -1,0 +1,4 @@
+#!/bin/sh
+
+cd ../../common
+exec sh -x ./deinstall_postproc.sh

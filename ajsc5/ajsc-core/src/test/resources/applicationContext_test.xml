@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+ Copyright (c) 2016 AT&T Intellectual Property. All rights reserved.
+-->
+<beans 
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jee="http://www.springframework.org/schema/jee"
+	xsi:schemaLocation="
+       http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context-3.1.xsd
+       http://camel.apache.org/schema/spring
+       http://camel.apache.org/schema/spring/camel-spring.xsd
+       http://www.springframework.org/schema/jee 
+       http://www.springframework.org/schema/jee/spring-jee-3.1.xsd
+       ">
+  	<bean class="org.springframework.web.context.support.ServletContextPropertyPlaceholderConfigurer"/>
+ 	<bean id="loggingConfigurationService" class="ajsc.LoggingConfigurationService" />
+ 	<bean id="persistenceService" class="ajsc.FilePersistenceService" />
+ 	<bean id="assemblyService" class="ajsc.AssemblyService" />
+	<bean id="propertiesService" class="ajsc.PropertiesService" />
+	<bean id="vandelayService" class="ajsc.VandelayService" />
+	<bean id="userDefinedBeansDefService" class="ajsc.UserDefinedBeansDefService" />
+	<bean id="docService" class="ajsc.DocService" />
+	<bean id="userDefinedJarService" class="ajsc.UserDefinedJarService" />
+	<beans profile="oauth">
+	<bean id="clientDataService" class="ajsc.ClientDataService" >
+		<property name="dbAdapter"><ref local="clientDataAdapter"/></property>
+	</bean>
+	<bean id="clientDataAdapter" class="ajsc.providers.FilePersistenceClient" />
+	<bean id="ajscClientDetailsService" class="ajsc.security.oauth2.provider.AjscClientDetailsService" >
+		<constructor-arg ref="cassandraConnectionManager" />
+	</bean>
+	</beans>
+	<beans profile="nooauth">
+		<bean id="springSecurityFilterChain" class="ajsc.filter.PassthruFilter"/>
+	</beans>
+	<beans>
+	<bean id="computeService" class="ajsc.ComputeService" >
+		<property name="restletComponentFactory"><ref local="restletComponentFactory"/></property>
+	</bean>
+	<bean id="restletComponent" class="org.restlet.Component" />
+	<bean id="restletComponentFactory" class="ajsc.restlet.RestletComponentFactory" />
+ 
+ <!-- <bean id="jmsConnectionFactory" class="com.tibco.tibjms.TibjmsQueueConnectionFactory"> 
+      <property name="serverUrl"> 
+        <value>tcp://q27csi1c3.vci.att.com:27812</value> 
+      </property> 
+    </bean>  -->
+    
+    <!-- This is for WMQ -->
+<!--     <bean id="jmsConnectionFactory" class="com.ibm.mq.jms.MQQueueConnectionFactory">  -->
+<!--       <property name="serverUrl">  -->
+<!--         <value>tcp://q27csi1c3.vci.att.com:27812</value>  -->
+<!--       </property>  -->
+<!--     </bean>  -->
+ <!-- This is for ActiveMQ -->
+<!--     <bean id="jmsConnectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">  -->
+<!--     <property name="brokerURL">  -->
+<!--      <value>tcp://localhost:61616</value>  -->
+<!--     </property>  -->
+<!-- </bean> -->
+
+	
+<!--  	<bean id="csiAuditRecordLoggingProcessor" factory-bean="csiLoggingUtils"   factory-method="getLogAuditRecordProcessorInstance"></bean>  -->
+<!--   	<bean id="csiPerfTrackRecordLoggingProcessor" factory-bean="csiLoggingUtils" factory-method="getLogPerfTrackerRecordProcessorInstance"></bean>  -->
+<!--   	<bean id="csiTimerLogRecordLoggingProcessor" factory-bean="csiLoggingUtils" factory-method="getLogTimerLogRecordProcessorInstance"></bean>  -->
+	
+	<bean id="routeMgmtService" class="ajsc.RouteMgmtService">
+		<property name="propertiesService"><ref local="propertiesService"/></property>
+		<property name="vandelayService"><ref local="vandelayService"/></property>
+		<property name="persistenceService"><ref local="persistenceService"/></property>
+		<property name="userDefinedBeansDefService"><ref local="userDefinedBeansDefService"/></property>
+		<property name="docService"><ref local="docService"/></property>
+		<property name="userDefinedJarService"><ref local="userDefinedJarService"/></property>
+		<property name="computeService"><ref local="computeService"/></property>
+		<property name="loggingConfigurationService"><ref local="loggingConfigurationService"/></property>
+	</bean>
+
+	<bean id="restletComponentService" class="org.apache.camel.component.restlet.RestletComponent">
+		<constructor-arg index="0">
+			<ref bean="restletComponent" />
+		</constructor-arg>
+	</bean>
+
+	<bean id="contextManager" class="ajsc.ContextMgr">
+		<property name="rmgr">
+			<ref local="routeMgmtService"/>
+		</property>
+	</bean>
+	
+	<!-- <bean id="exporter" class="org.springframework.jmx.export.MBeanExporter" lazy-init="false">
+	    <property name="beans">
+	      <map>
+	      each entry into this map represents a MBean interface which references its implementation
+	        <entry key="bean:name=AjscMBean" value-ref="ajscMBean"/>
+	      </map>
+	    </property>
+  	</bean>
+  	
+  	this bean is an implementation of the AjscMBean interface
+  	<bean id="ajscMBean" class="jmx.Ajsc" /> -->
+	
+	<bean class="org.springframework.context.annotation.CommonAnnotationBeanPostProcessor" />
+	
+	<bean id="AJSCPropertiesMap" class="com.att.ajsc.filemonitor.AJSCPropertiesMap" />
+
+	<bean id="AJSCPropertyService" class="com.att.ajsc.filemonitor.AJSCPropertyService">
+		<property name="filePropertiesMap" ref="AJSCPropertiesMap" />
+	</bean>  
+	  <bean
+		class="org.springframework.context.annotation.CommonAnnotationBeanPostProcessor" />
+		
+	
+	<bean id="ServicePropertiesMap" class="ajsc.ServicePropertiesMap" />
+
+	<bean id="ServicePropertyService" class="ajsc.ServicePropertyService">
+		<property name="filePropertiesMap" ref="ServicePropertiesMap" />
+	</bean>
+	<bean id="helloWorld" name="helloWorld"
+		class="ajsc.HelloWorld" />
+	</beans>
+</beans>

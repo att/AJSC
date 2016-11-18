@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.att.ajsc</groupId>
+	<artifactId>ajsc</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>pom</packaging>
+
+	<properties>
+		<!-- unify the encoding for all the modules -->
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<jettyGroupId>org.eclipse.jetty</jettyGroupId>
+		<jettyPluginVersion>7.6.10.v20130312</jettyPluginVersion>
+		<jetty.version>9.2.9.v20150224</jetty.version>
+		<ATTCamelComponent.version>2.15.5.0</ATTCamelComponent.version>
+		<spring.version>3.2.4.RELEASE</spring.version>
+		<groovy.version>2.4.3</groovy.version>
+		<restlet.version>2.2.1</restlet.version>
+		<camel.version>2.15.5</camel.version>
+		<dme2.version>2.6.29</dme2.version>
+		<csm.version>2.1.0</csm.version>
+		<spring.security.oauth.version>1.0.5.RELEASE</spring.security.oauth.version>
+		<dependency.scope>provided</dependency.scope>
+	</properties>
+
+	<modules>
+		<module>ajsc-archetype-parent</module>
+		<module>ajsc-archetype</module>
+		<module>ajsc-surfsup-archetype</module>
+		<module>ajsc-bom</module>
+		<module>ajsc-core</module>
+		<module>ajsc-api</module>
+		<module>ajsc-war</module>
+		<module>ajsc-runner</module>
+		<!-- <module>ajsc-m2e-csi-archetype-parent</module> -->
+		<!-- <module>ajsc-m2e-csi-archetype</module> -->
+		
+	</modules>
+
+	<distributionManagement>
+		<repository>
+			<id>nexus</id>
+			<name>swm-releases</name>
+			<url>http://mavencentral.it.att.com:8084/nexus/content/repositories/swm-releases</url>
+		</repository>
+		<snapshotRepository>
+			<id>nexus</id>
+			<name>swm-snapshots</name>
+			<url>http://mavencentral.it.att.com:8084/nexus/content/repositories/swm-snapshots</url>
+		</snapshotRepository>
+	</distributionManagement>
+
+</project>

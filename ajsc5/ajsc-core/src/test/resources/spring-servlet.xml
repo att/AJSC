@@ -1,0 +1,163 @@
+<!-- 
+ Copyright (c) 2016 AT&T Intellectual Property. All rights reserved.
+-->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:oauth="http://www.springframework.org/schema/security/oauth2"
+	xmlns:sec="http://www.springframework.org/schema/security"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/security/oauth2 http://www.springframework.org/schema/security/spring-security-oauth2-1.0.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd
+		http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd">
+
+	<context:component-scan base-package="ajsc.security.oauth2.provider" />
+	
+	<mvc:annotation-driven />
+	
+	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer" id="propertyConfigurer">
+		<property name="properties" ref="props" />	
+	</bean>
+
+	<bean id="props" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+  		<property name="location" value="file:${AJSC_HOME}/conf/oauth.properties"/>
+	</bean>
+	
+		
+	<http pattern="/oauth/token" create-session="stateless"
+		authentication-manager-ref="clientAuthenticationManager"
+		xmlns="http://www.springframework.org/schema/security">
+		<intercept-url pattern="/oauth/token" access="IS_AUTHENTICATED_FULLY" />
+		<anonymous enabled="false" />
+		<http-basic entry-point-ref="clientAuthenticationEntryPoint" />
+		<!-- include this only if you need to authenticate clients via request 
+			parameters -->
+	<custom-filter ref="clientCredentialsTokenEndpointFilter" after="BASIC_AUTH_FILTER" />
+		<access-denied-handler ref="oauthAccessDeniedHandler" />
+	</http>
+	
+	
+	<authentication-manager id="clientAuthenticationManager" xmlns="http://www.springframework.org/schema/security">
+		<authentication-provider user-service-ref="clientDetailsUserService">
+			<password-encoder ref="passwordEncoder" />
+		</authentication-provider>
+	</authentication-manager>
+	
+	<bean id="clientDetailsUserService"	class="org.springframework.security.oauth2.provider.client.ClientDetailsUserDetailsService">
+		<constructor-arg ref="clientDetails" />
+	</bean>
+	
+
+	<!-- The OAuth2 protected resources are separated out into their own block 
+		so we can deal with authorization and error handling separately. This isn't 
+		mandatory, but it makes it easier to control the behaviour. -->
+		
+	<http pattern="${restServices}" create-session="never"
+		entry-point-ref="oauthAuthenticationEntryPoint"
+		access-decision-manager-ref="accessDecisionManager"
+		xmlns="http://www.springframework.org/schema/security">
+		<intercept-url pattern="/rest/**" access="ROLE_CLIENT,SCOPE_READ" />
+		<anonymous enabled="false" />
+		<custom-filter ref="resourceServerFilter" before="PRE_AUTH_FILTER" />
+		<access-denied-handler ref="oauthAccessDeniedHandler" />
+	</http>
+	
+	<http pattern="${services}" create-session="never"
+		entry-point-ref="oauthAuthenticationEntryPoint"
+		access-decision-manager-ref="accessDecisionManager"
+		xmlns="http://www.springframework.org/schema/security">
+		<intercept-url pattern="/Services/**" access="ROLE_CLIENT,SCOPE_READ" />
+		<anonymous enabled="false" />
+		<custom-filter ref="resourceServerFilter" before="PRE_AUTH_FILTER" />
+		<access-denied-handler ref="oauthAccessDeniedHandler" />
+	</http>
+
+	<bean id="oauthAuthenticationEntryPoint"
+		class="org.springframework.security.oauth2.provider.error.OAuth2AuthenticationEntryPoint">
+		<property name="realmName" value="ajscrt/rest" />
+	</bean>
+	
+	
+	<bean id="clientAuthenticationEntryPoint" class="org.springframework.security.oauth2.provider.error.OAuth2AuthenticationEntryPoint">
+		<property name="realmName" value="ajscrt" />
+		<property name="typeName" value="Basic" />
+	</bean>
+	
+	
+	<bean id="oauthAccessDeniedHandler"	class="org.springframework.security.oauth2.provider.error.OAuth2AccessDeniedHandler" />
+
+	<bean id="clientCredentialsTokenEndpointFilter"	class="org.springframework.security.oauth2.provider.client.ClientCredentialsTokenEndpointFilter">
+		<property name="authenticationManager" ref="clientAuthenticationManager" />
+	</bean>
+	
+	<authentication-manager alias="authenticationManager"
+		xmlns="http://www.springframework.org/schema/security">
+		<authentication-provider>
+			<user-service id="userDetailsService">
+				<user name="${proxy.admin.user}" password="${proxy.admin.password}" authorities="ROLE_ADMIN" />
+			</user-service>
+		</authentication-provider>
+	</authentication-manager>
+
+
+	<bean id="accessDecisionManager" class="org.springframework.security.access.vote.UnanimousBased"
+		xmlns="http://www.springframework.org/schema/beans">
+		<constructor-arg>
+			<list>
+				<bean class="org.springframework.security.oauth2.provider.vote.ScopeVoter" />
+				<bean class="org.springframework.security.access.vote.RoleVoter" />
+				<bean class="org.springframework.security.access.vote.AuthenticatedVoter" />
+			</list>
+		</constructor-arg>
+	</bean>
+
+	<bean id="cassandraConnectionManager"
+		class="ajsc.providers.CassandraConnectionManager">
+		<property name="userName" value="${cassandra.userName}" />
+		<property name="password" value="${cassandra.password}" />
+		<property name="hosts" value="${cassandra.hosts}" />
+		<property name="port" value="${cassandra.port}" />
+		<property name="keyspace" value="${cassandra.keyspace}" />
+		<property name="minPoolSize" value="${cassandra.minPoolSize}" />
+		<property name="maxPoolSize" value="${cassandra.maxPoolSize}" />
+		<property name="defaultReadWriteConsistency" value="${cassandra.default.read.write.consistency}" />
+		<property name="tokenWriteConsistency" value="${cassandra.token.write.consistency}" />
+	</bean>
+	
+	<bean id="clientDetails" class="ajsc.security.oauth2.provider.AjscClientDetailsService">
+		<constructor-arg ref="cassandraConnectionManager" />
+		<property name="passwordEncoder" ref="passwordEncoder" />
+	</bean>
+	
+	<bean id="tokenStore" class="ajsc.security.oauth2.provider.token.AjscTokenStore">
+		<constructor-arg ref="cassandraConnectionManager" />
+	</bean>
+
+	<!-- Used to create token and and every thing about them except for their 
+		persistence that is reposibility of TokenStore (Given here is a default implementation) -->
+	<bean id="tokenServices"
+		class="ajsc.security.oauth2.provider.token.TokenServices">
+		<property name="tokenStore" ref="tokenStore" />
+		<property name="supportRefreshToken" value="true" />
+		<property name="clientDetailsService" ref="clientDetails" />
+	</bean>
+	
+	<bean id="userApprovalHandler"
+		class="org.springframework.security.oauth2.provider.approval.TokenServicesUserApprovalHandler">
+		<property name="tokenServices" ref="tokenServices" />
+	</bean>
+
+	<!-- authorization-server aka AuthorizationServerTokenServices is an interface that defines everything necessary for token management -->
+	<oauth:authorization-server
+		client-details-service-ref="clientDetails" token-services-ref="tokenServices"
+		user-approval-handler-ref="userApprovalHandler">
+		<oauth:client-credentials />
+	</oauth:authorization-server>
+
+	<oauth:resource-server id="resourceServerFilter" resource-id="ajscRest" token-services-ref="tokenServices" /> 
+
+	<bean id="passwordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
+	
+</beans>

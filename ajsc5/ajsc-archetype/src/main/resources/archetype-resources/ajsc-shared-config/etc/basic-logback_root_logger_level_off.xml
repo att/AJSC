@@ -1,0 +1,87 @@
+<!-- 
+ Copyright (c) 2016 AT&T Intellectual Property. All rights reserved.
+-->
+<configuration scan="true" scanPeriod="3 seconds" debug="true">
+	<property name="logDirectory" value="${AJSC_HOME}/log" />
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+			<level>ERROR</level>
+		</filter>
+		<encoder>
+			<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{1024} - %msg%n
+			</pattern>
+		</encoder>
+	</appender>
+
+	<appender name="INFO"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+			<level>DEBUG</level>
+		</filter>
+		<file>${logDirectory}/info_ajsc.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+			<fileNamePattern>${logDirectory}/info_ajsc.%i.log.zip
+			</fileNamePattern>
+			<minIndex>1</minIndex>
+			<maxIndex>9</maxIndex>
+		</rollingPolicy>
+		<triggeringPolicy
+			class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+			<maxFileSize>5MB</maxFileSize>
+		</triggeringPolicy>
+		<encoder>
+			<pattern>"%d [%thread] %-5level %logger{1024} - %msg%n"</pattern>
+		</encoder>
+	</appender>
+	<appender name="ERROR"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+			<level>ERROR</level>
+		</filter>
+		<file>${logDirectory}/error_ajsc.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+			<fileNamePattern>${logDirectory}/error_ajsc.%i.log.zip
+			</fileNamePattern>
+			<minIndex>1</minIndex>
+			<maxIndex>9</maxIndex>
+		</rollingPolicy>
+		<triggeringPolicy
+			class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+			<maxFileSize>5MB</maxFileSize>
+		</triggeringPolicy>
+		<encoder>
+			<!-- <pattern>"%d{HH:mm:ss.SSS} [%thread] %-5level %logger{1024} - %msg%n"</pattern> -->
+			<pattern>"%d [%thread] %-5level %logger{1024} - %msg%n"</pattern>
+		</encoder>
+	</appender>
+
+	<appender name="AJSC-AUDIT" class="ch.qos.logback.classic.net.SyslogAppender">
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+			<level>INFO</level>
+		</filter>
+		<syslogHost>localhost</syslogHost>
+		<facility>USER</facility>
+		<!-- Note the colon character below - it is important part of "TAG" message 
+			format You need a colon to determine where the TAG field ends and the CONTENT 
+			begins -->
+		<suffixPattern>AJSC_AUDIT: [%thread] [%logger] %msg</suffixPattern>
+	</appender>
+	<appender name="CONTROLLER-AUDIT" class="ch.qos.logback.classic.net.SyslogAppender">
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+			<level>INFO</level>
+		</filter>
+		<syslogHost>localhost</syslogHost>
+		<facility>USER</facility>
+		<!-- Note the colon character below - it is important part of "TAG" message 
+			format You need a colon to determine where the TAG field ends and the CONTENT 
+			begins -->
+		<suffixPattern>AJSC_AUDIT: [%thread] [%logger] mdc:[%mdc] %msg
+		</suffixPattern>
+	</appender>
+
+	<root level="off">
+		<appender-ref ref="ERROR" />
+		<appender-ref ref="INFO" />
+		<appender-ref ref="STDOUT" />
+	</root>
+</configuration>
