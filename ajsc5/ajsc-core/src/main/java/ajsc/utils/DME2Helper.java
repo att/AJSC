@@ -10,8 +10,8 @@ import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.att.aft.dme2.api.DME2EndpointRegistry;
 import com.att.aft.dme2.api.DME2Manager;
+import com.att.aft.dme2.manager.registry.DME2EndpointRegistry;
 
 public class DME2Helper {
 
