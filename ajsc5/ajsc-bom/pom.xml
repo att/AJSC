@@ -601,8 +601,6 @@
 				<artifactId>xmlbeans-xmlpublic</artifactId>
 				<version>2.6.0</version>
 			</dependency>
-			<!-- <dependency> <groupId>com.att.wmq</groupId> <artifactId>wmqcp</artifactId> 
-				<version>1.0.2</version> </dependency> -->
 			<dependency>
 				<groupId>org.eclipse.jetty</groupId>
 				<artifactId>jetty-util</artifactId>
@@ -815,7 +813,7 @@
 			<artifactId>backport-util-concurrent</artifactId>
 			<scope>${dependency.scope}</scope>
 		</dependency>
-		<dependency>
+	<!--	<dependency>
 			<groupId>com.att.aft.discovery</groupId>
 			<artifactId>discovery-clt</artifactId>
 			<scope>${dependency.scope}</scope>
@@ -829,7 +827,7 @@
 			<groupId>com.att.aft.discovery</groupId>
 			<artifactId>discovery-ctx</artifactId>
 			<scope>${dependency.scope}</scope>
-		</dependency>
+		</dependency>-->
 		<dependency>
 			<groupId>org.apache.camel</groupId>
 			<artifactId>camel-core</artifactId>
@@ -1237,7 +1235,7 @@
 			</exclusions>
 		</dependency>
 	</dependencies>
-	<repositories>
+<!--	<repositories>
 		<repository>
 			<id>maven-restlet</id>
 			<name>local maven-restlet</name>
@@ -1263,5 +1261,5 @@
 			<name>local essdsdp-3rd-party</name>
 			<url>http://mavencentral.it.att.com:8084/nexus/content/repositories/essdsdp-3rd-party</url>
 		</repository>
-	</repositories>
+	</repositories>-->
 </project>
