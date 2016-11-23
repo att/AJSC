@@ -202,7 +202,7 @@ public void tearDown() { }
 		assertTrue((boolean)computeService.getStarted());
 		
 	}
-	//@Ignore
+	@Ignore
 	@Test
 	public void testCreateEjbContext(){
 		System.out.println("running CreateEjbContext test");
