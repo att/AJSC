@@ -1,5 +1,8 @@
 <?xml version="1.0"  encoding="UTF-8"?>
 <!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure_9_0.dtd">
+<!-- 
+ Copyright (c) 2016 AT&T Intellectual Property. All rights reserved.
+-->
 <Configure id="ajsc-server" class="org.eclipse.jetty.server.Server">
 	<!-- DO NOT REMOVE!!!! This is setting up the AJSC Context -->
 	<New id="ajscContext" class="org.eclipse.jetty.webapp.WebAppContext">

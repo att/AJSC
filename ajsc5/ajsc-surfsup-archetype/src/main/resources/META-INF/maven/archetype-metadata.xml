@@ -1,3 +1,6 @@
+<!-- 
+ Copyright (c) 2016 AT&T Intellectual Property. All rights reserved.
+-->
 <archetype-descriptor
 	xmlns="http://maven.apache.org/plugins/maven-archetype-plugin/archetype-descriptor/1.0.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"

@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- 
+ Copyright (c) 2016 AT&T Intellectual Property. All rights reserved.
+-->
 <ns2:ManagedResourceList xmlns="http://scld.att.com/lrm/commontypes"
 	xmlns:ns2="http://scld.att.com/lrm/util" xmlns:ns3="http://scld.att.com/lrm/types">
 	<ns2:ManagedResource>

@@ -1,3 +1,6 @@
+<!-- 
+ Copyright (c) 2016 AT&T Intellectual Property. All rights reserved.
+-->
 <configuration  debug="true">
     
     <appender name="Audit-Record-Queue" class="ajsc.JMSQueueAppender">
