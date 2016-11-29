@@ -15,6 +15,10 @@
 		http://www.springframework.org/schema/mvc
 		http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
+<!-- 
+ Copyright (c) 2016 AT&T Intellectual Property. All rights reserved.
+-->
+
 <!-- 	<context:component-scan base-package="ajsc.security.oauth2.provider" /> -->
 	
 	<mvc:annotation-driven />

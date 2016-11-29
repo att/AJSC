@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- This file is the main deployment descriptor for the SWM package generated 
 	for the project. -->
+
+<!-- 
+ Copyright (c) 2016 AT&T Intellectual Property. All rights reserved.
+-->
 	
 <!-- For installing multiple versions of a Service onto the same SOA Cloud Node and maintaining former versions to switch between the
 	versions installed, you will have to change the following line to this:
-	
-	<descriptor version="1" concurrent="true" xmlns="http://aft.att.com/swm/descriptor"> 
 	
 	Adding the 'concurrent="true"' will allow for the concurrency of this Service. Please, NOTE, however, before creating a SWM Package
 	with this Service, you MUST update your Service through SWMCLI with the following command:
