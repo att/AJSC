@@ -9,7 +9,7 @@
 	<parent>
 		<groupId>com.att.ajsc</groupId>
 		<artifactId>ajsc</artifactId>
-		<version>0.0.1-SNAPSHOT</version>
+		<version>1.0.0</version>
 	</parent>
 	<artifactId>ajsc-bom</artifactId>
 	<packaging>pom</packaging>
@@ -1077,9 +1077,6 @@
 			<artifactId>xmlbeans-xmlpublic</artifactId>
 			<scope>${dependency.scope}</scope>
 		</dependency>
-		<!-- <dependency> <groupId>com.att.wmq</groupId> <artifactId>wmqcp</artifactId> 
-			<scope>${dependency.scope}</scope> </dependency> -->
-		
 
 		<!-- ajsc war dependencies -->
 
@@ -1235,31 +1232,4 @@
 			</exclusions>
 		</dependency>
 	</dependencies>
-<!--	<repositories>
-		<repository>
-			<id>maven-restlet</id>
-			<name>local maven-restlet</name>
-			<url>http://mavencentral.it.att.com:8084/nexus/content/repositories/restlet-releases</url>
-		</repository>
-		<repository>
-			<id>rim2e</id>
-			<name>local rim2e</name>
-			<url>http://mavencentral.it.att.com:8084/nexus/content/repositories/m2e-releases</url>
-		</repository>
-		<repository>
-			<id>alfresco-proxy</id>
-			<name>alfresco-proxy</name>
-			<url>http://mavencentral.it.att.com:8084/nexus/content/repositories/alfresco-proxy</url>
-		</repository>
-		<repository>
-			<id>ssf</id>
-			<name>local ssf</name>
-			<url>http://mavencentral.it.att.com:8084/nexus/content/groups/SSF</url>
-		</repository>
-		<repository>
-			<id>essdsdp-3rd-party</id>
-			<name>local essdsdp-3rd-party</name>
-			<url>http://mavencentral.it.att.com:8084/nexus/content/repositories/essdsdp-3rd-party</url>
-		</repository>
-	</repositories>-->
 </project>
