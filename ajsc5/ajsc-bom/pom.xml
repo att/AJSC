@@ -1257,4 +1257,19 @@
 			</exclusions>
 		</dependency>
 	</dependencies>
+	<distributionManagement>
+		<repository>
+			<id>ossrhajsc</id>
+			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+		</repository>
+		<snapshotRepository>
+			<id>ossrhdme</id>
+			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
+		</snapshotRepository>
+	</distributionManagement>
+	<scm>
+		<connection>https://github.com/att/AJSC.git</connection>
+		<developerConnection>${project.scm.connection}</developerConnection>
+		<url>http://github.com/att/AJSC/tree/master</url>
+	</scm>
 </project>
