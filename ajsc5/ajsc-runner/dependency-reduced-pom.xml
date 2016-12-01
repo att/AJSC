@@ -3,7 +3,7 @@
   <parent>
     <artifactId>ajsc-bom</artifactId>
     <groupId>com.att.ajsc</groupId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.0</version>
     <relativePath>../ajsc-bom/pom.xml</relativePath>
   </parent>
   <modelVersion>4.0.0</modelVersion>
