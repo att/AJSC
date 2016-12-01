@@ -82,19 +82,18 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
-				 <configuration>
-					<failOnError>false</failOnError>
-			    </configuration>
 				<executions>
 					<execution>
-						<id>attach-javadocs</id>
-						<phase>deploy</phase>
+						<id>attach-sources</id>
 						<goals>
 							<goal>jar</goal>
 						</goals>
 					</execution>
 				</executions>
-			</plugin> 
+				<configuration>
+					<additionalparam>-Xdoclint:none</additionalparam>
+				</configuration> 
+			</plugin>
 	       <plugin>
 		      <groupId>org.apache.maven.plugins</groupId>
 		      <artifactId>maven-source-plugin</artifactId>
