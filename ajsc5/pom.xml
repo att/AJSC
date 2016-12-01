@@ -20,7 +20,7 @@
 		<groovy.version>2.4.3</groovy.version>
 		<restlet.version>2.2.1</restlet.version>
 		<camel.version>2.15.5</camel.version>
-		<dme2.version>3.1.200-SNAPSHOT</dme2.version>
+		<dme2.version>3.1.200</dme2.version>
 		<csm.version>2.1.0</csm.version>
 		<spring.security.oauth.version>1.0.5.RELEASE</spring.security.oauth.version>
 		<dependency.scope>provided</dependency.scope>
