@@ -406,13 +406,6 @@
 							<exclude>**/*.xml</exclude>
 						</excludes>
 					</resource>
-					<!-- <resource> -->
-					<!-- <directory>${basedir}/bundleconfig</directory> -->
-					<!-- <filtering>true</filtering> -->
-					<!-- <excludes> -->
-					<!-- <exclude>**/*csm*</exclude> -->
-					<!-- </excludes> -->
-					<!-- </resource> -->
 				</resources>
 				<plugins>
 					<plugin>
