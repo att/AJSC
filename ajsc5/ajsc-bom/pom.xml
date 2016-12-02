@@ -274,31 +274,30 @@
 						</execution>
 					</executions>
 				</plugin>
-				<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-gpg-plugin</artifactId>
-				<version>1.5</version>
-				<executions>
-				<execution>
-					<id>sign-artifacts</id>
-					<phase>verify</phase>
-					<goals>
-					<goal>sign</goal>
-					</goals>
-				</execution>
-				</executions>
-			  </plugin> 
-			  <plugin>
-				<groupId>org.sonatype.plugins</groupId>
-				<artifactId>nexus-staging-maven-plugin</artifactId>
-				<version>1.6.7</version>
-				<extensions>true</extensions>
-				<configuration>
-					<serverId>ossrhajsc</serverId>
-					<nexusUrl>https://oss.sonatype.org/</nexusUrl>
-					<autoReleaseAfterClose>true</autoReleaseAfterClose>
-					</configuration>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-gpg-plugin</artifactId>
+					<version>1.5</version>
+					<executions>
+						<execution>
+							<id>sign-artifacts</id>
+							<phase>verify</phase>
+							<goals>
+								<goal>sign</goal>
+							</goals>
+						</execution>
+					</executions>
+			  	</plugin> 
+			  	<plugin>
+					<groupId>org.sonatype.plugins</groupId>
+					<artifactId>nexus-staging-maven-plugin</artifactId>
+					<version>1.6.7</version>
+					<extensions>true</extensions>
+						<configuration>
+							<serverId>ossrhajsc</serverId>
+							<nexusUrl>https://oss.sonatype.org/</nexusUrl>
+							<autoReleaseAfterClose>true</autoReleaseAfterClose>
+						</configuration>
 				</plugin>
 			</plugins>
 		</pluginManagement>
@@ -1258,20 +1257,14 @@
 			</exclusions>
 		</dependency>
 	</dependencies>
-	
 	<distributionManagement>
-    <snapshotRepository>
-      <id>ossrhajsc</id>
-      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-    </snapshotRepository>
-    <repository>
-      <id>ossrhajsc</id>
-      <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-    </repository>
-  </distributionManagement>
-	<scm>
-		<connection>https://github.com/att/AJSC.git</connection>
-		<developerConnection>${project.scm.connection}</developerConnection>
-		<url>http://github.com/att/AJSC/tree/master</url>
-	</scm>
+		<repository>
+			<id>ossrhajsc</id>
+			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+		</repository>
+		<snapshotRepository>
+			<id>ossrhdme</id>
+			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
+		</snapshotRepository>
+	</distributionManagement>
 </project>
