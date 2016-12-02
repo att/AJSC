@@ -13,9 +13,8 @@
  	</parent>
 
 	<artifactId>ajsc-api</artifactId>
-<build>
-	  <pluginManagement>
-	  	<plugins>
+	<build>
+		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-gpg-plugin</artifactId>
@@ -40,10 +39,9 @@
 					<nexusUrl>https://oss.sonatype.org/</nexusUrl>
 					<autoReleaseAfterClose>true</autoReleaseAfterClose>
 					</configuration>
-			</plugin>
-	  	</plugins>
-	  </pluginManagement>
-  </build>
+				</plugin>
+		</plugins>
+	</build>
   <distributionManagement>
     <snapshotRepository>
       <id>ossrhajsc</id>
