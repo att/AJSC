@@ -170,11 +170,11 @@
 		</copy>
 
 		<!-- Copying runtimeEnvironment zip file to $AJSC_HOME/runtime and renaming 
-			runtimeEnvironment.zip for proper auto-deployment of ajsc services. -->
+			runtimeEnvironment.zip for proper auto-deployment of ajsc services. 
 		<copy
 			tofile="${basedir}/target/swm/package/nix/dist_files${distFilesRoot}/runtime/runtimeEnvironment.zip">
 			<fileset dir="target" includes="*-runtimeEnvironment.zip" />
-		</copy>
+		</copy>-->
 
 		<!-- Copying dependencies from the service project (not provided by AJSC 
 			Container) to the $AJSC_HOME/extJars folder to be accessible on the classpath -->
