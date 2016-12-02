@@ -8,6 +8,26 @@
 	<version>1.0.0</version>
 	<packaging>pom</packaging>
 
+	<name>AJSC</name>
+	<description>Java Based container</description>
+	<url></url>
+	
+	<licenses>
+	  <license>
+	    <name>BSD License</name>
+	    <url>https://github.com/att/AJSC/blob/master/License.txt</url>
+	  </license>
+	</licenses>
+
+	<developers>
+	   <developer>
+	     <name>Anil</name>
+	     <email></email>
+	     <organization>ATT</organization>
+	     <organizationUrl>www.att.com</organizationUrl>
+	   </developer>
+   </developers>
+   
 	<properties>
 		<!-- unify the encoding for all the modules -->
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
