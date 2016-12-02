@@ -46,6 +46,11 @@
 	  				<escapeString>\</escapeString>
 	  			</configuration>
 	  		</plugin>
+	  	</plugins>
+	  </pluginManagement>
+  </build>
+  	<build>
+		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-gpg-plugin</artifactId>
@@ -70,11 +75,10 @@
 					<nexusUrl>https://oss.sonatype.org/</nexusUrl>
 					<autoReleaseAfterClose>true</autoReleaseAfterClose>
 					</configuration>
-			</plugin>
-	  	</plugins>
-	  </pluginManagement>
-  </build>
-  <distributionManagement>
+				</plugin>
+		</plugins>
+	</build>
+	<distributionManagement>
     <snapshotRepository>
       <id>ossrhajsc</id>
       <url>https://oss.sonatype.org/content/repositories/snapshots</url>
