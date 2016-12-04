@@ -36,8 +36,8 @@
 		<jettyPluginVersion>7.6.10.v20130312</jettyPluginVersion>
 		<jetty.version>9.2.9.v20150224</jetty.version>
 		<ATTCamelComponent.version>2.15.5</ATTCamelComponent.version>
-		<spring.version>4.2.5.RELEASE</spring.version>
-		<spring.security.version>4.0.4.RELEASE</spring.security.version>
+		<spring.version>3.2.4.RELEASE</spring.version>
+		<spring.security.version>3.2.4.RELEASE</spring.security.version>
 		<groovy.version>2.4.3</groovy.version>
 		<restlet.version>2.2.1</restlet.version>
 		<camel.version>2.15.5</camel.version>
