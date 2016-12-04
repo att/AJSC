@@ -17,16 +17,17 @@ To create and run AJSC archtype service follow these steps.
 Pre-requisites to run the service
 Java JDK 1.8
 Maven 3x version
-1) Open cmd/terminal use
+ 1) Open cmd/terminal use
   mvn archetype:create                                   
   -DarchetypeGroupId=com.att.ajsc
   -DarchetypeArtifactId=ajsc-archetype-parent           
   -DarchetypeVersion=1.0.0                
   -DgroupId=my.groupid                                
-  -DartifactId=my-artifactId  
-2)use mvn clean package 
+  -DartifactId=my-artifactId
+  
+ 2)use mvn clean package 
 
-3)use mvn -P runAjsc to start the service
+ 3)use mvn -P runAjsc to start the service
  
 #CONFIGURATION 
 Recommended 
