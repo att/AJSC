@@ -25,7 +25,7 @@ The PAL API abstracts cloud IaaS service providers to a common model so that any
 
 Any application which wants to use cdp-pal-common and cdp-pal-openstack,
 should add the below dependencies.
-
+```
 <dependency> 
 	<groupId>com.att.cdp</groupId> 
 	<artifactId>cdp-pal-openstack</artifactId> 
@@ -37,5 +37,5 @@ should add the below dependencies.
 	<artifactId>cdp-pal-common</artifactId> 
 	<version>0.0.1</version> 
 </dependency>
-
+```
 
