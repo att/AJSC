@@ -55,14 +55,14 @@
 					<configuration>
 						<compilerId>groovy-eclipse-compiler</compilerId>
 						<verbose>true</verbose>
-						<source>1.8</source>
-						<target>1.8</target>
+						<source>1.7</source>
+						<target>1.7</target>
 					</configuration>
 					<dependencies>
 						<dependency>
 							<groupId>org.codehaus.groovy</groupId>
 							<artifactId>groovy-eclipse-compiler</artifactId>
-							<version>2.9.0-01</version>
+							<version>${groovy.compiler.version}</version>
 						</dependency>
 						<dependency>
 							<groupId>org.codehaus.groovy</groupId>
