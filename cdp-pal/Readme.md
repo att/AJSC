@@ -1,6 +1,6 @@
-﻿CONTINUOUS DEPLOYMENT PLATOFORM - PROVIDER ABSTRACTION LAYER
+# CONTINUOUS DEPLOYMENT PLATOFORM - PROVIDER ABSTRACTION LAYER
 
-OVERVIEW
+## OVERVIEW
 
 PAL helps automate the creation, migration, and management of cloud-deployed applications and their needed hardware/software environment.
 PAL will be used in the common cloud architecture to allow for the deployment, migration, and scaling up/down of cloud deployed applications.
@@ -9,24 +9,22 @@ This is more than just managing the VMs, or deploying just the software, it is b
 The PAL API abstracts cloud IaaS service providers to a common model so that any application that interacts with PAL is isolated from the specific provider and becomes provider agnostic.  Applications that use PAL only need to know PAL regardless of the provider actually being used.
 
 
-REQUIREMENTS
-------------
+## REQUIREMENTS
 
 * Java Development Kit (JDK) 1.7 and above
 
 
-BUILD
--------------
+## BUILD
 
 * Build cdp-pal project using maven command “mvn clean install”.
 * Build cdp-pal-common using maven command “mvn clean install”.
 * Build cdp-pal-openstack using maven command “mvn clean install”.
 
 
-CONFIGURATION
--------------
+## RUN
+
 Any application which wants to use cdp-pal-common and cdp-pal-openstack,
-should add the below dependency.
+should add the below dependencies.
 
 <dependency> 
 	<groupId>com.att.cdp</groupId> 
