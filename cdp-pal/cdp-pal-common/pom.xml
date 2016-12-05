@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) 2016 AT&T Intellectual Property. All rights reserved.
+ -->
+ 
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.att.cdp</groupId>
+    <artifactId>cdp-pal</artifactId>
+    <version>0.0.1</version>
+    <relativePath>..</relativePath>
+  </parent>
+
+  <artifactId>cdp-pal-common</artifactId>
+  <name>CDP - PAL common code</name>
+  <version>0.0.1</version>
+  <description>Cloud Deployment Platform</description>
+  
+  <licenses>
+    <license>
+	  <name>BSD License</name>
+	  <url></url>
+    </license>
+  </licenses>
+
+  <developers>
+  	<developer>
+     <name>Bhanu Ramesh</name>
+     <email></email>
+     <organization>ATT</organization>
+     <organizationUrl>www.att.com</organizationUrl>
+   </developer>
+ </developers>
+ 
+ <scm>
+	<connection></connection>
+	<developerConnection></developerConnection>
+	<url></url>
+	<tag></tag>
+ </scm>
+
+  <!-- =============================================================================== -->
+  <!-- Dependencies -->
+  <!-- =============================================================================== -->
+  <dependencies>
+
+    <!-- Common code and framework -->
+    <!-- <dependency> -->
+    <!-- <groupId>com.att.cdp</groupId> -->
+    <!-- <artifactId>cdp-common</artifactId> -->
+    <!-- </dependency> -->
+
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-lang3</artifactId>
+      <version>3.0</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.att.eelf</groupId>
+      <artifactId>eelf-core</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>ch.qos.logback</groupId>
+      <artifactId>logback-core</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>ch.qos.logback</groupId>
+      <artifactId>logback-classic</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.codehaus.jackson</groupId>
+      <artifactId>jackson-jaxrs</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>commons-io</groupId>
+      <artifactId>commons-io</artifactId>
+      <version>2.4</version>
+    </dependency>
+
+    <!-- EXTERNAL DEPENDENCIES -->
+
+    <!-- Needed by SSHClientUtility -->
+    <dependency>
+      <groupId>com.jcraft</groupId>
+      <artifactId>jsch</artifactId>
+      <version>0.1.51</version>
+    </dependency>
+
+  </dependencies>
+  
+  <distributionManagement>
+	  <repository>
+      	<id>ossrh</id>
+	    <name>swm-repo</name>
+	    <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+	  </repository>
+	  <snapshotRepository>
+		<id>ossrh</id>
+		<url>https://oss.sonatype.org/content/repositories/snapshots</url>
+	  </snapshotRepository>
+  </distributionManagement>
+	
+  <!-- =============================================================================== -->
+  <!-- Build -->
+  <!-- =============================================================================== -->
+  <build>
+    <!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself. -->
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.eclipse.m2e</groupId>
+          <artifactId>lifecycle-mapping</artifactId>
+          <version>1.0.0</version>
+          <configuration>
+            <lifecycleMappingMetadata>
+              <pluginExecutions>
+                <pluginExecution>
+                  <pluginExecutionFilter>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-enforcer-plugin</artifactId>
+                    <versionRange>[1.0.0,)</versionRange>
+                    <goals>
+                      <goal>enforce</goal>
+                    </goals>
+                  </pluginExecutionFilter>
+                  <action>
+                    <ignore />
+                  </action>
+                </pluginExecution>
+              </pluginExecutions>
+            </lifecycleMappingMetadata>
+          </configuration>
+        </plugin>
+        <plugin>
+			<groupId>com.blackducksoftware.integration</groupId>
+			<artifactId>hub-maven-plugin</artifactId>
+			<version>1.0.4</version>
+			<inherited>false</inherited>
+			<configuration>
+				<target>${project.basedir}</target>
+			</configuration>
+			<executions>
+				<execution>
+					<id>create-bdio-file</id>
+					<phase>package</phase>
+					<goals>
+					<goal>createHubOutput</goal>
+					</goals>
+				</execution>
+			</executions>
+		</plugin>
+<!-- 		<plugin>
+	      <groupId>org.apache.maven.plugins</groupId>
+	      <artifactId>maven-gpg-plugin</artifactId>
+	      <version>1.5</version>
+	      <executions>
+		    <execution>
+		    <id>sign-artifacts</id>
+		    <phase>verify</phase>
+		    <goals>
+			  <goal>sign</goal>
+		    </goals>
+		  </execution>
+	    </executions>
+	  </plugin>  -->
+      </plugins>
+    </pluginManagement>
+
+    <plugins>
+      <!-- This plugin is used to create the source jar. The source jar is needed for documentation generation, and is a 
+        convenience for debugging since the source can be attached if this jar is provided. -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-source-plugin</artifactId>
+        <version>2.4</version>
+        <executions>
+          <execution>
+            <id>attach-sources</id>
+            <phase>package</phase>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <version>2.2</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>test-jar</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+       <plugin>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-javadoc-plugin</artifactId>
+			 <configuration>
+				<failOnError>false</failOnError>
+		    </configuration>
+			<executions>
+				<execution>
+					<id>attach-javadocs</id>
+					<goals>
+						<goal>jar</goal>
+					</goals>
+				</execution>
+			</executions>
+		</plugin> 
+       <plugin>
+			<groupId>org.sonatype.plugins</groupId>
+			<artifactId>nexus-staging-maven-plugin</artifactId>
+			<version>1.6.7</version>
+			  <inherited>false</inherited>
+			<extensions>true</extensions>
+			<configuration>
+				<serverId>ossrhdme</serverId>
+				<nexusUrl>https://oss.sonatype.org/</nexusUrl>
+				<autoReleaseAfterClose>true</autoReleaseAfterClose>
+				</configuration>
+			</plugin>
+    </plugins>
+  </build>
+</project>

@@ -1,0 +1,7 @@
+###############################################################################
+# Copyright (c) 2016 AT&T Intellectual Property. All rights reserved.
+###############################################################################
+#
+# The fully qualified class name of the class that implements the Provider interface
+#
+com.att.cdp.openstack.OpenStackProvider

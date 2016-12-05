@@ -1,0 +1,248 @@
+<!-------------------------------------------------------------------------------
+  Copyright (c) 2016 	AT&T Intellectual Property. All rights reserved.
+-------------------------------------------------------------------------------->
+
+<html>
+<body>
+  <h1>Heat Template Model</h1>
+  <p>
+    The OpenStack Heat template is a Yaml document that defines the resources, relationships, and other componentry to
+    be constructed as part of a heat-managed stack. This document can be described using a BNF (<a
+      href="http://en.wikipedia.org/wiki/Backus%E2%80%93Naur_Form">Backus-Naur Format</a>) diagram, as well as an object
+    model. The Yaml document is decomposed through unmarshalling into an object graph that conforms to the indicated
+    model, and the "language" of the YAML file must conform to the BNF specification.
+  </p>
+  <p>For the casual reader, or someone not familiar with BNF, BNF is a way to describe the syntax of a language. It
+    is similar in concept to the formal diagramming techniques that we learned as kids in high school regarding the
+    structure of English, Spanish, and other languages. It breaks a language down into its constituent parts, and then
+    defines rules for how these various parts can be assembled together to form a valid statement.</p>
+  <p>In BNF, these rules are called "productions". A production is defined as a left hand side (LHS) and a right
+    hand side (RHS). The LHS is the name of the production, and the RHS is the rule that governs what is legal in the
+    production.</p>
+  <p>A production RHS can reference other productions, literals, and terminals. A terminal is some completion point,
+    or terminating token, that signals the end of the production. Often the terminal may be end of input (EOI), a period
+    (.), or some other special symbol (for example, in java, it is a semicolon).</p>
+  <p>
+    The production operator is usually shown as the sequence
+    <code>::=</code>
+    . Additionally, the production rule has various operators that can be used to specify logical conditions, grouping,
+    and cardinality. These operators are generally:
+  </p>
+  <dl>
+    <dt>[ ]</dt>
+    <dd>Specifies a set of values that can be matched where any element in the set that matches a character of the
+      input source is accepted.</dd>
+    <dt>( )</dt>
+    <dd>Supplies groupings of productions, literals, or terminals</dd>
+    <dt>|</dt>
+    <dd>Logical OR combination of the production(s) on left and right side of the operator</dd>
+    <dt>+</dt>
+    <dd>A cardinality modifier that means the production to the left (it is a suffix) must exist once, and can
+      exist any number of times (1..n)</dd>
+    <dt>*</dt>
+    <dd>A cardinality modifier that means the production to the left (it is a suffix) may not exist, but if
+      specified it can exist any number of times (0..n)</dd>
+    <dt>?</dt>
+    <dd>A cardinality operator that means the production to the left (it is a suffix) may not exist, or it may
+      exist only once (0..1)</dd>
+  </dl>
+  <p>
+    The absence of an operator between productions, terminals, or literals is implied to be "AND". So, the production
+    <code>stmt ::= "A" "B" "C"*</code>
+    means that a valid statement must consist of the token "A", followed by "B", followed by any number (including zero)
+    "C" tokens. So, the strings
+    <code>AB</code>
+    ,
+    <code>ABC</code>
+    , and
+    <code>ABCCCC</code>
+    are all valid, but
+    <code>AC</code>
+    is not.
+  </p>
+  <p>
+    A valid production for a statement would look like:
+    <code>statement ::= ("A" | "B")+</code>
+    and would indicate that a statement can consist of the letters "A" or "B", repeated 1..N times. So, a sequence of
+    <code>AAA</code>
+    , or
+    <code>BBB</code>
+    , or
+    <code>ABABAB</code>
+    would all be valid.
+  </p>
+  <hr />
+  <h1>HEAT Grammar</h1>
+  <div>
+    The heat grammar productions shown here are a little bit imprecise. The BNF productions are meant to show the valid
+    construction of each production by representing the tokens that are required. Punctuation and formatting symbols
+    have been purposely omitted. This is because this general structure is valid for Yaml, JSon, and XML documents,
+    where the formatting and punctuation are all quite different. <br> <br>
+    <code
+      style="font-weight: bold; background-color: #0FF; font-size: 12px; font-family: 'Courier New', Courier, monospace; color: #000">template
+      ::= template_version description? parameter_groups? parameters? resources outputs? EOF</code>
+    <p></p>
+    <code
+      style="font-weight: bold; background-color: #0FF; font-size: 12px; font-family: 'Courier New', Courier, monospace; color: #000">
+      template_version ::= year "-" month "-" day</code>
+    <p></p>
+    <code
+      style="font-weight: bold; background-color: #0FF; font-size: 12px; font-family: 'Courier New', Courier, monospace; color: #000">
+      description ::= STRING</code>
+    <p></p>
+    <code
+      style="font-weight: bold; background-color: #0FF; font-size: 12px; font-family: 'Courier New', Courier, monospace; color: #000">
+      parameter_groups ::= parameter_group+</code>
+    <p></p>
+    <code
+      style="font-weight: bold; background-color: #0FF; font-size: 12px; font-family: 'Courier New', Courier, monospace; color: #000">
+      parameter_group ::= label description? parameter_references</code>
+    <p></p>
+    <code
+      style="font-weight: bold; background-color: #0FF; font-size: 12px; font-family: 'Courier New', Courier, monospace; color: #000">
+      label ::= "label" STRING</code>
+    <p></p>
+    <code
+      style="font-weight: bold; background-color: #0FF; font-size: 12px; font-family: 'Courier New', Courier, monospace; color: #000">
+      description ::= "description" STRING</code>
+    <p></p>
+    <code
+      style="font-weight: bold; background-color: #0FF; font-size: 12px; font-family: 'Courier New', Courier, monospace; color: #000">
+      parameter_references ::= parameter_name+</code>
+    <p></p>
+    <code
+      style="font-weight: bold; background-color: #0FF; font-size: 12px; font-family: 'Courier New', Courier, monospace; color: #000">
+      parameter_name ::= IDENTIFIER</code>
+    <p></p>
+    <code
+      style="font-weight: bold; background-color: #0FF; font-size: 12px; font-family: 'Courier New', Courier, monospace; color: #000">
+      parameters ::= parameter+</code>
+    <p></p>
+    <code
+      style="font-weight: bold; background-color: #0FF; font-size: 12px; font-family: 'Courier New', Courier, monospace; color: #000">
+      parameter ::= parameter_name parameter_type label? description? parameter_default? parameter_hidden?
+      paramter_constraints</code>
+    <p></p>
+    <code
+      style="font-weight: bold; background-color: #0FF; font-size: 12px; font-family: 'Courier New', Courier, monospace; color: #000">
+      parameter_type ::= "type" ("string" | "number" | "comma_delimited_list" | "json" | "boolean")</code>
+    <p></p>
+    <code
+      style="font-weight: bold; background-color: #0FF; font-size: 12px; font-family: 'Courier New', Courier, monospace; color: #000">
+      parameter_default ::= "default" STRING</code>
+    <p></p>
+    <code
+      style="font-weight: bold; background-color: #0FF; font-size: 12px; font-family: 'Courier New', Courier, monospace; color: #000">
+      parameter_hidden ::= "hidden" ("true" | "false")</code>
+    <p></p>
+    <code
+      style="font-weight: bold; background-color: #0FF; font-size: 12px; font-family: 'Courier New', Courier, monospace; color: #000">
+      parameter_constraints ::= "constraints" parameter_constraint+</code>
+    <p></p>
+    <code
+      style="font-weight: bold; background-color: #0FF; font-size: 12px; font-family: 'Courier New', Courier, monospace; color: #000">
+      parameter_constraint ::= (length_constraint | range_constraint | allowed_values_constraint |
+      allowed_pattern_constraint | custom_constraint) description?</code>
+    <p></p>
+    <code
+      style="font-weight: bold; background-color: #0FF; font-size: 12px; font-family: 'Courier New', Courier, monospace; color: #000">
+      length_constraint ::= "length" "min" min_constraint "max" max_constraint</code>
+    <p></p>
+    <code
+      style="font-weight: bold; background-color: #0FF; font-size: 12px; font-family: 'Courier New', Courier, monospace; color: #000">
+      range_constraint ::= "range" "min" min_constraint "max" max_constraint</code>
+    <p></p>
+    <code
+      style="font-weight: bold; background-color: #0FF; font-size: 12px; font-family: 'Courier New', Courier, monospace; color: #000">
+      allowed_values_constraint ::= constraint_value_list</code>
+    <p></p>
+    <code
+      style="font-weight: bold; background-color: #0FF; font-size: 12px; font-family: 'Courier New', Courier, monospace; color: #000">
+      constraint_value_list ::= (STRING ",")+</code>
+    <p></p>
+    <code
+      style="font-weight: bold; background-color: #0FF; font-size: 12px; font-family: 'Courier New', Courier, monospace; color: #000">
+      allowed_pattern_constraint ::= regular_expression</code>
+    <p></p>
+    <code
+      style="font-weight: bold; background-color: #0FF; font-size: 12px; font-family: 'Courier New', Courier, monospace; color: #000">
+      regular_expression ::= STRING</code>
+    <p></p>
+    <code
+      style="font-weight: bold; background-color: #0FF; font-size: 12px; font-family: 'Courier New', Courier, monospace; color: #000">
+      custom_constraint ::= IDENTIFIER</code>
+    <p></p>
+    <code
+      style="font-weight: bold; background-color: #0FF; font-size: 12px; font-family: 'Courier New', Courier, monospace; color: #000">
+      min_constraint ::= DIGIT+</code>
+    <p></p>
+    <code
+      style="font-weight: bold; background-color: #0FF; font-size: 12px; font-family: 'Courier New', Courier, monospace; color: #000">
+      max_constraint ::= DIGIT+</code>
+    <p></p>
+    <code
+      style="font-weight: bold; background-color: #0FF; font-size: 12px; font-family: 'Courier New', Courier, monospace; color: #000">
+      resources ::= resource+</code>
+    <p></p>
+    <h2>TODO!!</h2>
+    <code
+      style="font-weight: bold; background-color: #0FF; font-size: 12px; font-family: 'Courier New', Courier, monospace; color: #000">
+      resource ::= resource_id resource_type properties? metadata? depends_on? update_policy? deletion_policy?</code>
+    <p></p>
+    <code
+      style="font-weight: bold; background-color: #0FF; font-size: 12px; font-family: 'Courier New', Courier, monospace; color: #000">
+      resource_id ::= IDENTIFIER</code>
+    <p></p>
+    <code
+      style="font-weight: bold; background-color: #0FF; font-size: 12px; font-family: 'Courier New', Courier, monospace; color: #000">
+      resource_type ::= "OS::Ceilometer::Alarm" | "OS::Ceilometer::CombinationAlarm" | "OS::Cinder::Volume" |
+      "OS::Cinder::VolumeAttachment" | "OS::Glance::Image" | "OS::Heat::AccessPolicy" | "OS::Heat::AutoScalingGroup" |
+      "OS::Heat::CWLiteAlarm" | "OS::Heat::CloudConfig" | "OS::Heat::HARestarter" | "OS::Heat::InstanceGroup" |
+      "OS::Heat::MultipartMime" | "OS::Heat::RandomString" | "OS::Heat::ResourceGroup" | "OS::Heat::ScalingPolicy" |
+      "OS::Heat::SoftwareComponent" | "OS::Heat::SoftwareConfig" | "OS::Heat::SoftwareDeployment" |
+      "OS::Heat::SoftwareDeploymentGroup" | "OS::Heat::SoftwareDeployments" | "OS::Heat::Stack" |
+      "OS::Heat::StructuredConfig" | "OS::Heat::StructuredDeployment" | "OS::Heat::StructuredDeploymentGroup" |
+      "OS::Heat::StructuredDeployments" | "OS::Heat::SwiftSignal" | "OS::Heat::SwiftSignalHandle" |
+      "OS::Heat::UpdateWaitConditionHandle" | "OS::Heat::WaitCondition" | "OS::Heat::WaitConditionHandle" |
+      "OS::Neutron::Firewall" | "OS::Neutron::FirewallPolicy" | "OS::Neutron::FirewallRule" | "OS::Neutron::FloatingIP"
+      | "OS::Neutron::FloatingIPAssociation" | "OS::Neutron::HealthMonitor" | "OS::Neutron::IKEPolicy" |
+      "OS::Neutron::IPsecPolicy" | "OS::Neutron::IPsecSiteConnection" | "OS::Neutron::LoadBalancer" |
+      "OS::Neutron::MeteringLabel" | "OS::Neutron::MeteringRule" | "OS::Neutron::Net" | "OS::Neutron::NetworkGateway" |
+      "OS::Neutron::Pool" | "OS::Neutron::PoolMember" | "OS::Neutron::Port" | "OS::Neutron::ProviderNet" |
+      "OS::Neutron::Router" | "OS::Neutron::RouterGateway" | "OS::Neutron::RouterInterface" |
+      "OS::Neutron::SecurityGroup" | "OS::Neutron::Subnet" | "OS::Neutron::VPNService" | "OS::Nova::FloatingIP" |
+      "OS::Nova::FloatingIPAssociation" | "OS::Nova::KeyPair" | "OS::Nova::Server" | "OS::Nova::ServerGroup" |
+      "OS::Sahara::Cluster" | "OS::Sahara::ClusterTemplate" | "OS::Sahara::NodeGroupTemplate" | "OS::Swift::Container" |
+      "OS::Trove::Cluster" | "OS::Trove::Instance" </code>
+    <p></p>
+    <code
+      style="font-weight: bold; background-color: #0FF; font-size: 12px; font-family: 'Courier New', Courier, monospace; color: #000">
+      outputs ::= </code>
+    <p></p>
+    <code
+      style="font-weight: bold; background-color: #0FF; font-size: 12px; font-family: 'Courier New', Courier, monospace; color: #000">
+      year ::= "20" ("00" - "99")</code>
+    <p></p>
+    <code
+      style="font-weight: bold; background-color: #0FF; font-size: 12px; font-family: 'Courier New', Courier, monospace; color: #000">
+      month ::= "01" - "12"</code>
+    <p></p>
+    <code
+      style="font-weight: bold; background-color: #0FF; font-size: 12px; font-family: 'Courier New', Courier, monospace; color: #000">
+      day ::= "01" - "31"</code>
+    <p></p>
+    <code
+      style="font-weight: bold; background-color: #0FF; font-size: 12px; font-family: 'Courier New', Courier, monospace; color: #000">
+      DIGIT ::= [0-9]</code>
+    <p></p>
+    <code
+      style="font-weight: bold; background-color: #0FF; font-size: 12px; font-family: 'Courier New', Courier, monospace; color: #000">
+      IDENTIFIER ::= [a-zA-Z_][a-zA-Z0-9_]*</code>
+    <p></p>
+    <code
+      style="font-weight: bold; background-color: #0FF; font-size: 12px; font-family: 'Courier New', Courier, monospace; color: #000">
+      STRING ::= [a-zA-Z0-9 ,./;'\\[\\]\\\`-=&lt;&gt;?:"{}\\|~!@#$%^&amp;*()_+"]*</code>
+    <p></p>
+  </div>
+</body>
+</html>
