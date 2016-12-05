@@ -17,6 +17,7 @@
   <version>0.0.1</version>
   <description>Cloud Delivery Platform </description>
   <packaging>jar</packaging>
+  <url>https://github.com/att/AJSC/tree/master/cdp-pal</url>
   
   <licenses>
     <license>
@@ -34,12 +35,11 @@
    </developer>
  </developers>
  
- <scm>
-	<connection></connection>
-	<developerConnection></developerConnection>
-	<url></url>
-	<tag></tag>
- </scm>
+  <scm>
+	<connection>https://github.com/att/AJSC.git</connection>
+	<developerConnection>${project.scm.connection}</developerConnection>
+	<url>https://github.com/att/AJSC/tree/master/cdp-pal</url>
+  </scm>
 
   <properties>
     <OpenStack-API-version>3.3.24</OpenStack-API-version>
@@ -324,7 +324,7 @@
         </configuration> <executions> <execution> <id>make-assembly</id> <phase>package</phase> <goals> <goal>single</goal> </goals> 
         </execution> </executions> </plugin> -->
         
-<!-- 	  <plugin>
+ 	  <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-gpg-plugin</artifactId>
   		<version>1.5</version>
@@ -337,7 +337,7 @@
 	      </goals>
 	    </execution>
        </executions>
- 	 </plugin>  -->
+ 	 </plugin>  
  	<plugin>
 			<groupId>org.apache.maven.plugins</groupId>
 			<artifactId>maven-javadoc-plugin</artifactId>

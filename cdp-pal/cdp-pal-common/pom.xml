@@ -16,6 +16,7 @@
   <name>CDP - PAL common code</name>
   <version>0.0.1</version>
   <description>Cloud Deployment Platform</description>
+  <url>https://github.com/att/AJSC/tree/master/cdp-pal</url>
   
   <licenses>
     <license>
@@ -33,12 +34,11 @@
    </developer>
  </developers>
  
- <scm>
-	<connection></connection>
-	<developerConnection></developerConnection>
-	<url></url>
-	<tag></tag>
- </scm>
+  <scm>
+	<connection>https://github.com/att/AJSC.git</connection>
+	<developerConnection>${project.scm.connection}</developerConnection>
+	<url>https://github.com/att/AJSC/tree/master/cdp-pal</url>
+  </scm>
 
   <!-- =============================================================================== -->
   <!-- Dependencies -->
@@ -165,7 +165,7 @@
 				</execution>
 			</executions>
 		</plugin>
-<!-- 		<plugin>
+ 		<plugin>
 	      <groupId>org.apache.maven.plugins</groupId>
 	      <artifactId>maven-gpg-plugin</artifactId>
 	      <version>1.5</version>
@@ -178,7 +178,7 @@
 		    </goals>
 		  </execution>
 	    </executions>
-	  </plugin>  -->
+	  </plugin>  
       </plugins>
     </pluginManagement>
 

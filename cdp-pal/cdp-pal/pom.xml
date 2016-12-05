@@ -10,6 +10,7 @@
   <name>CDP - Provider Abstraction Layer</name>
   <description>Cloud Deployment Platform</description>
   <version>0.0.1</version>
+  <url>https://github.com/att/AJSC/tree/master/cdp-pal</url>
 
   <!-- ================================================================================== -->
   <!-- People that worked on this project -->
@@ -49,10 +50,9 @@
   <!-- Software Configuration Management -->
   <!-- ================================================================================== -->
   <scm>
-	<connection></connection>
-	<developerConnection></developerConnection>
-	<url></url>
-	<tag></tag>
+	<connection>https://github.com/att/AJSC.git</connection>
+	<developerConnection>${project.scm.connection}</developerConnection>
+	<url>https://github.com/att/AJSC/tree/master/cdp-pal</url>
   </scm>
 
   <!-- ================================================================================== -->
@@ -179,7 +179,7 @@
 			</execution>
 			  </executions>
 		</plugin>
-	<!-- 	<plugin>
+	 	<plugin>
 	      <groupId>org.apache.maven.plugins</groupId>
 	      <artifactId>maven-gpg-plugin</artifactId>
 	      <version>1.5</version>
@@ -192,7 +192,7 @@
 		    </goals>
 		  </execution>
 	    </executions>
-	  </plugin>   -->
+	  </plugin>   
 	   <plugin>
 		<groupId>org.sonatype.plugins</groupId>
 		<artifactId>nexus-staging-maven-plugin</artifactId>
