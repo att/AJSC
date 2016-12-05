@@ -1,0 +1,43 @@
+<configuration scan="false" debug="false">
+  <property name="logDirectory" value="./logs" />
+
+  <!-- ============================================================================ -->
+  <!-- CDP Appenders -->
+  <!-- ============================================================================ -->
+
+  <appender name="CDPTest" class="com.att.cdp.logback.TestAppender">
+  </appender>
+
+  <!-- ============================================================================ -->
+  <!-- CDP loggers -->
+  <!-- ============================================================================ -->
+  <logger name="com.att.cdp" level="info" additivity="false">
+    <appender-ref ref="CDPTest" />
+  </logger>
+  <logger name="com.att.cdp.security" level="info" additivity="false">
+    <appender-ref ref="CDPTest" />
+  </logger>
+  <logger name="com.att.cdp.perf" level="info" additivity="false">
+    <appender-ref ref="CDPTest" />
+  </logger>
+  <logger name="com.att.cdp.gui" level="info" additivity="false">
+    <appender-ref ref="CDPTest" />
+  </logger>
+  <logger name="com.att.cdp.server" level="info" additivity="false">
+    <appender-ref ref="CDPTest" />
+  </logger>
+  <logger name="com.att.cdp.coordinator" level="info" additivity="false">
+    <appender-ref ref="CDPTest" />
+  </logger>
+  <logger name="com.att.cdp.policy" level="info" additivity="false">
+    <appender-ref ref="CDPTest" />
+  </logger>
+
+  <!-- logback internals logging -->
+  <logger name="ch.qos.logback.classic" level="INFO" />
+  <logger name="ch.qos.logback.core" level="INFO" />
+
+  <root level="WARN">
+    <appender-ref ref="CDPTest" />
+  </root>
+</configuration>

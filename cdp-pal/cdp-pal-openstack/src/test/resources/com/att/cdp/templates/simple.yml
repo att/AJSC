@@ -1,0 +1,90 @@
+###############################################################################
+# Copyright (c) 2016 AT&T Intellectual Property. All rights reserved.
+###############################################################################
+
+heat_template_version: '2013-05-23'
+description: Simple template to test heat commands
+parameter_groups:
+- label: Group 1
+  description: Description of group 1
+  parameters:
+  - flavor
+- label: Group 2
+  description: Description of group 2
+  parameters:
+  - test1
+  - test2
+  - test3
+parameters:
+  flavor:
+    default: m1.small
+    type: string
+  test1:
+    default: 1
+    type: number
+    label: Test Numbers
+    description: Test of number a parameter with constraints
+    hidden: false
+    constraints:
+    - length:
+        min: 1
+        max: 4
+      description: 1-4 digits entry
+  test2:
+    default: 1
+    type: number
+    constraints:
+    - range:
+        min: 1
+        max: 9999
+      description: 1-4 digits entry
+  test3:
+    default: m1.small
+    type: string
+    constraints:
+    - allowed_values:
+      - m1.tiny
+      - m1.small
+      - m1.medium
+      - m1.large
+      - m1.xlarge
+      description: flavors allowed
+  test4:
+    default: m1.small
+    type: string
+  test5:
+    default: m1.small
+    type: string
+resources:
+  server0_port0:
+    type: OS::Neutron::Port
+    properties:
+      network_id: 5739fdd4-ef2d-4318-a994-ddf0779c80eb
+      fixed_ips:
+      - subnet_id: 1c0142bd-536e-4dee-8b86-79c5ccbc2c1f
+  server0:
+    type: OS::Nova::Server
+    properties:
+      name: DLH_Heat0
+      networks:
+      - port:
+          get_resource: server0_port0
+      key_name: DewayneHeat
+      flavor:
+        get_param: flavor
+      image: c4959a97-8f52-40c3-8729-e86defc397e0
+outputs:
+  test_ip_a_id:
+    value:
+      get_attr:
+      - my_instance
+      - first_address
+  test_group_a_id:
+    value:
+      get_resource: test_group_a
+  test_project_a_id:
+    value:
+      get_resource: test_project_a
+  test_role_a_id:
+    value:
+      get_resource: test_role_a

@@ -1,0 +1,107 @@
+<!-------------------------------------------------------------------------------
+  Copyright (c) 2016 	AT&T Intellectual Property. All rights reserved.
+-------------------------------------------------------------------------------->
+
+<html>
+<head>
+<title>Configuration</title>
+</head>
+
+<body>
+  <p style="margin-left: 30.0px;">
+    CDP Configuration support is provided by a common framework to load and manage configuration properties from
+    multiple sources. The basic concept is to load a set of default properties from a known resource file located on the
+    class path, and then override these defaults with optional settings that can be provided by a user through either
+    additional property files or via the command line (as VM arguments). The loading of defaults from a resource
+    property file (named <strong>com/att/cdp/default.properties</strong>) ensures that values are defined for properties
+    the application needs in order to operate.
+  </p>
+  <p style="margin-left: 30.0px;">
+    One of these default values that can be set is the name of the property file that allows the user to supply
+    settings, as well as the path where the file can be found. In general, the default name of the property file will be
+    &quot;<strong>cdp.properties</strong>&quot;, and the path that will be searched is &quot;<strong>${user.home};etc;../etc</strong>&quot;.
+    However, these values can be changed through the use of the default.properties resource file. The property that
+    specifies the property file name is named <strong>com.att.cdp.bootstrap.file</strong>, while the property named <strong>com.att.cdp.bootstrap.path</strong>
+    specifies the search path.
+  </p>
+  <p style="margin-left: 30.0px;">
+    After the default.properties are loaded, but prior to searching for the application configuration file, the
+    configuration factory checks for properties <strong>com.att.cdp.bootstrap.path</strong> and <strong>com.att.cdp.bootstrap.file
+    </strong>in the System properties object (meaning they were set by the command line). If these values are defined in the
+    system properties object, they are used. If not, these values are obtained from the default properties just loaded.
+    This allows the specification of either the file name or path, or both, to be overridden during start up by using
+    command-line arguments.
+  </p>
+  <p style="margin-left: 30.0px;">The search path is scanned for the first occurrence of the specified property
+    file. The first occurrence is loaded and scanning is stopped at that point. The configuration factory does not load
+    all occurrences it finds, only the first occurrence it finds.</p>
+  <p style="margin-left: 30.0px;">The configuration properties are loaded and processed according to a defined
+    precedence order, such that properties defined with a higher precedence override the same property at a lower
+    precedence. The precedence order is defined as follows:</p>
+  <h2>Precedence Order</h2>
+  <ol>
+    <li>Default properties are initially loaded into the configuration. These default properties are the lowest
+      level precedence, and will be overridden by any properties specified at higher levels. These are loaded from
+      resources that are packaged as part of the various application components. Each component (Server, Coordinator,
+      EPM, or CLI) may have different default properties. The default properties are loaded from a resource named <strong>com/att/cdp/default.properties</strong>.
+      The default properties can specify the name of the application property file to be used to configure the
+      application, as well as the path to search. Additionally, these properties can be supplied via the command line to
+      override the default settings if needed.<br /> <br />
+    </li>
+    <li>The configuration factory allows for the application to supply an initial properties object to initialize
+      the configuration. This properties object could be loaded or created in any way necessary for the application.
+      This is totally up to the application to define, if it is needed. If no application-specific property object is
+      supplied, this step is skipped. If a property object is supplied, it is used to replace or set any properties that
+      may have been defined by the defaults.<br /> <br />
+    </li>
+    <li>The configuration factory will then search for a bootstrap file on a bootstrap path. The actual bootstrap
+      file name and path can be specified as properties on the command line, or will default to a file name of <strong>cdp.properties</strong>
+      and a path of <strong>${user.home};etc;../etc</strong>. If desired, the user can specify the exact name of the
+      property file to be loaded as well as the path using <strong>-Dcom.att.cd.bootstrap.file=&lt;filename&gt;</strong>
+      and <strong>-Dcom.att.cdp.bootstrap.path=&lt;path&gt;</strong>. These properties are set to default values by the
+      default properties loaded in step #1 above. The first occurrence of a property file is the file loaded and used.
+      Any other occurrences are not processed.<br /> <br />
+    </li>
+    <li>The System properties are then merged into the configuration. This allows the highest level of precedence,
+      command-line VM arguments (-D<strong>name=value</strong>) to be merged into the configuration property object.
+      These settings override all lower level settings of the same name, as well as merge all system properties into the
+      configuration object.
+    </li>
+  </ol>
+  <h2>Variables</h2>
+  <p style="margin-left: 30.0px;">
+    The configuration support allows for variables to be inserted into any property that is defined. Variables are named
+    using the format <strong>${name}</strong>, where the &quot;name&quot; is the name of a property that is defined in
+    the configuration, or a system property (such as <strong>user.home</strong>). Variables can nest, such that a
+    variable can be replaced with another variable, which is then reevaluated to obtain the value. This allows for
+    indirection as well as variable substitution, if needed.
+  </p>
+  <h2>Using the Configuration Support</h2>
+  <p style="margin-left: 30.0px;">
+    The configuration support was designed to be easy to use. The configuration implementation is abstracted away from
+    the application so that it could be changed easily in the future if needed, or if we needed to load different
+    implementations for different reasons. This means that the application always accesses the configuration through an
+    interface, named <strong>Configuration</strong>. The implementation of that configuration interface is obtained by a
+    static method on the <strong>ConfigurationFactory</strong> class. The configuration factory will both create the
+    configuration if not already created on the first access, as well as return the current configuration if already
+    created. Additionally, the ConfigurationFactory provides mechanisms to recreate the configuration after the
+    application is initialized should the need arise to update its configuration.
+  </p>
+  <p style="margin-left: 30.0px;">An example of the code needed to obtain access to the configuration is:</p>
+  <pre style="margin-left: 30.0px;">Configuration config = ConfigurationFactory.getConfiguration();</pre>
+  <p style="margin-left: 30.0px;">Please refer to the javadoc or the source code in cdp-common for other ways that
+    the configuration and configuration factory can be used.</p>
+  <h2>Reloading Properties</h2>
+  <p style="margin-left: 30.0px;">The configuration support allows for properties to be re-loaded and re-evaluated
+    after the application is running. This is designed to allow a configuration to be refreshed should the need arise.
+    This could allow on-demand refresh (via a command, for example), or automatically based on sensing a change in the
+    configuration file.</p>
+  <p style="margin-left: 30.0px;">
+    When the <strong>ConfigurationFactory</strong> method <strong>getConfiguration(Propert</strong><strong>ies)</strong>
+    is called, the current configuration is cleared and rebuilt using the process defined above. The supplied property
+    object is used in step #2 of the process. While the properties are being re-built, no access to the properties are
+    allowed. Any attempt to access properties while the re-build operation is in effect will block the caller until
+    completed. This is accomplished using read and write shared locks.
+  </p>
+</body>
+</html>

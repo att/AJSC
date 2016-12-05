@@ -1,0 +1,19 @@
+[ {
+  "@id" : "uuid:ffcafc4a-ae57-4ecf-865d-f4a2778421cc",
+  "@type" : "BillOfMaterials",
+  "specVersion" : "1.1.0",
+  "spdx:name" : "CDP - Provider Abstraction Layer Black Duck I/O Export",
+  "creationInfo" : {
+    "spdx:creator" : "Tool: Launcher",
+    "spdx:created" : "2016-11-20T17:49:19.000Z"
+  }
+}, {
+  "@id" : "maven:com.att.cdp/cdp-pal-SNAPSHOT/0.0.1",
+  "@type" : "Project",
+  "name" : "CDP - Provider Abstraction Layer",
+  "revision" : "0.0.1",
+  "externalIdentifier" : {
+    "externalSystemTypeId" : "maven",
+    "externalId" : "com.att.cdp:cdp-pal-SNAPSHOT:0.0.1"
+  }
+} ]
