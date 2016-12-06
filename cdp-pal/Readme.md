@@ -15,6 +15,9 @@ The PAL API abstracts cloud IaaS service providers to a common model so that any
 
 
 ## BUILD
+Checkout code using command:
+
+https://github.com/att/AJSC.git
 
 * Build cdp-pal project using maven command “mvn clean install”.
 * Build cdp-pal-common using maven command “mvn clean install”.
