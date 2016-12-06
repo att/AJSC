@@ -51,7 +51,7 @@
 		<dependency>
 			<groupId>com.att.aft</groupId>
 			<artifactId>dme2</artifactId>
-			<version>\${dme2.version}</version>
+			<version>${dme2.version}</version>
 			<scope>provided</scope>
 		</dependency>
 	</dependencies>
