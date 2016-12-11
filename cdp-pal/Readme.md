@@ -2,7 +2,7 @@
 
 ## OVERVIEW
 
-PAL helps automate the creation, migration, and management of cloud-deployed applications and their needed hardware/software environment.
+CDP-PAL helps automate the creation, migration, and management of cloud-deployed applications and their needed hardware/software environment.
 PAL will be used in the common cloud architecture to allow for the deployment, migration, and scaling up/down of cloud deployed applications.
 This is more than just managing the VMs, or deploying just the software, it is both in an orchestrated and model-based approach.
 
@@ -15,6 +15,9 @@ The PAL API abstracts cloud IaaS service providers to a common model so that any
 
 
 ## BUILD
+Checkout code using command:
+
+https://github.com/att/AJSC.git
 
 * Build cdp-pal project using maven command “mvn clean install”.
 * Build cdp-pal-common using maven command “mvn clean install”.
