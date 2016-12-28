@@ -87,13 +87,13 @@
       </plugin>
 
       <!-- The site plugin is used to build our web site that documents the product -->
-      <plugin>
+     <!-- <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-site-plugin</artifactId>
         <version>3.3</version>
         <configuration>
         </configuration>
-      </plugin>
+      </plugin> -->
 
       <!-- The javadoc plugin is used to aggregate the javadoc from all of the modules together and to produce a single javadoc 
         report -->
