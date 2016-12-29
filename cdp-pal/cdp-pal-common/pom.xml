@@ -186,19 +186,18 @@
       <!-- This plugin is used to create the source jar. The source jar is needed for documentation generation, and is a 
         convenience for debugging since the source can be attached if this jar is provided. -->
       <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-source-plugin</artifactId>
-        <version>2.4</version>
-        <executions>
-          <execution>
-            <id>attach-sources</id>
-            <phase>package</phase>
-            <goals>
-              <goal>jar</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
+	  <groupId>org.apache.maven.plugins</groupId>
+	  <artifactId>maven-source-plugin</artifactId>
+	  <version>2.2.1</version>
+	  <executions>
+	<execution>
+	  <id>attach-sources</id>
+	  <goals>
+		<goal>jar-no-fork</goal>
+	  </goals>
+	</execution>
+	  </executions>
+	</plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jar-plugin</artifactId>
