@@ -120,7 +120,8 @@
       </plugin>
 
       <!-- The maven enforcer plugin is used to ensure we are using the correct version of maven -->
-      <plugin>
+      <!--
+	 <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-enforcer-plugin</artifactId>
         <version>1.0.1</version>
@@ -139,7 +140,7 @@
             </configuration>
           </execution>
         </executions>
-      </plugin>
+      </plugin> -->
 
       <!-- This plugin is required to generate SRE Code Analysis reports in CDP -->
       <plugin>
