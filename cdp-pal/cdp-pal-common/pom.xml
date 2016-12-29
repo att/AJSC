@@ -101,13 +101,6 @@
       <artifactId>jsch</artifactId>
       <version>0.1.51</version>
     </dependency>
-	  
-<dependency>
-    <groupId>org.codehaus.sonar</groupId>
-    <artifactId>sonar-maven-plugin</artifactId>
-    <version>3.2</version>
-</dependency>
-
 
   </dependencies>
   
