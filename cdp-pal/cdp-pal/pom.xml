@@ -97,7 +97,7 @@
 
       <!-- The javadoc plugin is used to aggregate the javadoc from all of the modules together and to produce a single javadoc 
         report -->
-      <plugin>
+    <!--  <plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
 				 <configuration>
@@ -111,13 +111,13 @@
 						</goals>
 					</execution>
 				</executions>
-			</plugin> 
-      <!-- The surefire plugin is used to run the tests -->
+			</plugin> -->
+      <!-- The surefire plugin is used to run the tests 
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
         <version>2.16</version>
-      </plugin>
+      </plugin> -->
 
       <!-- The maven enforcer plugin is used to ensure we are using the correct version of maven -->
       <!--
@@ -154,7 +154,7 @@
 	  </formats>
 	</configuration>
       </plugin>
-      
+      <!--
       <plugin>
 		<groupId>com.blackducksoftware.integration</groupId>
 		<artifactId>hub-maven-plugin</artifactId>
@@ -212,7 +212,7 @@
 			<autoReleaseAfterClose>true</autoReleaseAfterClose>
 			</configuration>
 		</plugin>
-	    
+	    -->
     </plugins>
   </build>
 
