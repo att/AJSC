@@ -17,76 +17,39 @@
        http://www.springframework.org/schema/jee 
        http://www.springframework.org/schema/jee/spring-jee.xsd
        ">
-  	<bean class="org.springframework.web.context.support.ServletContextPropertyPlaceholderConfigurer"/>
- 	<!-- <bean id="loggingConfigurationService" class="ajsc.LoggingConfigurationService" /> -->
+  	<!-- <bean class="org.springframework.web.context.support.ServletContextPropertyPlaceholderConfigurer"/>
+ 	<bean id="loggingConfigurationService" class="ajsc.LoggingConfigurationService" /> -->
+	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"/>
  	<bean id="persistenceService" class="ajsc.FilePersistenceService" />
 	<bean id="propertiesService" class="ajsc.PropertiesService" />
 	<bean id="docService" class="ajsc.DocService" />
 	<bean id="swaggerService" class="ajsc.SwaggerService">
-		<property name="docService"><ref local="docService"/></property>
+		<property name="docService"><ref bean="docService"/></property>
 	</bean>
 	<bean id="vandelayService" class="ajsc.VandelayService" >
-		<property name="swaggerService"><ref local="swaggerService"/></property>
+		<property name="swaggerService"><ref bean="swaggerService"/></property>
 	</bean>
 	<bean id="userDefinedBeansDefService" class="ajsc.UserDefinedBeansDefService" />
 	
 	<bean id="userDefinedJarService" class="ajsc.UserDefinedJarService" />
-<!-- 	<beans profile="oauth"> -->
-<!-- 	<bean id="clientDataService" class="ajsc.ClientDataService" init-method="init"> -->
-<!-- 		<property name="dbAdapter"><ref local="clientDataAdapter"/></property> -->
-<!-- 	</bean> -->
-<!-- 	<bean id="clientDataAdapter" class="ajsc.providers.FilePersistenceClient" /> -->
-<!-- 	<bean id="ajscClientDetailsService" class="ajsc.security.oauth2.provider.AjscClientDetailsService" > -->
-<!-- 		<constructor-arg ref="cassandraConnectionManager" /> -->
-<!-- 	</bean> -->
-<!-- 	</beans> -->
 	<beans profile="nooauth">
 		<bean id="springSecurityFilterChain" class="ajsc.filter.PassthruFilter"/>
 	</beans>
 	<beans>
 	<bean id="computeService" class="ajsc.ComputeService" >
-		<property name="restletComponentFactory"><ref local="restletComponentFactory"/></property>
+		<property name="restletComponentFactory"><ref bean="restletComponentFactory"/></property>
 	</bean>
 	<bean id="restletComponent" class="org.restlet.Component" />
 	<bean id="restletComponentFactory" class="ajsc.restlet.RestletComponentFactory" />
  
- <!-- jmsConnectionFactory is no longer needed to be instantiated as a Spring bean. Therefore commenting it out. -->
-<!--  <bean id="jmsConnectionFactory" class="com.tibco.tibjms.TibjmsQueueConnectionFactory"> 
-      <property name="serverUrl" value="#{systemProperties['JMS_TIBCO_PROVIDER_URL']}" /> 
-     
-     </bean> -->
-<!--         <value>"#{systemProperties['ProviderURL']}"</value>  -->
-<!--       </property>  -->
-<!--       -->
-    
-    <!-- This is for WMQ -->
-<!--     <bean id="jmsConnectionFactory" class="com.ibm.mq.jms.MQQueueConnectionFactory">  -->
-<!--       <property name="serverUrl">  -->
-<!--         <value>tcp://servername:port</value>  -->
-<!--       </property>  -->
-<!--     </bean>  -->
- <!-- This is for ActiveMQ -->
-<!--     <bean id="jmsConnectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">  -->
-<!--     <property name="brokerURL">  -->
-<!--      <value>tcp://localhost:61616</value>  -->
-<!--     </property>  -->
-<!-- </bean> -->
-
- 	
-<!-- 		<bean id="csiLogging" class="com.att.ajsc.csi.logging.CsiLogging"/> -->
-	
-<!--  	<bean id="csiAuditRecordLoggingProcessor" factory-bean="csiLoggingUtils"   factory-method="getLogAuditRecordProcessorInstance"></bean>  -->
-<!--   	<bean id="csiPerfTrackRecordLoggingProcessor" factory-bean="csiLoggingUtils" factory-method="getLogPerfTrackerRecordProcessorInstance"></bean>  -->
-<!--   	<bean id="csiTimerLogRecordLoggingProcessor" factory-bean="csiLoggingUtils" factory-method="getLogTimerLogRecordProcessorInstance"></bean>  -->
-	
 	<bean id="routeMgmtService" class="ajsc.RouteMgmtService">
-		<property name="propertiesService"><ref local="propertiesService"/></property>
-		<property name="vandelayService"><ref local="vandelayService"/></property>
-		<property name="persistenceService"><ref local="persistenceService"/></property>
-		<property name="userDefinedBeansDefService"><ref local="userDefinedBeansDefService"/></property>
-		<property name="docService"><ref local="docService"/></property>
-		<property name="userDefinedJarService"><ref local="userDefinedJarService"/></property>
-		<property name="computeService"><ref local="computeService"/></property>
+		<property name="propertiesService"><ref bean="propertiesService"/></property>
+		<property name="vandelayService"><ref bean="vandelayService"/></property>
+		<property name="persistenceService"><ref bean="persistenceService"/></property>
+		<property name="userDefinedBeansDefService"><ref bean="userDefinedBeansDefService"/></property>
+		<property name="docService"><ref bean="docService"/></property>
+		<property name="userDefinedJarService"><ref bean="userDefinedJarService"/></property>
+		<property name="computeService"><ref bean="computeService"/></property>
 		<!-- <property name="loggingConfigurationService"><ref local="loggingConfigurationService"/></property> -->
 	</bean>
 	
@@ -115,7 +78,7 @@
 	
 	<bean id="contextManager" class="ajsc.ContextMgr">
 		<property name="rmgr">
-			<ref local="routeMgmtService"/>
+			<ref bean="routeMgmtService"/>
 		</property>
 	</bean>
 	
