@@ -9,16 +9,17 @@
 	xmlns:jee="http://www.springframework.org/schema/jee"
 	xsi:schemaLocation="
        http://www.springframework.org/schema/beans
-       http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+       http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.springframework.org/schema/context
-       http://www.springframework.org/schema/context/spring-context-3.1.xsd
+       http://www.springframework.org/schema/context/spring-context.xsd
        http://camel.apache.org/schema/spring
        http://camel.apache.org/schema/spring/camel-spring.xsd
        http://www.springframework.org/schema/jee 
-       http://www.springframework.org/schema/jee/spring-jee-3.1.xsd
+       http://www.springframework.org/schema/jee/spring-jee.xsd
        ">
-  	<bean class="org.springframework.web.context.support.ServletContextPropertyPlaceholderConfigurer"/>
+  	<!--<bean class="org.springframework.web.context.support.ServletContextPropertyPlaceholderConfigurer"/>-->
  	<bean id="loggingConfigurationService" class="ajsc.LoggingConfigurationService" />
+	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"/>
  	<bean id="persistenceService" class="ajsc.FilePersistenceService" />
  	<bean id="assemblyService" class="ajsc.AssemblyService" />
 	<bean id="propertiesService" class="ajsc.PropertiesService" />
@@ -28,7 +29,7 @@
 	<bean id="userDefinedJarService" class="ajsc.UserDefinedJarService" />
 	<beans profile="oauth">
 	<bean id="clientDataService" class="ajsc.ClientDataService" >
-		<property name="dbAdapter"><ref local="clientDataAdapter"/></property>
+		<property name="dbAdapter"><ref bean="clientDataAdapter"/></property>
 	</bean>
 	<bean id="clientDataAdapter" class="ajsc.providers.FilePersistenceClient" />
 	<bean id="ajscClientDetailsService" class="ajsc.security.oauth2.provider.AjscClientDetailsService" >
@@ -40,44 +41,21 @@
 	</beans>
 	<beans>
 	<bean id="computeService" class="ajsc.ComputeService" >
-		<property name="restletComponentFactory"><ref local="restletComponentFactory"/></property>
+		<property name="restletComponentFactory"><ref bean="restletComponentFactory"/></property>
 	</bean>
 	<bean id="restletComponent" class="org.restlet.Component" />
 	<bean id="restletComponentFactory" class="ajsc.restlet.RestletComponentFactory" />
  
- <!-- <bean id="jmsConnectionFactory" class="com.tibco.tibjms.TibjmsQueueConnectionFactory"> 
-      <property name="serverUrl"> 
-        <value>tcp://q27csi1c3.vci.att.com:27812</value> 
-      </property> 
-    </bean>  -->
-    
-    <!-- This is for WMQ -->
-<!--     <bean id="jmsConnectionFactory" class="com.ibm.mq.jms.MQQueueConnectionFactory">  -->
-<!--       <property name="serverUrl">  -->
-<!--         <value>tcp://q27csi1c3.vci.att.com:27812</value>  -->
-<!--       </property>  -->
-<!--     </bean>  -->
- <!-- This is for ActiveMQ -->
-<!--     <bean id="jmsConnectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">  -->
-<!--     <property name="brokerURL">  -->
-<!--      <value>tcp://localhost:61616</value>  -->
-<!--     </property>  -->
-<!-- </bean> -->
-
-	
-<!--  	<bean id="csiAuditRecordLoggingProcessor" factory-bean="csiLoggingUtils"   factory-method="getLogAuditRecordProcessorInstance"></bean>  -->
-<!--   	<bean id="csiPerfTrackRecordLoggingProcessor" factory-bean="csiLoggingUtils" factory-method="getLogPerfTrackerRecordProcessorInstance"></bean>  -->
-<!--   	<bean id="csiTimerLogRecordLoggingProcessor" factory-bean="csiLoggingUtils" factory-method="getLogTimerLogRecordProcessorInstance"></bean>  -->
-	
+ 	
 	<bean id="routeMgmtService" class="ajsc.RouteMgmtService">
-		<property name="propertiesService"><ref local="propertiesService"/></property>
-		<property name="vandelayService"><ref local="vandelayService"/></property>
-		<property name="persistenceService"><ref local="persistenceService"/></property>
-		<property name="userDefinedBeansDefService"><ref local="userDefinedBeansDefService"/></property>
-		<property name="docService"><ref local="docService"/></property>
-		<property name="userDefinedJarService"><ref local="userDefinedJarService"/></property>
-		<property name="computeService"><ref local="computeService"/></property>
-		<property name="loggingConfigurationService"><ref local="loggingConfigurationService"/></property>
+		<property name="propertiesService"><ref bean="propertiesService"/></property>
+		<property name="vandelayService"><ref bean="vandelayService"/></property>
+		<property name="persistenceService"><ref bean="persistenceService"/></property>
+		<property name="userDefinedBeansDefService"><ref bean="userDefinedBeansDefService"/></property>
+		<property name="docService"><ref bean="docService"/></property>
+		<property name="userDefinedJarService"><ref bean="userDefinedJarService"/></property>
+		<property name="computeService"><ref bean="computeService"/></property>
+		<property name="loggingConfigurationService"><ref bean="loggingConfigurationService"/></property>
 	</bean>
 
 	<bean id="restletComponentService" class="org.apache.camel.component.restlet.RestletComponent">
@@ -88,7 +66,7 @@
 
 	<bean id="contextManager" class="ajsc.ContextMgr">
 		<property name="rmgr">
-			<ref local="routeMgmtService"/>
+			<ref bean="routeMgmtService"/>
 		</property>
 	</bean>
 	
