@@ -1,8 +1,0 @@
-"2016-10-11 16:54:29,035 [main] INFO  ajsc.beans.interceptors.HelloWorldLogger - Interceptor:: HelloWorldLogger called
-""2016-10-11 16:54:29,038 [main] INFO  ajsc.beans.interceptors.HelloWorldLogger - URI path = null
-""2016-10-11 16:54:29,038 [main] INFO  ajsc.beans.interceptors.HelloWorldLogger - Request URI = null
-""2016-10-11 16:54:38,239 [main] INFO  ajsc.utils.DME2Helper - Service Registered to GRM (Service Name,Path,HostAddress,Port,Protocol): http://helloworld-1-0-0.ajsc.att.comappcontextrestlet:///com.test.att?version=2.0.0&envContext=DEV&routeOffer=DEFAULT,null,ALCDTL03RJ6015.ITServices.sbc.com,8080,http
-""2016-10-11 16:54:38,721 [main] INFO  ajsc.utils.DME2Helper - Service Registered to GRM (Service Name,Path,HostAddress,Port,Protocol): http://helloworld-1-0-0.ajsc.att.comappcontextatt-dme2-servlet:/com.test.att?version=2.0.0&envContext=DEV&routeOffer=DEFAULT,null,ALCDTL03RJ6015.ITServices.sbc.com,8080,http
-""2016-10-11 16:54:39,662 [main] INFO  ajsc.filters.InterceptorFilter - User Does not have correct Authorization....
-""2016-10-11 16:54:39,870 [main] INFO  ajsc.beans.interceptors.TestInterceptorClass - Interceptor:: TestInterceptorClass called
-"
