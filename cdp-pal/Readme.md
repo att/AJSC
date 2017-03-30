@@ -27,7 +27,7 @@ This is the OpenStack implementation of the PAL API
 ## BUILD
 Checkout code using command:
 
-https://github.com/att/AJSC.git
+git checkout https://github.com/att/AJSC.git
 
 * Build cdp-pal project using maven command “mvn clean install”.
 * Build cdp-pal-common using maven command “mvn clean install”.
