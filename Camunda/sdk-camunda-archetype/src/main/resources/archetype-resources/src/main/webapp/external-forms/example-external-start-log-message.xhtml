@@ -1,0 +1,49 @@
+<!--   Copyright (c) 2017 AT&T Intellectual Property. All rights reserved. -->
+<!DOCTYPE HTML>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:f="http://java.sun.com/jsf/core">  
+
+<f:view>
+  <f:metadata>
+  	<!-- Example of an external start form for a Camunda process -->
+ 	<!-- for: src/main/resources/bpmn/log-message.bpmn -->
+ 	<!-- using Form Key: app:external-forms/example-external-start-log-message.xhtml -->
+
+  	<!-- Camunda Reference: https://docs.camunda.org/get-started/javaee6/start-form/ -->
+
+    <!-- Start a new process instance. The Process Definition Key is read internally from
+         request parameters and cached in the CDI conversation scope.
+    -->
+    <f:event type="preRenderView" listener="#{camundaTaskForm.startProcessInstanceByKeyForm()}" />
+  </f:metadata>
+  <h:head>
+    <title>Log Message</title>
+  </h:head>
+  <h:body>
+    <h1>Message Logger</h1>
+    <h:form id="submitForm">
+      <h:panelGrid columns="2">
+
+          <label for="logMessageText">Message</label>
+          <!-- create process variables using the processVariables map. -->
+          <h:inputText id="logMessageText" value="#{processVariables['logMessageText']}" required="true" />
+ 
+          <label for="conversationId">Conversation ID</label>
+          <!-- create process variables using the processVariables map. -->
+          <h:inputText id="conversationId" value="#{processVariables['conversationId']}" required="false" />
+
+      </h:panelGrid>
+
+      <!-- The button starts a new process instance. This ends the conversation and redirects us to the tasklist.
+
+           NOTE: Syntax is different when working on user task forms, see file "approveLoanRequest.xhtml".
+      -->
+      <h:commandButton id="submit_button" value="Log Message" action="#{camundaTaskForm.completeProcessInstanceForm()}" />
+
+      <h:messages style="color:red;margin:8px;" />
+    </h:form>
+  </h:body>
+</f:view>
+</html>

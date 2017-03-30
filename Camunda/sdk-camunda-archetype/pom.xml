@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.att.ajsc</groupId>
+	<artifactId>sdk-camunda-archetype</artifactId>
+	<version>7.6.2-00</version>
+	<packaging>maven-archetype</packaging>
+
+	<name>sdk-camunda-archetype</name>
+	<url></url>
+    <description>Metrics Common Module</description>
+    
+     <licenses>
+	  <license>
+	    <name>BSD License</name>
+	    <url></url>
+	  </license>
+	</licenses>
+
+	<developers>
+	   <developer>
+	     <name>Christopher</name>
+	     <email></email>
+	     <organization>ATT</organization>
+	     <organizationUrl>www.att.com</organizationUrl>
+	   </developer>
+	</developers>
+
+	<build>
+		<extensions>
+			<extension>
+				<groupId>org.apache.maven.archetype</groupId>
+				<artifactId>archetype-packaging</artifactId>
+				<version>2.4</version>
+			</extension>
+		</extensions>
+		
+		<plugins>
+			<plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.5.1</version>
+                <configuration>
+                    <source>1.6</source>
+                    <target>1.6</target>
+                    <fork>true</fork>
+                    <compilerArgument>-proc:none</compilerArgument>
+					<exclusion>
+						<exclude>{basedir}/src/main/java/acsi/grid/gridcore/core/CassandraConfig.java</exclude>
+					</exclusion>	                    
+                </configuration>
+            </plugin>	
+      		<plugin>
+		        <groupId>org.apache.maven.plugins</groupId>
+		        <artifactId>maven-jar-plugin</artifactId>
+                <version>2.4</version>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>2.10.4</version>
+				<configuration>
+					<failOnError>false</failOnError>
+					<additionalparam>-Xdoclint:none</additionalparam>
+					<quiet>true</quiet>
+				</configuration>
+				<executions>
+					<execution>
+						<id>attach-javadocs</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			 <plugin>
+				  <groupId>org.apache.maven.plugins</groupId>
+				  <artifactId>maven-source-plugin</artifactId>
+				  <version>3.0.1</version>
+				  <executions>
+				<execution>
+				  <id>attach-sources</id>
+				  <goals>
+					<goal>jar-no-fork</goal>
+				  </goals>
+				</execution>
+				  </executions>
+		    </plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>cobertura-maven-plugin</artifactId>
+				<version>2.7</version>
+				<configuration>
+				    <formats>
+				    <format>html</format>
+				    <format>xml</format>
+				  </formats>
+				</configuration>
+		      </plugin>
+		      <plugin>
+				<groupId>org.sonatype.plugins</groupId>
+				<artifactId>nexus-staging-maven-plugin</artifactId>
+				<version>1.6.7</version>
+				<extensions>true</extensions>
+				<configuration>
+					<serverId>ossrhdme</serverId>
+					<nexusUrl>https://oss.sonatype.org/</nexusUrl>
+					<autoReleaseAfterClose>true</autoReleaseAfterClose>
+				</configuration>
+			</plugin>
+		</plugins>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<artifactId>maven-archetype-plugin</artifactId>
+					<version>2.4</version>
+				</plugin>
+				<plugin>
+					<artifactId>maven-clean-plugin</artifactId>
+					<version>2.5</version>
+				</plugin>
+				<plugin> 
+					<groupId>org.apache.maven.plugins</groupId> 
+					<artifactId>maven-release-plugin</artifactId> 
+					<version>2.5.3</version> 
+					<configuration> 
+						<tagBase>${projectTag}</tagBase> 
+						<scmCommentPrefix>${scm.commit.message}</scmCommentPrefix> 
+					</configuration> 
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+
+	<scm>
+		<connection></connection>
+		<developerConnection></developerConnection>
+		<url></url>
+	</scm>
+	
+	<distributionManagement>
+    		<snapshotRepository>
+      			<id>ossrhdme</id>
+      			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
+    		</snapshotRepository>
+    		<repository>
+      			<id>ossrhdme</id>
+      			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+    		</repository>
+  	</distributionManagement>
+  	
+  	
+  	
+  	<profiles>
+	    <!-- Add plugins here that should only be executed on the Jenkins server -->
+	    <profile>
+		<id>jenkins</id>
+		<activation>
+		    <property>
+			<name>env.BUILD_NUMBER</name>
+		    </property>
+		</activation>
+		<build>
+		    <plugins>			 
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-gpg-plugin</artifactId>
+				<version>1.5</version>
+				<executions>
+				<execution>
+					<id>sign-artifacts</id>
+					<phase>verify</phase>
+					<goals>
+					<goal>sign</goal>
+					</goals>
+				</execution>
+				</executions>
+			  </plugin> 			   			    
+		    </plugins>
+		</build>
+	    </profile>
+	</profiles>
+</project>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--   Copyright (c) 2017 AT&T Intellectual Property. All rights reserved. -->
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"      
+      xmlns:h="http://java.sun.com/jsf/html">
+
+    <style type="text/css">
+        .ecol1 { vertical-align: top; padding-right : 25px }
+        .ecol2 { vertical-align: top; border-left: #ACBECE 1px solid; padding-left : 10px }
+        .rich-calendar-tool-btn{
+            font-family: Arial, Verdana;
+        } 
+    </style>
+    	
+    <h:head>
+        <title>Example JSF</title>
+    </h:head>
+    <h:body>
+    	<h2>Input Value</h2>
+    	<h:form>
+     	   <table><tr><td>
+    	   <h:inputText value="#{jsfExampleBean.value}"></h:inputText>
+    	   </td></tr>
+    	   <tr><td>
+    	   <h:commandButton value="Submit Value" action="example-display-value"></h:commandButton>
+    	   </td></tr></table>
+    	</h:form>
+    </h:body>
+</html>
