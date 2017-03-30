@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--   Copyright (c) 2017 AT&T Intellectual Property. All rights reserved. -->
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"      
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:a4j="http://richfaces.org/a4j">
+	
+    <h:head>
+        <title>Example RichFaces JSF</title>
+    </h:head>
+    <h:body>
+    	<h2>Input Date Value</h2>
+    	<h:form>
+    		<rich:panel style="width:220px;">
+            <f:facet name="header">
+                <h:outputText value="Choose date:" />
+            </f:facet>
+            <rich:calendar value="#{jsfExampleBean.dateValue}"
+                        locale="US"
+                        popup="true"
+                        datePattern="yyyy-MM-dd HH:mm:ss"
+                        showApplyButton="#{calendarBean.showApply}" cellWidth="24px" cellHeight="22px" style="width:200px">
+                        <f:convertDateTime type="date" pattern="yyyy-MM-dd hh:mm:ss"  timeZone="US"/>
+            </rich:calendar>
+           </rich:panel>
+     	   <h:commandButton value="Submit Value" action="example-display-date"></h:commandButton>
+    	</h:form>
+    </h:body>
+</html>

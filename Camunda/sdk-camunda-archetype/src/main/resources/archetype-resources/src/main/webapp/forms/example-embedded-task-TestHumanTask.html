@@ -1,0 +1,35 @@
+<!--   Copyright (c) 2017 AT&T Intellectual Property. All rights reserved. -->
+<!-- Example of an embedded task form for a Camunda human task -->
+<!-- for: src/main/resources/bpmn/TestHumanTask.bpmn -->
+<!-- using Form Key: embedded:app:forms/example-embedded-task-TestHumanTask.html -->
+
+<!-- Camunda Reference: -->
+<!-- 	https://docs.camunda.org/get-started/bpmn20/forms/#add-a-task-form -->
+<!-- 	https://docs.camunda.org/manual/7.4/reference/embedded-forms/controls/ -->
+
+<form name="complete-task-TestHumanTask">
+  <div class="form-group">
+    <label for="season">Season</label>
+    <input class="form-control"
+           cam-variable-type="String"
+           cam-variable-name="season" />
+  </div>
+  <div class="form-group">
+    <label for="logMessageText">Message</label>
+    <input class="form-control"
+           cam-variable-type="String"
+           cam-variable-name="logMessageText" />
+  </div>
+  <div class="form-group">
+    <label for="logMessageText">Message Log Complete?</label>
+    <input type="checkbox"
+       cam-variable-name="isMessageLogComplete"
+       cam-variable-type="Boolean" />
+  </div>
+  <div class="form-group">
+    <label for="conversationId">Conversation ID</label>
+    <input class="form-control"
+           cam-variable-type="String"
+           cam-variable-name="conversationId" />
+  </div>
+</form>

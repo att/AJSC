@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) 2017 AT&T Intellectual Property. All rights reserved.
+     
+ -->
+
+<archetype-descriptor
+	xsi:schemaLocation="http://maven.apache.org/plugins/maven-archetype-plugin/archetype-descriptor/1.0.0 http://maven.apache.org/xsd/archetype-descriptor-1.0.0.xsd"
+	name="sdk-java-jpa"
+	xmlns="http://maven.apache.org/plugins/maven-archetype-plugin/archetype-descriptor/1.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<requiredProperties>
+		<requiredProperty key="context-root" />
+		<!-- <requiredProperty key="biasId"/> <requiredProperty key="jenkins-joblink"/> -->
+		<requiredProperty key="docker-registry" />
+		<requiredProperty key="kube-namespace" />
+		<requiredProperty key="service-account" />
+		<requiredProperty key="service-replicas" />
+		<requiredProperty key="namespace" />
+
+	</requiredProperties>
+	<fileSets>
+		<fileSet filtered="true" packaged="true" encoding="UTF-8">
+			<directory>src/main/java</directory>
+			<includes>
+				<include>**/*.java</include>
+			</includes>
+		</fileSet>
+		<fileSet filtered="true" encoding="UTF-8">
+			<directory></directory>
+			<includes>
+				<include>README.md</include>
+			</includes>
+		</fileSet>
+		<fileSet filtered="true" encoding="UTF-8">
+			<directory>src/main/resources</directory>
+			<includes>
+				<include>**/*.html</include>
+				<include>**/*.jsp</include>
+				<include>**/*.bpmn</include>
+				<include>**/*.xhtml</include>
+				<include>**/*.jsf</include>
+				<include>**/*.properties</include>				
+			</includes>
+		</fileSet>		
+		<fileSet filtered="true" encoding="UTF-8">
+			<directory>src/main/docker</directory>
+			<includes>
+				<include>**/Dockerfile</include>
+			</includes>
+		</fileSet>
+		<fileSet filtered="false" encoding="UTF-8">
+			<directory>src/main/docker</directory>
+			<includes>
+				<include>**/startService.sh</include>
+			</includes>
+		</fileSet>
+		<fileSet filtered="true" encoding="UTF-8">
+			<directory>src/main/kubernetes</directory>
+			<includes>
+				<include>**/*</include>
+			</includes>
+		</fileSet>
+		<fileSet filtered="false" encoding="UTF-8">
+			<directory>src/main/jenkins</directory>
+			<includes>
+				<include>**/*</include>
+			</includes>
+		</fileSet>
+		<fileSet filtered="true" encoding="UTF-8">
+			<directory>src/main/jenkins</directory>
+			<includes>
+				<include>**/deploy.groovy</include>
+			</includes>
+		</fileSet>
+		<fileSet filtered="true" encoding="UTF-8">
+			<directory>src/main/webapp</directory>
+			<includes>				
+				<include>**/*.html</include>
+				<include>**/*.jsp</include>				
+				<include>**/*.xhtml</include>
+				<include>**/*.jsf</include>
+				<include>**/*.properties</include>
+			</includes>
+		</fileSet>
+		<fileSet encoding="UTF-8">
+			<directory>src/main/resources</directory>
+			<includes>
+				<include>**/*.jpg</include>
+				<include>**/*.css</include>
+				<include>**/*.ico</include>
+				<include>**/*.gif</include>
+				<include>**/*.svg</include>
+				<include>**/*.ttf</include>
+				<include>**/*.png</include>
+				<include>**/*.js</include>
+				<include>**/*.eot</include>
+				<include>**/*.woff</include>
+				<include>**/*.ico</include>
+				<include>**/*.json</include>
+				<include>**/*.logo</include>
+				<include>**/*.woff2</include>
+				<include>**/*.map</include>
+				<include>**/*.xml</include>
+				<include>**/*.xml</include>
+				<include>**/*.html</include>
+				<include>**/*.jsp</include>
+				<include>**/*.bpmn</include>
+				<include>**/*.xhtml</include>
+				<include>**/*.jsf</include>
+			</includes>
+		</fileSet>
+		<fileSet filtered="true" packaged="true" encoding="UTF-8">
+			<directory>src/test/java</directory>
+			<includes>
+				<include>**/*.java</include>
+			</includes>
+		</fileSet>
+		<fileSet filtered="true" encoding="UTF-8">
+			<directory>src/test/lisa</directory>
+			<includes>
+				<include>**/*</include>
+			</includes>
+		</fileSet>
+		<fileSet filtered="true" encoding="UTF-8">
+			<directory>src/test/resources</directory>
+			<includes>
+				<include>**/*.properties</include>
+			</includes>
+		</fileSet>
+		<fileSet encoding="UTF-8">
+			<directory>src/test/resources</directory>
+			<includes>
+				<include>**/*.sql</include>
+			</includes>
+		</fileSet>
+		<fileSet filtered="true" encoding="UTF-8">
+			<directory></directory>
+			<includes>
+				<include>.project</include>
+				<include>.classpath</include>
+			</includes>
+		</fileSet>
+		<fileSet filtered="false" encoding="UTF-8">
+			<directory>etc</directory>
+			<includes>
+				<include>**/*</include>
+			</includes>
+		</fileSet>
+	</fileSets>
+</archetype-descriptor>

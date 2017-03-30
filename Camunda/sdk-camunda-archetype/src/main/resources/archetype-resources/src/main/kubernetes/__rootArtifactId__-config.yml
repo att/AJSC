@@ -1,0 +1,66 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ${artifactId}-config
+  namespace: ${kube-namespace}
+data:
+  aftpath: /etc/config/aft.properties
+  logbackpath: /etc/config/logback.xml
+  aafuserrolespath: /etc/config/AAFUserRoles.properties
+  dynamicpath: /etc/config/dynamic.properties
+  cadipath: /etc/config/cadi.properties  
+  aft.properties: |
+   com.att.aft.discovery.client.environment=AFTUAT
+   com.att.aft.discovery.client.latitude=35.318900
+   com.att.aft.discovery.client.longitude=-80.762200
+   com.att.aft.alias=fusionbus
+   com.att.aft.keyStore=etc/keystore/spm2.jks
+   com.att.aft.keyStorePassword=password
+   com.att.aft.trustStore=etc/keystore/spm2.jks
+   com.att.aft.trustStorePassword=password
+  logback.xml: |
+     <configuration scan="true" scanPeriod="3 seconds" debug="false"><statusListener class="ch.qos.logback.core.status.NopStatusListener" />	<property resource="application.properties" /><property name="namespace" value="${kubernetes.namespace}"></property><property name="defaultPattern"	value="%d{yyyy-MM-dd HH:mm:ss.SSS} $ threadId: {PID:- } %-5level  namespace:${namespace} %logger{20} [ hostname: %X{hostname} serviceName: %X{serviceName} version: %X{version} transactionId: %X{transactionId} requestTimeStamp: %X{requestTimestamp}  responseTimeStamp: %X{responseTimestamp} duration: %X{duration}] %m%n" />	<property name="performanceandAuditpattern" value="%date{ISO8601,UTC}|%thread|%.-5level|namespace:${namespace}|%logger{20}|%X{ServerIPAddress}|%X{ServerFQDN}|%X{serviceName}| %msg%n" />	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">		<encoder>			<pattern>${defaultPattern}</pattern>		</encoder>	</appender>	<appender name="performanceandAudit" class="ch.qos.logback.core.ConsoleAppender">		<encoder>			<pattern>${performanceandAuditpattern}</pattern>		</encoder>	</appender>	<logger name="com.att.eelf.perf" level="INFO">		<appender-ref ref="performanceandAudit" />	</logger>	<logger name="com.att.eelf.audit" level="DEBUG">		<appender-ref ref="performanceandAudit" />	</logger>	<logger name="com.att.ajsc" level="INFO" />	<root level="INFO">		<appender-ref ref="STDOUT" />	</root></configuration>
+  AAFUserRoles.properties: |
+    /TestAafRc3/v1/jaxrsExample/**=com.att.ajsc.security|demo|admin
+    /TestAafRc3/v1/helloWorld=com.att.ajsc.security|demo|access
+    /camunda/Application/*=com.att.ajsc.camunda.application|Camunda_DEV|ALL
+    /camunda/USER/*=com.att.ajsc.camunda.user|Camunda_DEV|ALL
+    /camunda/GROUP/*=com.att.ajsc.camunda.group|Camunda_DEV|ALL
+    /camunda/AUTHORIZATION/*=com.att.ajsc.camunda.authorization|Camunda_DEV|ALL
+    /camunda/GROUP_MEMBERSHIP/*=com.att.ajsc.camunda.group_membership|Camunda_DEV|ALL
+    /camunda/FILTER/*=com.att.ajsc.camunda.filter|Camunda_DEV|ALL
+    /camunda/PROCESS_DEFINITION/*=com.att.ajsc.camunda.process_definition|Camunda_DEV|ALL
+    /camunda/TASK/*=com.att.ajsc.camunda.task|Camunda_DEV|ALL
+    /camunda/PROCESS_INSTANCE/*=com.att.ajsc.camunda.process_instance|Camunda_DEV|ALL
+    /camunda/DEPLOYMENT/*=com.att.ajsc.camunda.deployment|Camunda_DEV|ALL
+    AAFENABLEDPROP=FALSE
+    nameEndpointUrl=http://hostName/RAFTServices/rest/resourceAllocation/vwebPhone?attuid=
+  dynamic.properties: |
+    #restart.audit.queue=true
+    #restart.perform.queue=true
+  cadi.properties:  |
+    hostname=hostName
+    
+    csp_domain=PROD
+    csp_devl_localhost=true
+    basic_realm=csp.att.com
+    #basic_realm=aaf.att.com
+    basic_warn=TRUE
+    cadi_loglevel=WARN
+    cadi_keyfile=etc/aafkeystore/keyfile
+    
+    # Configure AAF
+    aaf_url=https://DME2RESOLVE/service=com.att.authz.AuthorizationService/version=2.0/envContext=TEST/routeOffer=BAU_SE
+    #AJSC - MECHID
+    aaf_id=xxxxxx@camunda.ajsc.att.com
+    aaf_password=xxxxxx
+    aaf_clear_pass=xxxxxx
+    aaf_timeout=50000
+    aaf_clean_interval=30000
+    aaf_user_expires=5000
+    aaf_high_count=1000
+    # Some Libs need System Property Sets (i.e. AT&T Discovery)
+    # The following properties are being set by the AJSC Container and should NOT need to be set here.
+    AFT_LATITUDE=33.823589
+    AFT_LONGITUDE=-84.366982
+    AFT_ENVIRONMENT=AFTUAT

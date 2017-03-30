@@ -1,0 +1,75 @@
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: ${artifactId}
+  namespace: ${kube-namespace}
+spec:
+  replicas: ${service-replicas}
+  selector:
+    app: ${artifactId}
+  template:
+    metadata:
+      labels:
+        app: ${artifactId}
+    spec:
+      serviceAccount: ${service-account}
+      containers:
+      - name: ${artifactId}
+        image: ${docker-registry}/${namespace}/${artifactId}:latest
+        imagePullPolicy: Always
+        ports:
+         - containerPort: 8080
+        env:
+        - name: com_att_aft_config_file
+          valueFrom:
+            configMapKeyRef:
+              name: ${artifactId}-config
+              key: aftpath
+        - name: logging_config
+          valueFrom:
+            configMapKeyRef:
+              name: ${artifactId}-config
+              key: logbackpath
+        - name: aafuserroles_file
+          valueFrom:
+            configMapKeyRef:
+              name: ${artifactId}-config
+              key: aafuserrolespath
+        - name: dynamic_file
+          valueFrom:
+            configMapKeyRef:
+              name: ${artifactId}-config
+              key: dynamicpath
+        - name: cadi_file
+          valueFrom:
+            configMapKeyRef:
+              name: ${artifactId}-config
+              key: cadipath
+        volumeMounts:
+        - mountPath: /etc/config
+          name: config
+        - mountPath: /etc/keystore
+          name: keystore 
+        - mountPath: /etc/aafkeystore
+          name: keyfile        
+      volumes:
+        - name: config
+          configMap:
+            name: ${artifactId}-config
+            items:
+            - key: aft.properties
+              path: aft.properties
+            - key: AAFUserRoles.properties
+              path: AAFUserRoles.properties
+            - key: logback.xml
+              path: logback.xml
+            - key: cadi.properties
+              path: cadi.properties
+            - key: dynamic.properties
+              path: dynamic.properties            
+        - name: keystore
+          secret:
+            secretName: ${artifactId}-keystore
+        - name: keyfile
+          secret:
+            secretName: ${artifactId}-aaf-keystore

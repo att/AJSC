@@ -1,0 +1,52 @@
+{
+  "pathFilter": {
+    "deniedPaths": [
+      {
+        "path": "/camunda/api/engine/.*",
+        "methods": "*"
+      },
+      {
+        "path": "/camunda/api/cockpit/.*",
+        "methods": "*"
+      },
+      {
+        "path": "/camunda/app/tasklist/{engine}/.*",
+        "methods": "*"
+      },
+      {
+        "path": "/camunda/app/cockpit/{engine}/.*",
+        "methods": "*"
+      }
+    ],
+    "allowedPaths": [
+      {
+        "path": "/camunda/api/engine/engine/",
+        "methods": "GET"
+      },
+      {
+        "path": "/camunda/api/{app:cockpit}/plugin/{engine}/static/.*",
+        "methods": "GET"
+      },
+      {
+        "path": "/camunda/api/{app:cockpit}/plugin/{plugin}/{engine}/.*",
+        "methods": "*",
+        "authorizer": "org.camunda.bpm.webapp.impl.security.filter.EngineRequestAuthorizer"
+      },
+      {
+        "path": "/camunda/api/engine/engine/{engine}/.*",
+        "methods": "*",
+        "authorizer": "org.camunda.bpm.webapp.impl.security.filter.EngineRequestAuthorizer"
+      },
+      {
+        "path": "/camunda/app/{app:cockpit}/{engine}/.*",
+        "methods": "*",
+        "authorizer": "org.camunda.bpm.webapp.impl.security.filter.ApplicationRequestAuthorizer"
+      },
+      {
+        "path": "/camunda/app/{app:tasklist}/{engine}/.*",
+        "methods": "*",
+        "authorizer": "org.camunda.bpm.webapp.impl.security.filter.ApplicationRequestAuthorizer"
+      }
+    ]
+  }
+}

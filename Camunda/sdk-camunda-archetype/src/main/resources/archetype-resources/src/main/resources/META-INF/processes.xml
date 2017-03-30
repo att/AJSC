@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) 2017 AT&T Intellectual Property. All rights reserved.
+     
+ -->
+
+<process-application
+	xmlns="http://www.camunda.org/schema/1.0/ProcessApplication" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+	<process-archive name="example-process-archive">
+		<process-engine>default</process-engine>
+		<resource>bpmn/log-message.bpmn</resource>		
+		<properties>
+			<property name="isDeleteUponUndeploy">true</property>
+			<property name="isScanForProcessDefinitions">false</property>
+		</properties>
+	</process-archive>
+
+</process-application>
