@@ -9,6 +9,9 @@
 	<artifactId>sdk-java-camunda-core</artifactId>
 	<version>6.1.0.3</version>
 	<packaging>jar</packaging>
+	<name>sdk-java-camunda-core</name>
+	<url>https://github.com/att/AJSC/tree/master/Camunda</url>
+    <description>sdk-java-camunda-core</description>
 	
 	<parent>		
 		<groupId>com.att.ajsc</groupId>
@@ -27,7 +30,7 @@
 	 <licenses>
 	  <license>
 	    <name>BSD License</name>
-	    <url></url>
+	    <url>https://github.com/att/AJSC/blob/master/Camunda/License.txt</url>
 	  </license>
 	</licenses>
 
@@ -200,19 +203,19 @@
 	
 	<distributionManagement>
     		<snapshotRepository>
-      			<id>ossrhdme</id>
+      			<id>ossrhajsc</id>
       			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
     		</snapshotRepository>
     		<repository>
-      			<id>ossrhdme</id>
+      			<id>ossrhajsc</id>
       			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
     		</repository>
   	</distributionManagement>
 	
 	<scm>
-		<connection></connection>
-		<developerConnection></developerConnection>
-		<url></url>
+		<connection>https://github.com/att/AJSC.git</connection>
+		<developerConnection>${project.scm.connection}</developerConnection>
+		<url>https://github.com/att/AJSC/tree/master/Camunda</url>
 	</scm>
 	
 	<profiles>

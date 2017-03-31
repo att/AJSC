@@ -11,13 +11,13 @@
 	<artifactId>${artifactId}</artifactId>
 	<version>${version}</version>
 	<name>sdk-camunda-archetype-resources</name>
-	<url></url>
+	<url>https://github.com/att/AJSC/tree/master/Camunda</url>
     <description>sdk-camunda-archetype-resources</description>
     
      <licenses>
 	  <license>
 	    <name>BSD License</name>
-	    <url></url>
+	    <url>https://github.com/att/AJSC/blob/master/Camunda/License.txt</url>
 	  </license>
 	</licenses>
 
@@ -278,18 +278,18 @@
 	</build>
 	
 	<scm>
-		<connection></connection>
-		<developerConnection></developerConnection>
-		<url></url>
+		<connection>https://github.com/att/AJSC.git</connection>
+		<developerConnection>${project.scm.connection}</developerConnection>
+		<url>https://github.com/att/AJSC/tree/master/Camunda</url>
 	</scm>
 	
 	<distributionManagement>
     		<snapshotRepository>
-      			<id>ossrhdme</id>
+      			<id>ossrhajsc</id>
       			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
     		</snapshotRepository>
     		<repository>
-      			<id>ossrhdme</id>
+      			<id>ossrhajsc</id>
       			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
     		</repository>
   	</distributionManagement>
