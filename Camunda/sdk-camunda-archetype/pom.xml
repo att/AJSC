@@ -6,17 +6,16 @@
 	<artifactId>sdk-camunda-archetype</artifactId>
 	<version>7.6.2-00</version>
 	<packaging>maven-archetype</packaging>
-
-	<name>sdk-camunda-archetype</name>
-	<url></url>
-    <description>Metrics Common Module</description>
-    
+	<name>sdk-camunda-archetype-resources</name>
+	<url>https://github.com/att/AJSC/tree/master/Camunda</url>
+        <description>sdk-camunda-archetype-resources</description>
+   
      <licenses>
 	  <license>
 	    <name>BSD License</name>
-	    <url></url>
+	    <url>https://github.com/att/AJSC/blob/master/Camunda/License.txt	</url>
 	  </license>
-	</licenses>
+     </licenses>
 
 	<developers>
 	   <developer>
@@ -104,7 +103,7 @@
 				<version>1.6.7</version>
 				<extensions>true</extensions>
 				<configuration>
-					<serverId>ossrhdme</serverId>
+					<serverId>ossrhajsc</serverId>
 					<nexusUrl>https://oss.sonatype.org/</nexusUrl>
 					<autoReleaseAfterClose>true</autoReleaseAfterClose>
 				</configuration>
@@ -141,11 +140,11 @@
 	
 	<distributionManagement>
     		<snapshotRepository>
-      			<id>ossrhdme</id>
+      			<id>ossrhajsc</id>
       			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
     		</snapshotRepository>
     		<repository>
-      			<id>ossrhdme</id>
+      			<id>ossrhajsc</id>
       			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
     		</repository>
   	</distributionManagement>
