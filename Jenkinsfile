@@ -21,7 +21,7 @@ node {
     //sh "${mvnHome}/bin/mvn -f cdp-pal/cdp-pal/pom.xml clean deploy"
     //sh "${mvnHome}/bin/mvn -f cdp-pal/cdp-pal-common/pom.xml clean deploy"
     //sh "${mvnHome}/bin/mvn -f cdp-pal/cdp-pal-openstack/pom.xml clean deploy
-    sh "${mvnHome}/bin/mvn -f Camunda/sdk-java-camunda-core/pom.xml clean install"
-    sh "${mvnHome}/bin/mvn -f Camunda/sdk-camunda-archetype/pom.xml clean install"
+    sh "${mvnHome}/bin/mvn -f Camunda/sdk-java-camunda-core/pom.xml clean deploy"
+    sh "${mvnHome}/bin/mvn -f Camunda/sdk-camunda-archetype/pom.xml clean deploy"
     
 } 
