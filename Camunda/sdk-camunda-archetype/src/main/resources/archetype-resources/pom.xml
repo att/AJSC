@@ -47,8 +47,8 @@
 		<service.account>${service-account}</service.account>
 		<namespace>${namespace}</namespace>
 		<jsf.version>2.2.11</jsf.version>
-		<csi.logging>6.1.0.5</csi.logging>
-		<sdk.camel.rest>6.2.0.3</sdk.camel.rest>
+		<csi.logging>6.1.0.6</csi.logging>
+		<sdk.camel.rest>6.2.0.6</sdk.camel.rest>
 		<sdk.camunda.core>6.1.0.3</sdk.camunda.core>
 	</properties>
 
