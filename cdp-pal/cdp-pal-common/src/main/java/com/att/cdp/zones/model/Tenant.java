@@ -5,8 +5,9 @@ package com.att.cdp.zones.model;
 
 import java.util.List;
 
-import org.codehaus.jackson.annotate.JsonIgnore;
-import org.codehaus.jackson.map.annotate.JsonRootName;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonRootName;
 
 import com.att.cdp.exceptions.NotNavigableException;
 import com.att.cdp.exceptions.ZoneException;
@@ -22,6 +23,7 @@ import com.att.cdp.zones.Context;
  * @version $Id$
  */
 @JsonRootName("tenant")
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Tenant extends ModelObject {
 
     /**

@@ -9,12 +9,11 @@ import java.util.Map;
 
 import com.att.cdp.exceptions.ZoneException;
 import com.att.cdp.zones.model.ACL;
-import com.att.cdp.zones.model.Image;
+import com.att.cdp.zones.model.Hypervisor;
 import com.att.cdp.zones.model.Network;
 import com.att.cdp.zones.model.Port;
 import com.att.cdp.zones.model.Rule;
 import com.att.cdp.zones.model.Server;
-import com.att.cdp.zones.model.Snapshot;
 import com.att.cdp.zones.model.Template;
 import com.att.cdp.zones.model.Tenant;
 import com.att.cdp.zones.model.VirtualInterface;
@@ -58,11 +57,11 @@ public class DummyCompute extends AbstractCompute {
         // TODO Auto-generated method stub
         return null;
     }
-    
+
     @Override
-	public void createServerSnapshot(Server server, String name) throws ZoneException {
-		// TODO Auto-generated method stub
-	}
+    public void createServerSnapshot(Server server, String name) throws ZoneException {
+        // TODO Auto-generated method stub
+    }
 
     @Override
     public void deleteServer(Server server) throws ZoneException {
@@ -229,7 +228,7 @@ public class DummyCompute extends AbstractCompute {
     }
 
     @Override
-    public void prepareResize(Server server, String newTemplateId) throws ZoneException {
+    public void prepareResize(Server server, Template newTemplate) throws ZoneException {
         // TODO Auto-generated method stub
 
     }
@@ -391,6 +390,42 @@ public class DummyCompute extends AbstractCompute {
      */
     @Override
     public void detachPort(Server server, Port port) throws ZoneException {
+        // TODO Auto-generated method stub
+
+    }
+
+    /**
+     * @see com.att.cdp.zones.ComputeService#getHypervisor(java.lang.String)
+     */
+    @Override
+    public Hypervisor getHypervisor(String id) throws ZoneException {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    /**
+     * @see com.att.cdp.zones.ComputeService#getHypervisors()
+     */
+    @Override
+    public List<Hypervisor> getHypervisors() throws ZoneException {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    /**
+     * @see com.att.cdp.zones.ComputeService#getHypervisors(java.lang.String)
+     */
+    @Override
+    public List<Hypervisor> getHypervisors(String name) throws ZoneException {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    /**
+     * @see com.att.cdp.zones.ComputeService#refreshHypervisorStatus(com.att.cdp.zones.model.Hypervisor)
+     */
+    @Override
+    public void refreshHypervisorStatus(Hypervisor hypervisor) throws ZoneException {
         // TODO Auto-generated method stub
 
     }

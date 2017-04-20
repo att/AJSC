@@ -355,7 +355,6 @@ public final class DefaultConfiguration implements Configuration, Cloneable {
      * 
      * @param key
      *            The property name to retrieve.
-     * @returns The value of the property, or 0 if it does not exist or is invalid.
      * @see com.att.cdp.pal.configuration.Configuration#getIntegerProperty(java.lang.String)
      */
     @Override
@@ -665,7 +664,6 @@ public final class DefaultConfiguration implements Configuration, Cloneable {
      * 
      * @param key
      *            The property to be checked
-     * @returns True if the value is a boolean constant, or false if it does not exist or is not a correct string
      * @see com.att.cdp.pal.configuration.Configuration#isValidBoolean(java.lang.String)
      */
     @Override
@@ -680,11 +678,10 @@ public final class DefaultConfiguration implements Configuration, Cloneable {
 
     /**
      * Returns an indication if the indicated property represents a valid double-precision floating point number.
-     * 
+     * True if the property is a valid representation of a double, or false if it does not exist or contains
+     *          illegal characters.
      * @param key
      *            The property to be examined
-     * @returns True if the property is a valid representation of a double, or false if it does not exist or contains
-     *          illegal characters.
      * @see com.att.cdp.pal.configuration.Configuration#isValidDouble(java.lang.String)
      */
     @Override
@@ -703,11 +700,10 @@ public final class DefaultConfiguration implements Configuration, Cloneable {
 
     /**
      * Returns an indication if the property is a valid integer value or not.
-     * 
+     * True if the value is a valid integer string, or false if it does not exist or contains illegal
+     *          characters.
      * @param key
      *            The key of the property to check
-     * @returns True if the value is a valid integer string, or false if it does not exist or contains illegal
-     *          characters.
      * @see com.att.cdp.pal.configuration.Configuration#isValidInteger(java.lang.String)
      */
     @Override
@@ -924,10 +920,9 @@ public final class DefaultConfiguration implements Configuration, Cloneable {
 
     /**
      * Retrieve the SWM Bootstrap script required for installing SWM Node, CLI and platform-init on newly provisioned
-     * VMs
+     * VMs and returns the initialization script to be used.
      * 
-     * @return The initialization script to be used
-     */
+      */
     @Override
     public String getSWMBootstrapScript() {
         return swmBootstrapScript;
@@ -936,7 +931,7 @@ public final class DefaultConfiguration implements Configuration, Cloneable {
     /**
      * This method allows a caller to insert the agentScript into the configuration object.
      * 
-     * @param key
+     * @param agentScript
      *            The contents of the agentScript loaded during startup
      */
     public void populateScript(String agentScript) {

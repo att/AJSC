@@ -10,12 +10,13 @@ import java.util.List;
 import com.att.cdp.exceptions.ContextClosedException;
 import com.att.cdp.exceptions.InvalidRequestException;
 import com.att.cdp.exceptions.NotNavigableException;
+import com.att.cdp.exceptions.NotSupportedException;
 import com.att.cdp.exceptions.TimeoutException;
 import com.att.cdp.exceptions.ZoneException;
 import com.att.cdp.pal.i18n.Msg;
-import com.att.cdp.pal.util.StringHelper;
 import com.att.cdp.zones.ComputeService;
 import com.att.cdp.zones.Context;
+import com.att.cdp.zones.model.Hypervisor;
 import com.att.cdp.zones.model.Server;
 import com.att.eelf.i18n.EELFResourceManager;
 
@@ -142,8 +143,7 @@ public abstract class AbstractCompute extends AbstractService implements Compute
         long delay = pollInterval * 1000L;
         long limit = System.currentTimeMillis() + (timeout * 1000L);
         boolean found = false;
-        outer:
-        do {
+        outer: do {
             server.refreshStatus();
             for (Server.Status state : states) {
                 if (state.equals(server.getStatus())) {
@@ -174,5 +174,85 @@ public abstract class AbstractCompute extends AbstractService implements Compute
             throw new TimeoutException(EELFResourceManager.format(Msg.SERVER_TIMEOUT, server.getName(),
                 Integer.toString(timeout), server.getId(), server.getStatus().name(), builder.toString()));
         }
+    }
+
+    /**
+     * @see com.att.cdp.zones.Service#getURL()
+     */
+    @Override
+    public String getURL() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    /**
+     * This method has been deprecated, and therefore need not be implemented by any provider. It will be removed at
+     * some point in the future.
+     * 
+     * @see com.att.cdp.zones.ComputeService#executeCommand(com.att.cdp.zones.model.Server, java.lang.String)
+     */
+    @Override
+    public void executeCommand(Server server, String command) throws ZoneException {
+    }
+
+    /**
+     * This method has been deprecated, and therefore need not be implemented by any provider. It will be removed at
+     * some point in the future.
+     * 
+     * @see com.att.cdp.zones.ComputeService#getConsoleOutput(com.att.cdp.zones.model.Server)
+     */
+    @Override
+    public List<String> getConsoleOutput(Server server) throws ZoneException {
+        return new ArrayList<String>();
+    }
+
+    /**
+     * This method is not supported by all providers, and therefore need not be implemented by all providers.
+     */
+    public Hypervisor getHypervisor(String id) throws ZoneException {
+        String message =
+            EELFResourceManager.format(Msg.UNIMPLEMENTED_OPERATION, "getHypervisor", getContext().getProvider()
+                .getName());
+        throw new NotSupportedException(message);
+    }
+
+    /**
+     * This method is not supported by all providers, and therefore need not be implemented by all providers.
+     */
+    public List<Hypervisor> getHypervisors() throws ZoneException {
+        String message =
+            EELFResourceManager.format(Msg.UNIMPLEMENTED_OPERATION, "getHypervisors", getContext().getProvider()
+                .getName());
+        throw new NotSupportedException(message);
+    }
+
+    /**
+     * This method is not supported by all providers, and therefore need not be implemented by all providers.
+     */
+    public List<Hypervisor> getHypervisors(String name) throws ZoneException {
+        String message =
+            EELFResourceManager.format(Msg.UNIMPLEMENTED_OPERATION, "getHypervisor", getContext().getProvider()
+                .getName());
+        throw new NotSupportedException(message);
+    }
+
+    /**
+     * This method is not supported by all providers, and therefore need not be implemented by all providers.
+     */
+    public void refreshHypervisorState(Hypervisor hypervisor) throws ZoneException {
+        String message =
+            EELFResourceManager.format(Msg.UNIMPLEMENTED_OPERATION, "refreshHypervisorState", getContext()
+                .getProvider().getName());
+        throw new NotSupportedException(message);
+    }
+
+    /**
+     * This method is not supported by all providers, and therefore need not be implemented by all providers.
+     */
+    public void refreshHypervisorStatus(Hypervisor hypervisor) throws ZoneException {
+        String message =
+            EELFResourceManager.format(Msg.UNIMPLEMENTED_OPERATION, "refreshHypervisorStatus", getContext()
+                .getProvider().getName());
+        throw new NotSupportedException(message);
     }
 }

@@ -4,13 +4,16 @@
 
 package com.att.cdp.zones.spi;
 
+import com.att.cdp.exceptions.ZoneException;
 import com.att.cdp.zones.Context;
 import com.att.cdp.zones.SnapshotService;
+import com.att.cdp.zones.model.Server;
+import com.att.cdp.zones.model.Volume;
 
 /**
  * @since Mar 24, 2015
  * @version $Id$
- * @Deprecated Use the volume service instead. Snapshots are point-in-time copies of volumes and are better managed as
+ * @deprecated Use the volume service instead. Snapshots are point-in-time copies of volumes and are better managed as
  *             part of the volume service.
  */
 @Deprecated
@@ -25,5 +28,5 @@ public abstract class AbstractSnapshot extends AbstractService implements Snapsh
     public AbstractSnapshot(Context context) {
         super(context);
     }
-
+    
 }

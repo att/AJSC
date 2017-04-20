@@ -38,8 +38,9 @@ public interface NetworkService extends Service {
      *            The server that we are assigning the ip address to
      * @param address
      *            The address we are assigning
-     * @See {@link Port} object to set the ip address. Each port may have different IP addresses assigned. Calling this
-     *      method will assign the IP address to the server (essentially the same on all ports).
+     * @link {com.att.cdp.zones.model.Port#Port()} object to set the ip address. Each port may have different IP
+     *       addresses assigned. Calling this method will assign the IP address to the server (essentially the same on
+     *       all ports).
      * @throws ZoneException
      *             If the ip address cannot be assigned
      */
@@ -51,9 +52,9 @@ public interface NetworkService extends Service {
      * @param serverId
      *            The id of the server that we are assigning the ip address to
      * @param address
-     *            The address we are assigning
-     * @See {@link Port} object to set the ip address. Each port may have different IP addresses assigned. Calling this
-     *      method will assign the IP address to the server (essentially the same on all ports).
+     *            The address we are assigning {@link Port} object to set the ip address. Each port may have different
+     *            IP addresses assigned. Calling this method will assign the IP address to the server (essentially the
+     *            same on all ports).
      * @throws ZoneException
      *             If the ip address cannot be assigned
      */
@@ -195,9 +196,9 @@ public interface NetworkService extends Service {
 
     /**
      * @param serverId
-     * @return
+     * @return List ports
      * @throws ZoneException
-     * @Deprecated use {@link #getPorts()} to obtain this information
+     * @deprecated use {@link #getPorts()} to obtain this information
      */
     @Deprecated
     List<Port> getInterfaces(String serverId) throws ZoneException;
@@ -258,6 +259,20 @@ public interface NetworkService extends Service {
      *             If the port cannot be created.
      */
     Port createPort(Subnet subnet) throws ZoneException;
+
+    /**
+     * Creates a port on the specified subnet using the supplied port as a model. This allows the caller to specify
+     * attributes such as the fixed ip addresses, mac address, or other characteristics of the port that may be desired.
+     * 
+     * @param subnet
+     *            The subnet to connect the port to
+     * @param model
+     *            The model port object that supplies the desired characteristics for the new connected port
+     * @return The connected port that will be assigned to the server
+     * @throws ZoneException
+     *             If the port cannot be created for some reason.
+     */
+    Port createPort(Subnet subnet, Port model) throws ZoneException;
 
     /**
      * Deletes a port (that is not being used)

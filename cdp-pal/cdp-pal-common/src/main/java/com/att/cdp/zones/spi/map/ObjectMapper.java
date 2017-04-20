@@ -173,6 +173,9 @@ public final class ObjectMapper {
      */
     private static Map<String, Class<?>> findAllProperties(Object obj) {
         HashMap<String, Class<?>> map = new HashMap<String, Class<?>>();
+        if (obj == null) {
+            return map;
+        }
         Class<?> clazz = obj.getClass();
         return findAllProperties(clazz, map);
     }

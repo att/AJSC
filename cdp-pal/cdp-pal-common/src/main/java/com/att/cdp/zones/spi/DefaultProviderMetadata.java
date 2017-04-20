@@ -35,6 +35,7 @@ public class DefaultProviderMetadata implements ProviderMetadata {
     /**
      * The application logger to be used
      */
+    @SuppressWarnings("unused")
     private Logger appLogger;
 
     /**
@@ -189,6 +190,24 @@ public class DefaultProviderMetadata implements ProviderMetadata {
     }
 
     /**
+     * @see com.att.cdp.zones.ProviderMetadata#isVmwareImplementation()
+     */
+    @Override
+    public boolean isVMwareImplementation() {
+        return Boolean.parseBoolean(context.getProperties()
+            .getProperty(ProviderProperties.PROPERTY_PROVIDER_VMWARE_PROXY, "false").trim());
+    }
+    
+    /**
+     * @see com.att.cdp.zones.ProviderMetadata#isCreatePortFixedIpSupported()
+     */
+    @Override
+    public boolean isCreatePortFixedIpSupported() {
+        return Boolean.parseBoolean(context.getProperties().getProperty(
+            ProviderProperties.PROPERTY_PROVIDER_SUPPORTS_CREATE_PORT_FROM_MODEL, Boolean.FALSE.toString().trim()));
+    }
+
+    /**
      * @see com.att.cdp.zones.ProviderMetadata#isComputeSupported()
      */
     @Override
@@ -306,6 +325,16 @@ public class DefaultProviderMetadata implements ProviderMetadata {
     }
 
     /**
+     * @see com.att.cdp.zones.ProviderMetadata#isTemplateSupported()
+     */
+    @Override
+    public boolean isTemplateSupported() {
+        return Boolean.parseBoolean(context.getProperties()
+            .getProperty(ProviderProperties.PROPERTY_PROVIDER_SUPPORTS_TEMPLATE, "false").trim());
+
+    }
+
+    /**
      * @see com.att.cdp.zones.ProviderMetadata#isVolumeSupported()
      */
     @Override
@@ -331,50 +360,154 @@ public class DefaultProviderMetadata implements ProviderMetadata {
         return Boolean.parseBoolean(context.getProperties()
             .getProperty(ProviderProperties.PROPERTY_PROVIDER_SUPPORTS_MIGRATE_SERVER, "false").trim());
     }
-    
+
     /**
      * @see com.att.cdp.zones.ProviderMetadata#isKeypairReadSupported()
      */
     @Override
     public boolean isKeypairReadSupported() {
-    	return Boolean.parseBoolean(context.getProperties()
-                .getProperty(ProviderProperties.PROPERTY_PROVIDER_SUPPORTS_KEYPAIR_READ, "true").trim());
+        return Boolean.parseBoolean(context.getProperties()
+            .getProperty(ProviderProperties.PROPERTY_PROVIDER_SUPPORTS_KEYPAIR_READ, "true").trim());
     }
-    
+
     @Override
     public String[] getImmutablePropertiesKeys() {
-    	String str = context.getProperties().getProperty(ProviderProperties.PROPERTY_PROVIDER_CONFIGURATION_KEYS);
-    	if (str != null) {
-    		return str.split(",");
-    	}
-    	return null;
+        String str = context.getProperties().getProperty(ProviderProperties.PROPERTY_PROVIDER_CONFIGURATION_KEYS);
+        if (str != null) {
+            return str.split(",");
+        }
+        return null;
     }
-   
 
-    
-	@Override
-	public boolean isFloatingIpPoolsSupported() {
+    @Override
+    public boolean isFloatingIpPoolsSupported() {
         return Boolean.parseBoolean(context.getProperties()
-                .getProperty(ProviderProperties.PROPERTY_PROVIDER_SUPPORTS_FLOATING_IP_POOL, "false").trim());
-	}	
+            .getProperty(ProviderProperties.PROPERTY_PROVIDER_SUPPORTS_FLOATING_IP_POOL, "false").trim());
+    }
 
-	@Override
-	public boolean isSSHSupported() {
-		  return Boolean.parseBoolean(context.getProperties()
-	                .getProperty(ProviderProperties.PROPERTY_PROVIDER_SUPPORTS_SSH, "true").trim());
-	}
-	
-	@Override
-	public boolean isHostNameToBeGenerated() {
-		return Boolean.parseBoolean(context.getProperties()
-                .getProperty(ProviderProperties.PROPERTY_PROVIDER_HOSTNAME_GENERATED, "true").trim());
-	
-	}
-	
+    @Override
+    public boolean isSSHSupported() {
+        return Boolean.parseBoolean(context.getProperties()
+            .getProperty(ProviderProperties.PROPERTY_PROVIDER_SUPPORTS_SSH, "true").trim());
+    }
+
+    @Override
+    public boolean isHostNameToBeGenerated() {
+        return Boolean.parseBoolean(context.getProperties()
+            .getProperty(ProviderProperties.PROPERTY_PROVIDER_HOSTNAME_GENERATED, "true").trim());
+
+    }
+
     @Override
     public boolean isNetworkMetadataSupported() {
         return Boolean.parseBoolean(context.getProperties()
-                .getProperty(ProviderProperties.PROPERTY_PROVIDER_GETNETWORKMETADATA, "true").trim());
-    
+            .getProperty(ProviderProperties.PROPERTY_PROVIDER_GETNETWORKMETADATA, "true").trim());
+
     }
+
+    @Override
+    public boolean isAbortResizeSupported() {
+        return Boolean.parseBoolean(context.getProperties()
+            .getProperty(ProviderProperties.PROPERTY_PROVIDER_ABORT_RESIZE, Boolean.FALSE.toString()).trim());
+
+    }
+
+    @Override
+    public boolean isACLSupported() {
+        return Boolean.parseBoolean(context.getProperties()
+            .getProperty(ProviderProperties.PROPERTY_PROVIDER_SUPPORTS_ACL, Boolean.FALSE.toString()).trim());
+    }
+
+    /**
+     * @see com.att.cdp.zones.ProviderMetadata#isRebuildServerSupported()
+     */
+    @Override
+    public boolean isRebuildServerSupported() {
+        return Boolean
+            .parseBoolean(context.getProperties()
+                .getProperty(ProviderProperties.PROPERTY_PROVIDER_SUPPORTS_REBUILD_SERVER, Boolean.FALSE.toString())
+                .trim());
+    }
+
+    /**
+     * @see com.att.cdp.zones.ProviderMetadata#isNetworkCreateSupported()
+     */
+    @Override
+    public boolean isNetworkCreateSupported() {
+        return Boolean.parseBoolean(context.getProperties().getProperty(
+            ProviderProperties.PROPERTY_PROVIDER_SUPPORTS_NETWORK_CREATE, Boolean.FALSE.toString().trim()));
+    }
+
+    /**
+     * @see com.att.cdp.zones.ProviderMetadata#isNetworkDeleteSupported()
+     */
+    @Override
+    public boolean isNetworkDeleteSupported() {
+        return Boolean.parseBoolean(context.getProperties().getProperty(
+            ProviderProperties.PROPERTY_PROVIDER_SUPPORTS_NETWORK_DELETE, Boolean.FALSE.toString().trim()));
+    }
+
+    /**
+     * @see com.att.cdp.zones.ProviderMetadata#isSubnetCreateSupported()
+     */
+    @Override
+    public boolean isSubnetCreateSupported() {
+        return Boolean.parseBoolean(context.getProperties().getProperty(
+            ProviderProperties.PROPERTY_PROVIDER_SUPPORTS_SUBNET_CREATE, Boolean.FALSE.toString().trim()));
+    }
+
+    /**
+     * @see com.att.cdp.zones.ProviderMetadata#isSubnetDeleteSupported()
+     */
+    @Override
+    public boolean isSubnetDeleteSupported() {
+        return Boolean.parseBoolean(context.getProperties().getProperty(
+            ProviderProperties.PROPERTY_PROVIDER_SUPPORTS_SUBNET_DELETE, Boolean.FALSE.toString().trim()));
+    }
+
+    /**
+     * @see com.att.cdp.zones.ProviderMetadata#isAssignIpSupported()
+     */
+    @Override
+    public boolean isAssignIpSupported() {
+        return Boolean.parseBoolean(context.getProperties().getProperty(
+            ProviderProperties.PROPERTY_PROVIDER_SUPPORTS_ASSIGN_IP, Boolean.FALSE.toString().trim()));
+    }
+
+    /**
+     * @see com.att.cdp.zones.ProviderMetadata#isReleaseIpSupported()
+     */
+    @Override
+    public boolean isReleaseIpSupported() {
+        return Boolean.parseBoolean(context.getProperties().getProperty(
+            ProviderProperties.PROPERTY_PROVIDER_SUPPORTS_RELEASE_IP, Boolean.FALSE.toString().trim()));
+    }
+
+    /**
+     * @see com.att.cdp.zones.ProviderMetadata#isHypervisorSupported()
+     */
+    @Override
+    public boolean isHypervisorSupported() {
+        return Boolean.parseBoolean(context.getProperties().getProperty(
+            ProviderProperties.PROPERTY_PROVIDER_SUPPORTS_HYPERVISOR, Boolean.FALSE.toString().trim()));
+    }
+
+
+    /**
+     * @see com.att.cdp.zones.ProviderMetadata#isUpdateVolumeSupported()
+     */
+	@Override
+	public boolean isUpdateVolumeSupported() {
+		 return Boolean.parseBoolean(context.getProperties().getProperty(
+		            ProviderProperties.PROPERTY_PROVIDER_SUPPORTS_UPDATE_VOLUME, Boolean.FALSE.toString().trim()));
+	}
+	
+    /**
+     * @see com.att.cdp.zones.ProviderMetadata#isGetVolumesByServerSupported()
+     */
+	@Override
+	public boolean isGetVolumesByServerSupported() {
+		 return Boolean.parseBoolean(context.getProperties().getProperty(
+		            ProviderProperties.PROPERTY_PROVIDER_SUPPORTS_GET_VOLUMES_BYSERVER, Boolean.FALSE.toString().trim()));
+	}
 }

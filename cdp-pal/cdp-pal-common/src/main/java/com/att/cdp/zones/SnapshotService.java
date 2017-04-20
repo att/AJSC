@@ -14,7 +14,7 @@ import com.att.cdp.zones.model.Snapshot;
  * 
  * @since Mar 24, 2015
  * @version $Id$
- * @Deprecated Use the volume service instead. Snapshots are point-in-time copies of volumes and are better managed as
+ * @deprecated Use the volume service instead. Snapshots are point-in-time copies of volumes and are better managed as
  *             part of the volume service.
  */
 @Deprecated
@@ -33,7 +33,7 @@ public interface SnapshotService extends Service {
      *         model.
      * @throws ZoneException
      *             If the snapshot cannot be created for some reason.
-     * @Deprecated Use the volume service instead. Snapshots are point-in-time copies of volumes and are better managed
+     * @deprecated Use the volume service instead. Snapshots are point-in-time copies of volumes and are better managed
      *             as part of the volume service.
      */
     @Deprecated
@@ -46,7 +46,7 @@ public interface SnapshotService extends Service {
      *            The id of the snapshot to be destroyed.
      * @throws ZoneException
      *             If the snapshot cannot be destroyed.
-     * @Deprecated Use the volume service instead. Snapshots are point-in-time copies of volumes and are better managed
+     * @deprecated Use the volume service instead. Snapshots are point-in-time copies of volumes and are better managed
      *             as part of the volume service.
      */
     @Deprecated
@@ -60,7 +60,7 @@ public interface SnapshotService extends Service {
      * @return The snapshot if it exists
      * @throws ZoneException
      *             If the snapshot cannot be listed, or the snapshot does not exist
-     * @Deprecated Use the volume service instead. Snapshots are point-in-time copies of volumes and are better managed
+     * @deprecated Use the volume service instead. Snapshots are point-in-time copies of volumes and are better managed
      *             as part of the volume service.
      */
     @Deprecated
@@ -72,7 +72,7 @@ public interface SnapshotService extends Service {
      * @return The list of snapshots for this tenant, if any. The list may be empty if there are no snapshots defined.
      * @throws ZoneException
      *             If the snapshot service cannot be accessed.
-     * @Deprecated Use the volume service instead. Snapshots are point-in-time copies of volumes and are better managed
+     * @deprecated Use the volume service instead. Snapshots are point-in-time copies of volumes and are better managed
      *             as part of the volume service.
      */
     @Deprecated
@@ -88,7 +88,7 @@ public interface SnapshotService extends Service {
      * @see java.lang.String#matches(String)
      * @throws ZoneException
      *             If the snapshot service cannot be accessed.
-     * @Deprecated Use the volume service instead. Snapshots are point-in-time copies of volumes and are better managed
+     * @deprecated Use the volume service instead. Snapshots are point-in-time copies of volumes and are better managed
      *             as part of the volume service.
      */
     @Deprecated

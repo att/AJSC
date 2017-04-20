@@ -13,7 +13,7 @@ import java.lang.reflect.Type;
 import java.util.List;
 import java.util.Map;
 
-import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
  * This class contains methods to assist in the manipulation or support of classes and objects via reflection

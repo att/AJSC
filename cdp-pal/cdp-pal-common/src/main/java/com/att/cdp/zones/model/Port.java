@@ -225,7 +225,12 @@ public class Port extends ModelObject {
     @Override
     public boolean equals(Object obj) {
         Port other = (Port) obj;
-        if (macAddr != null) {
+
+        if (macAddr == null && other.macAddr == null) {
+            if (id.equals(other.id) && network.equals(other.network) && subnet.equals(other.subnet)) {
+                return true;
+            }
+        } else if (macAddr != null && other.macAddr != null) {
             return macAddr.equals(other.macAddr);
         }
         return false;

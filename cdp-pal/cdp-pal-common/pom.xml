@@ -8,13 +8,13 @@
   <parent>
     <groupId>com.att.cdp</groupId>
     <artifactId>cdp-pal</artifactId>
-    <version>0.0.1</version>
+    <version>1.1.7</version>
     <relativePath>..</relativePath>
   </parent>
 
   <artifactId>cdp-pal-common</artifactId>
   <name>CDP - PAL common code</name>
-  <version>0.0.1</version>
+  <version>1.1.7</version>
   <description>Cloud Deployment Platform</description>
   <url>https://github.com/att/AJSC/tree/master/cdp-pal</url>
   
@@ -83,9 +83,9 @@
     </dependency>
 
     <dependency>
-      <groupId>org.codehaus.jackson</groupId>
-      <artifactId>jackson-jaxrs</artifactId>
-    </dependency>
+		<groupId>com.fasterxml.jackson.jaxrs</groupId>
+  	    <artifactId>jackson-jaxrs-json-provider</artifactId>
+	</dependency>
 
     <dependency>
       <groupId>commons-io</groupId>

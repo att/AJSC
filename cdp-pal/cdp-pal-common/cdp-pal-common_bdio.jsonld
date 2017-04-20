@@ -1,20 +1,20 @@
 [ {
-  "@id" : "uuid:c2cfc2ad-1892-40d6-b1b3-9a1e6f89c609",
+  "@id" : "uuid:4c306685-d80b-48cb-a41c-7ecc1dfef68a",
   "@type" : "BillOfMaterials",
   "specVersion" : "1.1.0",
   "spdx:name" : "CDP - PAL common code Black Duck I/O Export",
   "creationInfo" : {
     "spdx:creator" : "Tool: Launcher",
-    "spdx:created" : "2016-12-05T21:54:12.000Z"
+    "spdx:created" : "2017-04-20T22:01:09.000Z"
   }
 }, {
-  "@id" : "maven:com.att.cdp/cdp-pal-common/0.0.1",
+  "@id" : "maven:com.att.cdp/cdp-pal-common/1.1.7",
   "@type" : "Project",
   "name" : "CDP - PAL common code",
-  "revision" : "0.0.1",
+  "revision" : "1.1.7",
   "externalIdentifier" : {
     "externalSystemTypeId" : "maven",
-    "externalId" : "com.att.cdp:cdp-pal-common:0.0.1"
+    "externalId" : "com.att.cdp:cdp-pal-common:1.1.7"
   },
   "relationship" : [ {
     "related" : "maven:org.apache.commons/commons-lang3/3.0",
@@ -35,7 +35,7 @@
     "related" : "maven:ch.qos.logback/logback-classic/1.1.3",
     "relationshipType" : "DYNAMIC_LINK"
   }, {
-    "related" : "maven:org.codehaus.jackson/jackson-jaxrs/1.9.13",
+    "related" : "maven:com.fasterxml.jackson.jaxrs/jackson-jaxrs-json-provider/2.8.8",
     "relationshipType" : "DYNAMIC_LINK"
   }, {
     "related" : "maven:commons-io/commons-io/2.4",
@@ -59,6 +59,111 @@
   "externalIdentifier" : {
     "externalSystemTypeId" : "maven",
     "externalId" : "com.att.eelf:eelf-core:0.0.1"
+  },
+  "relationship" : [ {
+    "related" : "maven:org.mockito/mockito-core/1.10.19",
+    "relationshipType" : "DYNAMIC_LINK"
+  }, {
+    "related" : "maven:org.powermock/powermock-module-junit4/1.6.4",
+    "relationshipType" : "DYNAMIC_LINK"
+  }, {
+    "related" : "maven:org.powermock/powermock-api-mockito/1.6.4",
+    "relationshipType" : "DYNAMIC_LINK"
+  } ]
+}, {
+  "@id" : "maven:org.mockito/mockito-core/1.10.19",
+  "@type" : "Component",
+  "revision" : "1.10.19",
+  "externalIdentifier" : {
+    "externalSystemTypeId" : "maven",
+    "externalId" : "org.mockito:mockito-core:1.10.19"
+  },
+  "relationship" : {
+    "related" : "maven:org.objenesis/objenesis/2.1",
+    "relationshipType" : "DYNAMIC_LINK"
+  }
+}, {
+  "@id" : "maven:org.objenesis/objenesis/2.1",
+  "@type" : "Component",
+  "revision" : "2.1",
+  "externalIdentifier" : {
+    "externalSystemTypeId" : "maven",
+    "externalId" : "org.objenesis:objenesis:2.1"
+  }
+}, {
+  "@id" : "maven:org.powermock/powermock-module-junit4/1.6.4",
+  "@type" : "Component",
+  "revision" : "1.6.4",
+  "externalIdentifier" : {
+    "externalSystemTypeId" : "maven",
+    "externalId" : "org.powermock:powermock-module-junit4:1.6.4"
+  },
+  "relationship" : {
+    "related" : "maven:org.powermock/powermock-module-junit4-common/1.6.4",
+    "relationshipType" : "DYNAMIC_LINK"
+  }
+}, {
+  "@id" : "maven:org.powermock/powermock-module-junit4-common/1.6.4",
+  "@type" : "Component",
+  "revision" : "1.6.4",
+  "externalIdentifier" : {
+    "externalSystemTypeId" : "maven",
+    "externalId" : "org.powermock:powermock-module-junit4-common:1.6.4"
+  },
+  "relationship" : [ {
+    "related" : "maven:org.powermock/powermock-core/1.6.4",
+    "relationshipType" : "DYNAMIC_LINK"
+  }, {
+    "related" : "maven:org.powermock/powermock-reflect/1.6.4",
+    "relationshipType" : "DYNAMIC_LINK"
+  } ]
+}, {
+  "@id" : "maven:org.powermock/powermock-core/1.6.4",
+  "@type" : "Component",
+  "revision" : "1.6.4",
+  "externalIdentifier" : {
+    "externalSystemTypeId" : "maven",
+    "externalId" : "org.powermock:powermock-core:1.6.4"
+  },
+  "relationship" : {
+    "related" : "maven:org.javassist/javassist/3.20.0-GA",
+    "relationshipType" : "DYNAMIC_LINK"
+  }
+}, {
+  "@id" : "maven:org.javassist/javassist/3.20.0-GA",
+  "@type" : "Component",
+  "revision" : "3.20.0-GA",
+  "externalIdentifier" : {
+    "externalSystemTypeId" : "maven",
+    "externalId" : "org.javassist:javassist:3.20.0-GA"
+  }
+}, {
+  "@id" : "maven:org.powermock/powermock-reflect/1.6.4",
+  "@type" : "Component",
+  "revision" : "1.6.4",
+  "externalIdentifier" : {
+    "externalSystemTypeId" : "maven",
+    "externalId" : "org.powermock:powermock-reflect:1.6.4"
+  }
+}, {
+  "@id" : "maven:org.powermock/powermock-api-mockito/1.6.4",
+  "@type" : "Component",
+  "revision" : "1.6.4",
+  "externalIdentifier" : {
+    "externalSystemTypeId" : "maven",
+    "externalId" : "org.powermock:powermock-api-mockito:1.6.4"
+  },
+  "relationship" : {
+    "related" : "maven:org.powermock/powermock-api-support/1.6.4",
+    "relationshipType" : "DYNAMIC_LINK"
+  }
+}, {
+  "@id" : "maven:org.powermock/powermock-api-support/1.6.4",
+  "@type" : "Component",
+  "revision" : "1.6.4",
+  "externalIdentifier" : {
+    "externalSystemTypeId" : "maven",
+    "externalId" : "org.powermock:powermock-api-support:1.6.4"
   }
 }, {
   "@id" : "maven:org.slf4j/slf4j-api/1.7.13",
@@ -105,35 +210,69 @@
     "externalId" : "ch.qos.logback:logback-classic:1.1.3"
   }
 }, {
-  "@id" : "maven:org.codehaus.jackson/jackson-jaxrs/1.9.13",
+  "@id" : "maven:com.fasterxml.jackson.jaxrs/jackson-jaxrs-json-provider/2.8.8",
   "@type" : "Component",
-  "revision" : "1.9.13",
+  "revision" : "2.8.8",
   "externalIdentifier" : {
     "externalSystemTypeId" : "maven",
-    "externalId" : "org.codehaus.jackson:jackson-jaxrs:1.9.13"
+    "externalId" : "com.fasterxml.jackson.jaxrs:jackson-jaxrs-json-provider:2.8.8"
   },
   "relationship" : [ {
-    "related" : "maven:org.codehaus.jackson/jackson-core-asl/1.9.13",
+    "related" : "maven:com.fasterxml.jackson.jaxrs/jackson-jaxrs-base/2.8.8",
     "relationshipType" : "DYNAMIC_LINK"
   }, {
-    "related" : "maven:org.codehaus.jackson/jackson-mapper-asl/1.9.13",
+    "related" : "maven:com.fasterxml.jackson.core/jackson-core/2.8.8",
+    "relationshipType" : "DYNAMIC_LINK"
+  }, {
+    "related" : "maven:com.fasterxml.jackson.core/jackson-databind/2.8.8",
+    "relationshipType" : "DYNAMIC_LINK"
+  }, {
+    "related" : "maven:com.fasterxml.jackson.module/jackson-module-jaxb-annotations/2.8.8",
     "relationshipType" : "DYNAMIC_LINK"
   } ]
 }, {
-  "@id" : "maven:org.codehaus.jackson/jackson-core-asl/1.9.13",
+  "@id" : "maven:com.fasterxml.jackson.jaxrs/jackson-jaxrs-base/2.8.8",
   "@type" : "Component",
-  "revision" : "1.9.13",
+  "revision" : "2.8.8",
   "externalIdentifier" : {
     "externalSystemTypeId" : "maven",
-    "externalId" : "org.codehaus.jackson:jackson-core-asl:1.9.13"
+    "externalId" : "com.fasterxml.jackson.jaxrs:jackson-jaxrs-base:2.8.8"
   }
 }, {
-  "@id" : "maven:org.codehaus.jackson/jackson-mapper-asl/1.9.13",
+  "@id" : "maven:com.fasterxml.jackson.core/jackson-core/2.8.8",
   "@type" : "Component",
-  "revision" : "1.9.13",
+  "revision" : "2.8.8",
   "externalIdentifier" : {
     "externalSystemTypeId" : "maven",
-    "externalId" : "org.codehaus.jackson:jackson-mapper-asl:1.9.13"
+    "externalId" : "com.fasterxml.jackson.core:jackson-core:2.8.8"
+  }
+}, {
+  "@id" : "maven:com.fasterxml.jackson.core/jackson-databind/2.8.8",
+  "@type" : "Component",
+  "revision" : "2.8.8",
+  "externalIdentifier" : {
+    "externalSystemTypeId" : "maven",
+    "externalId" : "com.fasterxml.jackson.core:jackson-databind:2.8.8"
+  },
+  "relationship" : {
+    "related" : "maven:com.fasterxml.jackson.core/jackson-annotations/2.8.0",
+    "relationshipType" : "DYNAMIC_LINK"
+  }
+}, {
+  "@id" : "maven:com.fasterxml.jackson.core/jackson-annotations/2.8.0",
+  "@type" : "Component",
+  "revision" : "2.8.0",
+  "externalIdentifier" : {
+    "externalSystemTypeId" : "maven",
+    "externalId" : "com.fasterxml.jackson.core:jackson-annotations:2.8.0"
+  }
+}, {
+  "@id" : "maven:com.fasterxml.jackson.module/jackson-module-jaxb-annotations/2.8.8",
+  "@type" : "Component",
+  "revision" : "2.8.8",
+  "externalIdentifier" : {
+    "externalSystemTypeId" : "maven",
+    "externalId" : "com.fasterxml.jackson.module:jackson-module-jaxb-annotations:2.8.8"
   }
 }, {
   "@id" : "maven:commons-io/commons-io/2.4",

@@ -1,5 +1,6 @@
 /*******************************************************************************
- * Copyright (c) 2016 AT&T Intellectual Property. All rights reserved.
+ * Copyright (c) 2017 AT&T Intellectual Property. All rights reserved.
+ *  
  *******************************************************************************/
 
 package com.att.cdp.zones.model;
@@ -9,6 +10,7 @@ import com.att.cdp.zones.Context;
 /**
  * The definition of a route on a subnet
  * 
+ * @author <a href="mailto:ry303t@att.com?subject=com.att.cdp.zones.model.Route">Ryan Young</a>
  * @since May 07, 2015
  * @version $Id$
  */

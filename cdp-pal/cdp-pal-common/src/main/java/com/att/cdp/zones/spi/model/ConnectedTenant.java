@@ -142,8 +142,7 @@ public class ConnectedTenant extends Tenant {
 
     /**
      * Retrieves the list of volumes defined for this service.
-     * 
-     * @returns The list of volumes for this tenant, if any. The list may be empty if there are no volumes defined.
+	 * Returns the list of volumes for this tenant, if any. The list may be empty if there are no volumes defined.
      * @throws ZoneException
      *             - If the volume service cannot be accessed.
      * @see com.att.cdp.zones.model.Tenant#getVolumes()
