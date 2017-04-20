@@ -7,6 +7,7 @@ package com.att.cdp.zones;
 import java.util.List;
 
 import com.att.cdp.exceptions.ZoneException;
+import com.att.cdp.zones.model.Server;
 import com.att.cdp.zones.model.Snapshot;
 import com.att.cdp.zones.model.Volume;
 
@@ -34,6 +35,26 @@ public interface VolumeService extends Service {
      *             If the volume cannot be created for some reason.
      */
     Volume createVolume(Volume template) throws ZoneException;
+    
+    /**
+     * This method is used to create a new volume using the Volume object (disconnected) as the model. When the method
+     * returns, a connected model object is returned that should be used for any model navigation desired.
+     * 
+     * @see Context Context for information about model navigation
+     * @param template
+     *            The template of the volume to create. This must contain at least a name and size. Other information
+     *            will be supplied if not present. Any ID is ignored, and the ID of the created volume is returned in
+     *            the connected volume object returned to the caller.
+     * @param server
+     *          vmware requires the server object to create the volume            
+     * @return A <code>Volume</code> object that is connected to the service context and can be used to navigate the
+     *         model.
+     * @throws ZoneException
+     *             If the volume cannot be created for some reason.
+     */
+    Volume createVolume(Volume template, Server server) throws ZoneException;
+    
+    
 
     /**
      * This method can be called to destroy a volume.
@@ -44,6 +65,18 @@ public interface VolumeService extends Service {
      *             If the volume cannot be destroyed.
      */
     void destroyVolume(String id) throws ZoneException;
+    
+    /**
+     * This method can be called to destroy a volume.
+     * 
+     * @param id
+     *            The id of the volume to be destroyed.
+     * @param server
+     *            vmware requires server object to destroy the volume           
+     * @throws ZoneException
+     *             If the volume cannot be destroyed.
+     */
+    void destroyVolume(String id, Server server) throws ZoneException;
 
     /**
      * Returns information about the volume with the indicated id, if it exists.
@@ -77,7 +110,38 @@ public interface VolumeService extends Service {
      *             If the volume service cannot be accessed.
      */
     List<Volume> getVolumes(String name) throws ZoneException;
+    
+    /**
+     * Returns a list of volumes that match the supplied server
+     * 
+    * @param server
+     *            vmware requires server object to get the volumes  
+     * @return A list (potentially empty) of all volumes that match the specified name pattern    
+     * @throws ZoneException
+     *             If the volume service cannot be accessed.
+     */
+    List<Volume> getVolumes(Server server) throws ZoneException;
+    
+    
 
+    /**
+     * This method is used to create a new snapshot using the Snapshot object (disconnected) as the model. When the
+     * method returns, a connected model object is returned that should be used for any model navigation desired.
+     * 
+     * @see Context Context for information about model navigation
+     * @param template
+     *            The template of the snapshot to create. This must contain at least a name and volumeId. Other
+     *            information will be supplied if not present. Any ID is ignored, and the ID of the created snapshot is
+     *            returned in the connected volume object returned to the caller.
+     * @param server
+     *          vmware requires the server object to create the snapshot                
+     * @return A <code>Snapshot</code> object that is connected to the service context and can be used to navigate the
+     *         model.
+     * @throws ZoneException
+     *             If the snapshot cannot be created for some reason.
+     */
+    Snapshot createSnapshot(Snapshot template, Server server) throws ZoneException;
+    
     /**
      * This method is used to create a new snapshot using the Snapshot object (disconnected) as the model. When the
      * method returns, a connected model object is returned that should be used for any model navigation desired.
@@ -103,6 +167,18 @@ public interface VolumeService extends Service {
      *             If the snapshot cannot be destroyed.
      */
     void destroySnapshot(String id) throws ZoneException;
+    
+    /**
+     * This method can be called to destroy a snapshot.
+     * 
+     * @param id
+     *            The id of the snapshot to be destroyed.
+     * @param server
+     *            vmware requires server object to destroy the snapshot 
+     * @throws ZoneException
+     *             If the snapshot cannot be destroyed.
+     */
+    void destroySnapshot(String id, Server server) throws ZoneException;
 
     /**
      * Returns information about the snapshot with the indicated id, if it exists.
@@ -147,4 +223,19 @@ public interface VolumeService extends Service {
      *             If the snapshots cannot be obtained
      */
     List<Snapshot> getSnapshotsByVolume(String id) throws ZoneException;
+    
+    /**
+     * This method can be called to update a volume.
+     * 
+     * @param template
+     *            The template of the volume to create. This must contain at least a name and size. Other information
+     *            will be supplied if not present. Any ID is ignored, and the ID of the created volume is returned in
+     *            the connected volume object returned to the caller.
+     * @param server
+     *          vmware requires the server object to create the volume      
+     * @throws ZoneException
+     *             If the volume cannot be destroyed.
+     */
+    Volume updateVolume(Volume template, Server server) throws ZoneException;
+    
 }

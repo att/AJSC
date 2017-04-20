@@ -76,7 +76,7 @@ public abstract class AbstractImage extends AbstractService implements ImageServ
 	 *            The total time, in seconds, that the method will block the
 	 *            caller and check the image state. This value MUST be greater
 	 *            than or equal to the poll interval.
-	 * @param status
+	 * @param allowedStates
 	 *            The variable list of at least one status value(s) that are
 	 *            allowed or expected. If the image is found to be in any of
 	 *            these states on a poll interval, the method completes normally

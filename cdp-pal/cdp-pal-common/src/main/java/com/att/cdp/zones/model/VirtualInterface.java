@@ -34,6 +34,12 @@ public class VirtualInterface extends ModelObject {
     private String net_id;
     
     /**
+     * 
+     */
+    public VirtualInterface() {
+    }
+
+    /**
      * @param context
      *            The context we are connected to
      */
@@ -61,4 +67,24 @@ public class VirtualInterface extends ModelObject {
     public String getNetworkId() {
         return net_id;
     }
+
+	public String getMac_addr() {
+		return mac_addr;
+	}
+
+	public void setMac_addr(String mac_addr) {
+		this.mac_addr = mac_addr;
+	}
+
+	public String getNet_id() {
+		return net_id;
+	}
+
+	public void setNet_id(String net_id) {
+		this.net_id = net_id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
 }

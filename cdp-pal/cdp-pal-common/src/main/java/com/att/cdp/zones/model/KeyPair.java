@@ -4,7 +4,6 @@
 
 package com.att.cdp.zones.model;
 
-import com.att.cdp.exceptions.NotNavigableException;
 import com.att.cdp.exceptions.ZoneException;
 import com.att.cdp.zones.Context;
 
@@ -18,32 +17,32 @@ public class KeyPair extends ModelObject {
     /**
      * Serial number
      */
-    private static final long serialVersionUID = 1L;
+    protected static final long serialVersionUID = 1L;
 
     /**
      * The "fingerprint" (digest) of the key pair, used to ensure that no tampering has been performed.
      */
-    private String fingerprint;
+    protected String fingerprint;
 
     /**
      * The name of the key pair
      */
-    private String name;
+    protected String name;
 
     /**
      * The private key of the pair
      */
-    private String privateKey;
+    protected String privateKey;
 
     /**
      * The public key of the pair
      */
-    private String publicKey;
+    protected String publicKey;
 
     /**
      * A user id associated with the key pair. The appears to be unused in OpenStack
      */
-    private String userId;
+    protected String userId;
 
     /**
      * Requests to create a key pair with just the name. The provider will generate the public key and the PEM file

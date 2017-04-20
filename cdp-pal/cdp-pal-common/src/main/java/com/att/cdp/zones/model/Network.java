@@ -29,7 +29,6 @@ public class Network extends ModelObject {
      * or at least external to the tenant.
      */
     private boolean externalNetwork;
-  
 
     /**
      * The id of the network definition
@@ -74,7 +73,7 @@ public class Network extends ModelObject {
     private String status;
 
     /**
-     * A list of the subnets of this network
+     * A list of the subnet ids of this network
      */
     private List<Subnet> subnets = new ArrayList<>();
 
@@ -93,14 +92,13 @@ public class Network extends ModelObject {
      * True if the vlan is transparent, false if not a vlan or it is not transparent
      */
     private boolean vlanTransparent;
-    
+
     /**
-     * The CIDR block. In the case of aws,
-     * this is mapped to the cidr block for the VPC.
+     * The CIDR block. In the case of aws, this is mapped to the cidr block for the VPC.
      */
-        
+
     private String cidrBlock = null;
-    
+
     /**
      * 
      */
@@ -206,7 +204,7 @@ public class Network extends ModelObject {
     }
 
     /**
-     * @return the list of subnets attached to this network
+     * @return The list of subnet objects that exist.
      */
     public List<Subnet> getSubnets() {
         return subnets;
@@ -384,20 +382,16 @@ public class Network extends ModelObject {
     public void setVlanTransparent(boolean vlanTransparent) {
         this.vlanTransparent = vlanTransparent;
     }
-    
-    
 
     public String getCidrBlock() {
-		return cidrBlock;
-	}
+        return cidrBlock;
+    }
 
-	public void setCidrBlock(String cidrBlock) {
-		this.cidrBlock = cidrBlock;
-	}
+    public void setCidrBlock(String cidrBlock) {
+        this.cidrBlock = cidrBlock;
+    }
 
-	
-
-	/**
+    /**
      * @see java.lang.Object#toString()
      */
     @SuppressWarnings("nls")
@@ -418,7 +412,22 @@ public class Network extends ModelObject {
         /**
          * The network is active
          */
-        ACTIVE
+        ACTIVE,
+
+        /**
+         * The network exists but it is currently offline or inactive
+         */
+        OFFLINE,
+
+        /**
+         * The network exists, is online, but is operating in a degraded manner
+         */
+        DEGRADED,
+
+        /**
+         * The state of the network cannot be determined
+         */
+        UNKNOWN;
     }
 
     /**

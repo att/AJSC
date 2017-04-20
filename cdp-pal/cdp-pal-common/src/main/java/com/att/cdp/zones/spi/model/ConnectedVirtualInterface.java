@@ -5,7 +5,6 @@
 package com.att.cdp.zones.spi.model;
 
 import com.att.cdp.zones.Context;
-import com.att.cdp.zones.model.Template;
 import com.att.cdp.zones.model.VirtualInterface;
 
 /**

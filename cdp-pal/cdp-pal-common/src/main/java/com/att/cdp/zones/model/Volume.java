@@ -130,8 +130,14 @@ public class Volume extends ModelObject {
      * The volume type
      */
     private String volumeType;
-
+    
     /**
+     * The unitNumber
+     */
+    private String unitNumber;
+
+  
+	/**
      * Creates a disconnected model of a Volume that can be initialized using the setters
      */
     public Volume() {
@@ -262,6 +268,27 @@ public class Volume extends ModelObject {
     public String getVolumeType() {
         return volumeType;
     }
+    
+    /**
+     * JavaBean accessor to obtain the value of volume unitNumber
+     * 
+     * @return the unitNumber value
+     */
+    public String getUnitNumber() {
+  		return unitNumber;
+  	}
+
+    /**
+     * Standard JavaBean mutator method to set the value of volume unitNumber
+     * 
+     * @param unitNumber
+     *            the value to be set into unitNumber
+     */
+  	public void setUnitNumber(String unitNumber) {
+  		this.unitNumber = unitNumber;
+  	}
+  	
+  	
 
     /**
      * @see java.lang.Object#hashCode()

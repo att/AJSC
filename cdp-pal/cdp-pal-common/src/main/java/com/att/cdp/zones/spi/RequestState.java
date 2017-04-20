@@ -28,6 +28,11 @@ public final class RequestState {
     public static final String DEVICE = "DEVICE";
 
     /**
+     * If applicable, the hypervisor name
+     */
+    public static final String HYPERVISOR = "HYPERVISOR";
+
+    /**
      * If applicable, the image name
      */
     public static final String IMAGE = "IMAGE";

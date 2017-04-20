@@ -211,7 +211,7 @@ public enum Msg implements EELFResolvableErrorEnum {
      * seconds). The last state of the server is "{3}", and the expected state(s) are "{4}".
      */
     SERVER_TIMEOUT,
-    
+
     /**
      * The state of image "{0}" with id "{1}" did not change to an expected state within the provided timeout ({2}
      * seconds). The last state of the image is "{3}", and the expected state(s) are "{4}".
@@ -226,7 +226,12 @@ public enum Msg implements EELFResolvableErrorEnum {
     /**
      * Principal [{0}] has been authenticated on provider [{1}] to tenant [{2}]
      */
-    PRINCIPAL_HAS_BEEN_AUTHENTICATED;
+    PRINCIPAL_HAS_BEEN_AUTHENTICATED,
+
+    /**
+     * Operation [{0}] is not implemented in provider [{1}]
+     */
+    UNIMPLEMENTED_OPERATION;
 
     static {
         EELFResourceManager.loadMessageBundle("com/att/cdp/pal_common_messages"); //$NON-NLS-1$

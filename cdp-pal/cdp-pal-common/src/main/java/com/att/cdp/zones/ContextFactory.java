@@ -119,6 +119,12 @@ public final class ContextFactory {
     public static final String PROPERTY_OBJECT_URL = "provider.object.url";
 
     /**
+     * Any provider that implements a proxy/agent connection can use this property to supply the location of the agent
+     * for that provider. This is used to tell the proxy how to locate and connect to the agent.
+     */
+    public static final String PROPERTY_AGENT_URL = "provider.agent.url";
+
+    /**
      * Define the password for authentication of the user
      */
     public static final String PROPERTY_PASSWORD = "provider.password";

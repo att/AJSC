@@ -101,6 +101,11 @@ public abstract class ProviderProperties {
      * Indicates if the provider is a bare metal implementation
      */
     public static final String PROPERTY_PROVIDER_BARE_METAL = "provider.bare.metal";
+    
+    /**
+     * Indicates if the provider is a vmWare implementation
+     */
+    public static final String PROPERTY_PROVIDER_VMWARE_PROXY = "provider.vmware";
 
     /**
      * The provider supports load balancers
@@ -123,43 +128,109 @@ public abstract class ProviderProperties {
      * policies or profiles that the provider may have to control the location and hosts that the server ends up on.
      */
     public static final String PROPERTY_PROVIDER_SUPPORTS_MIGRATE_SERVER = "provider.supports.migrate.server";
-    
-    
+
     /**
      * The provider supports the ability to migrate a server. Migration works with a running server and honors any
      * policies or profiles that the provider may have to control the location and hosts that the server ends up on.
      */
     public static final String PROPERTY_PROVIDER_SUPPORTS_KEYPAIR_READ = "provider.supports.keypair.read";
-    
+
     /**
-     *  The provider supports the ability to use a configured user id for ssh
+     * The provider supports the ability to use a configured user id for ssh
      */
     public static final String PROPERTY_PROVIDER_CONFIGURATION_KEYS = "provider.configuration.keys";
-    
-    
-    
-    
+
     /**
-     *  The provider supports the ability to use floating ip pool
+     * The provider supports the ability to use floating ip pool
      */
     public static final String PROPERTY_PROVIDER_SUPPORTS_FLOATING_IP_POOL = "provider.supports.floatingippool";
-    
+
     /**
-     *  The provider supports the ability to to ssh
+     * The provider supports the ability to to ssh
      */
     public static final String PROPERTY_PROVIDER_SUPPORTS_SSH = "provider.supports.ssh";
-    
+
     /**
-     *  The provider supports the generated hostname
+     * The provider supports the generated hostname
      */
     public static final String PROPERTY_PROVIDER_HOSTNAME_GENERATED = "provider.hostname.generated";
-    
-    
+
     /**
-     *  The provider supports the generated getMetadata
+     * The provider supports the generated getMetadata
      */
     public static final String PROPERTY_PROVIDER_GETNETWORKMETADATA = "provider.supports.networkMetadata";
+
+    /**
+     * The provider supports the generated abort resize
+     */
+    public static final String PROPERTY_PROVIDER_ABORT_RESIZE = "provider.supports.abortresize";
+
+    /**
+     * This provider supports the ability to use Access Control Lists
+     */
+    public static final String PROPERTY_PROVIDER_SUPPORTS_ACL = "provider.supports.acl";
+
+    /**
+     * This provider supports the ability to use Templates
+     */
+    public static final String PROPERTY_PROVIDER_SUPPORTS_TEMPLATE = "provider.supports.template";
+
+    /**
+     * This provider supports the ability to rebuild server.
+     */
+    public static final String PROPERTY_PROVIDER_SUPPORTS_REBUILD_SERVER = "provider.supports.rebuild.server";
+
+    /**
+     * This provider supports the ability to delete networks
+     */
+    public static final String PROPERTY_PROVIDER_SUPPORTS_NETWORK_DELETE = "provider.supports.network.delete";
+
+    /**
+     * This provider supports the ability to create networks
+     */
+    public static final String PROPERTY_PROVIDER_SUPPORTS_NETWORK_CREATE = "provider.supports.network.create";
+
+    /**
+     * This provider supports the ability to delete subnets
+     */
+    public static final String PROPERTY_PROVIDER_SUPPORTS_SUBNET_DELETE = "provider.supports.subnet.delete";
+
+    /**
+     * This provider supports the ability to create subnets
+     */
+    public static final String PROPERTY_PROVIDER_SUPPORTS_SUBNET_CREATE = "provider.supports.subnet.create";
+
+    /**
+     * This provider supports the ability to assign an IP to a VM globally, or to a specific NIC
+     */
+    public static final String PROPERTY_PROVIDER_SUPPORTS_ASSIGN_IP = "provider.supports.assign.ip";
+
+    /**
+     * This provider supports the ability to release (remove) an IP from a VM or a specific NIC
+     */
+    public static final String PROPERTY_PROVIDER_SUPPORTS_RELEASE_IP = "provider.supports.release.ip";
+
+    /**
+     * Indicates that the client supports the "hypervisor" service abstraction if true
+     */
+    public static final String PROPERTY_PROVIDER_SUPPORTS_HYPERVISOR = "provider.supports.hypervisor";
     
+    /**
+     * Indicates that the client supports the "update volume" service abstraction if true
+     */
+    public static final String PROPERTY_PROVIDER_SUPPORTS_UPDATE_VOLUME = "provider.supports.update.volume";
+    
+    /**
+     * Indicates that the client supports the "get volume by server" service abstraction if true
+     */
+    public static final String PROPERTY_PROVIDER_SUPPORTS_GET_VOLUMES_BYSERVER = "provider.supports.get.volumebyserver";
+
+    /**
+     * Indicates that the provider supports the ability to create a port with a model port object supplying the detailed
+     * characteristics of the desired port, such as fixed ip addresses and/or mac address.
+     */
+    public static final String PROPERTY_PROVIDER_SUPPORTS_CREATE_PORT_FROM_MODEL =
+        "provider.supports.create.port.from.model";
 
     /**
      * Private default ctor prevents instantiation

@@ -6,7 +6,8 @@ package com.att.cdp.zones.model;
 import java.io.Serializable;
 import java.util.Date;
 
-import org.codehaus.jackson.annotate.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import com.att.cdp.exceptions.NotNavigableException;
 import com.att.cdp.exceptions.ZoneException;
@@ -21,7 +22,7 @@ import com.att.eelf.i18n.EELFResourceManager;
  * @since May 18, 2014
  * @version $Id$
  */
-
+@JsonIgnoreProperties(ignoreUnknown = true)
 public abstract class ModelObject implements Serializable {
 
     /**
@@ -65,6 +66,25 @@ public abstract class ModelObject implements Serializable {
      */
     @JsonIgnore
     private Context context;
+
+    /**
+     * Added to prevent Jackson serialization from failing because of "getter" with property name but no property
+     * defined. It is not actually used.
+     */
+    @JsonIgnore
+    private boolean connected;
+    /**
+     * Added to prevent Jackson serialization from failing because of "getter" with property name but no property
+     * defined. It is not actually used.
+     */
+    @JsonIgnore
+    private Tenant tenant;
+    /**
+     * Added to prevent Jackson serialization from failing because of "getter" with property name but no property
+     * defined. It is not actually used.
+     */
+    @JsonIgnore
+    private String tenantId;
 
     /**
      * Constructs the model object and initializes it's state
@@ -146,6 +166,7 @@ public abstract class ModelObject implements Serializable {
     /**
      * @return the value of context
      */
+    @JsonIgnore
     public Context getContext() {
         return context;
     }
@@ -156,6 +177,7 @@ public abstract class ModelObject implements Serializable {
      * 
      * @return true if the model object is connected, and false if they are not connected.
      */
+    @JsonIgnore
     public boolean isConnected() {
         return context != null;
     }
@@ -240,6 +262,7 @@ public abstract class ModelObject implements Serializable {
      * @throws ZoneException
      *             If model navigation was attempted but the model object is not connected
      */
+    @JsonIgnore
     public String getTenantId() throws ZoneException {
         if (!isConnected()) {
             notConnectedError();
@@ -255,6 +278,7 @@ public abstract class ModelObject implements Serializable {
      * @throws ZoneException
      *             If model navigation was attempted but the model object is not connected
      */
+    @JsonIgnore
     public void notConnectedError() throws ZoneException {
         throw new NotNavigableException(EELFResourceManager.format(Msg.NOT_NAVIGABLE));
     }
