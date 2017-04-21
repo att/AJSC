@@ -7,11 +7,10 @@ package com.att.cdp.openstack.heat.model;
 import java.util.List;
 import java.util.Map;
 
-import org.codehaus.jackson.annotate.JsonIgnoreProperties;
-import org.codehaus.jackson.annotate.JsonProperty;
-
 import com.att.cdp.openstack.exception.UnmarshallException;
 import com.att.cdp.pal.util.ObjectHelper;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * The root of the object graph that represents a Heat template

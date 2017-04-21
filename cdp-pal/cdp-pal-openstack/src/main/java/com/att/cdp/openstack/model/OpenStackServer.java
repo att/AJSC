@@ -15,20 +15,19 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.slf4j.Logger;
 
-import com.att.cdp.pal.configuration.ConfigurationFactory;
 import com.att.cdp.exceptions.ZoneException;
-import com.att.cdp.openstack.OpenStackContext;
+import com.att.cdp.pal.configuration.ConfigurationFactory;
 import com.att.cdp.zones.ComputeService;
 import com.att.cdp.zones.Context;
 import com.att.cdp.zones.ImageService;
 import com.att.cdp.zones.NetworkService;
 import com.att.cdp.zones.VolumeService;
+import com.att.cdp.zones.model.Hypervisor;
 import com.att.cdp.zones.model.Image;
 import com.att.cdp.zones.model.Network;
 import com.att.cdp.zones.model.Server;
 import com.att.cdp.zones.model.ServerBootSource;
 import com.att.cdp.zones.model.Volume;
-import com.att.cdp.zones.model.Image.Type;
 import com.att.cdp.zones.spi.map.ObjectMapper;
 import com.att.cdp.zones.spi.model.ConnectedServer;
 import com.att.eelf.i18n.EELFResourceManager;
@@ -239,6 +238,11 @@ public class OpenStackServer extends ConnectedServer {
     private AtomicBoolean volumeAttachmentsProcessed = new AtomicBoolean(false);
 
     /**
+     * This indicates if the hypervisor attachment have been processed or not.
+     */
+    private AtomicBoolean hypervisorAttachmentProcessed = new AtomicBoolean(false);
+
+    /**
      * This indicates if the images have been processed or not.
      */
     private AtomicBoolean imagesProcessed = new AtomicBoolean(false);
@@ -352,6 +356,20 @@ public class OpenStackServer extends ConnectedServer {
     }
 
     /**
+     * @see com.att.cdp.zones.model.Server#getHypervisor()
+     */
+    @Override
+    public Hypervisor getHypervisor() {
+        try {
+            loadHypervisorAttachment(getContext());
+        } catch (ZoneException e) {
+            Logger logger = ConfigurationFactory.getConfiguration().getApplicationLogger();
+            logger.error(EELFResourceManager.format(e));
+        }
+        return super.getHypervisor();
+    }
+
+    /**
      * @see com.att.cdp.zones.model.Server#getBootSource()
      */
     @Override
@@ -458,6 +476,33 @@ public class OpenStackServer extends ConnectedServer {
             for (Entry<String, String> entry : attachments.entrySet()) {
                 Volume volume = volumeService.getVolume(entry.getValue());
                 getVolumes().put(entry.getKey(), volume);
+            }
+        }
+    }
+
+    /**
+     * This method is called to load the hypervisor attachment, if it has not already been loaded. If it has been
+     * loaded, then the call is ignored.
+     * 
+     * @param context
+     *            The context that represents the connection we are servicing
+     * @throws ZoneException
+     *             If the attachments cannot be obtained, or if a hypervisor cannot be listed, or a hypervisor does not
+     *             exist
+     */
+    private void loadHypervisorAttachment(Context context) throws ZoneException {
+        if (hypervisorAttachmentProcessed.compareAndSet(false, true)) {
+            ComputeService computeService = context.getComputeService();
+            List<Hypervisor> hypervisors = computeService.getHypervisors();
+
+            if (this.novaModel.getHypervisorHostname() != null && !this.novaModel.getHypervisorHostname().isEmpty()) {
+                String hypervisorName = this.novaModel.getHypervisorHostname();
+                for (Hypervisor h : hypervisors) {
+                    if (h.getHostName().equals(hypervisorName)) {
+                        this.setHypervisor(h);
+                        return;
+                    }
+                }
             }
         }
     }

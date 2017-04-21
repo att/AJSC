@@ -38,8 +38,6 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.client.HttpClients;
-import org.codehaus.jackson.JsonNode;
-import org.codehaus.jackson.map.ObjectMapper;
 import org.slf4j.Logger;
 
 import com.att.cdp.pal.configuration.Configuration;
@@ -49,6 +47,8 @@ import com.att.cdp.openstack.i18n.OSMsg;
 import com.att.cdp.pal.util.StreamUtility;
 import com.att.cdp.zones.ContextFactory;
 import com.att.eelf.i18n.EELFResourceManager;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.woorea.openstack.keystone.model.Access;
 import com.woorea.openstack.keystone.model.Access.Service;
 
@@ -460,8 +460,12 @@ public class ServiceCatalog {
             if (supportedVersions != null) {
                 List<ServiceEndpoint> endpoints = service.getEndpoints();
                 if (endpoints.size() > 1 && region == null) {
-                    String msg = EELFResourceManager.format(OSMsg.PAL_OS_REGION_REQUIRED, type, endpoints.toString());
-                    throw new NoRegionFoundException(msg);
+                    if (!Boolean.parseBoolean(context.getProperties().getProperty(
+                        OpenStackContext.ALLOW_UNKNOWN_REGION, "false"))) {
+                        String msg =
+                            EELFResourceManager.format(OSMsg.PAL_OS_REGION_REQUIRED, type, endpoints.toString());
+                        throw new NoRegionFoundException(msg);
+                    }
                 }
 
                 boolean found = false;
@@ -927,7 +931,7 @@ public class ServiceCatalog {
             JsonNode versionNode = root.get(JSON_NODE_VERSION);
 
             if (versionsNode != null) {
-                Iterator<JsonNode> it = versionsNode.getElements();
+                Iterator<JsonNode> it = versionsNode.elements();
                 while (it.hasNext()) {
                     JsonNode element = it.next();
                     checkVersionId(element, versions);
@@ -1017,7 +1021,7 @@ public class ServiceCatalog {
     private static SSLContext getSSLContext() {
         SSLContext sslContext = null;
         try {
-            sslContext = SSLContext.getInstance("SSL"); //$NON-NLS-1$
+            sslContext = SSLContext.getInstance("TLSv1.2"); //$NON-NLS-1$
             sslContext.init(null, new TrustManager[] {
                 new X509TrustManager() {
                     @Override

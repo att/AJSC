@@ -2,6 +2,6 @@
  id: 12345, 
  name: default, 
  description: Default security group,
- tenant_id: 1234567890, 
+ tenant_id: 1234567890-abcd-1234-123456, 
  
  }

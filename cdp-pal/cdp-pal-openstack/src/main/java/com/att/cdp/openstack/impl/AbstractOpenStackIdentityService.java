@@ -4,12 +4,15 @@
 
 package com.att.cdp.openstack.impl;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import org.apache.commons.io.IOUtils;
 
 import com.att.cdp.exceptions.AuthenticationException;
 import com.att.cdp.exceptions.ContextConnectionException;
@@ -189,8 +192,18 @@ public abstract class AbstractOpenStackIdentityService extends AbstractIdentity 
                 throw new ContextConnectionException(EELFResourceManager.format(OSMsg.PAL_OS_CONNECTION_FAILED,
                     "Compute", connector.getEndpoint()), e);
             } catch (OpenStackResponseException e) {
-                throw new ZoneException(EELFResourceManager.format(OSMsg.PAL_OS_REQUEST_FAILURE, "create key-pair "
-                    + keyPair.getName()), e);
+            	String reason = null;
+            	if(e.getResponse() != null && e.getResponse().getInputStream() != null) {
+            		try {
+                		reason = IOUtils.toString(e.getResponse().getInputStream(), "UTF-8");
+    				} catch (IOException e1) {} 
+            		throw new ZoneException(EELFResourceManager.format(OSMsg.PAL_OS_REQUEST_FAILURE, "create key-pair "
+                            + keyPair.getName() + " " + reason), e);
+            	} 
+            	
+            	throw new ZoneException(EELFResourceManager.format(OSMsg.PAL_OS_REQUEST_FAILURE, "create key-pair "
+                        + keyPair.getName()), e);
+            	
             }
             return new OpenStackKeyPair(context, pair);
         }

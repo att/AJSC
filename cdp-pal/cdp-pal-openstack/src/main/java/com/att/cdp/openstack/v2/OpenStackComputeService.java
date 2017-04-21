@@ -12,6 +12,8 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.ws.rs.core.Response.Status;
+
 import org.apache.commons.codec.binary.Base64;
 
 import com.att.cdp.exceptions.ContextClosedException;
@@ -24,6 +26,7 @@ import com.att.cdp.openstack.connectors.NovaConnector;
 import com.att.cdp.openstack.i18n.OSMsg;
 import com.att.cdp.openstack.model.OpenStackACL;
 import com.att.cdp.openstack.model.OpenStackFault;
+import com.att.cdp.openstack.model.OpenStackHypervisor;
 import com.att.cdp.openstack.model.OpenStackNetwork;
 import com.att.cdp.openstack.model.OpenStackPort;
 import com.att.cdp.openstack.model.OpenStackRule;
@@ -35,6 +38,7 @@ import com.att.cdp.pal.util.StringHelper;
 import com.att.cdp.zones.Context;
 import com.att.cdp.zones.NetworkService;
 import com.att.cdp.zones.model.ACL;
+import com.att.cdp.zones.model.Hypervisor;
 import com.att.cdp.zones.model.Network;
 import com.att.cdp.zones.model.Port;
 import com.att.cdp.zones.model.Rule;
@@ -48,7 +52,6 @@ import com.att.cdp.zones.spi.RequestState;
 import com.att.cdp.zones.spi.map.ObjectMapper;
 import com.att.cdp.zones.spi.model.ConnectedServer;
 import com.att.eelf.i18n.EELFResourceManager;
-import com.sun.jersey.api.client.ClientResponse.Status;
 import com.woorea.openstack.base.client.OpenStackBaseException;
 import com.woorea.openstack.base.client.OpenStackConnectException;
 import com.woorea.openstack.base.client.OpenStackResponse;
@@ -128,7 +131,6 @@ public class OpenStackComputeService extends AbstractCompute {
         checkArg(server.getId(), "server id");
 
         connect();
-        Context context = getContext();
 
         trackRequest();
         RequestState.put(RequestState.SERVICE, "Compute");
@@ -198,7 +200,6 @@ public class OpenStackComputeService extends AbstractCompute {
         checkArg(address, "address");
 
         connect();
-        Context context = getContext();
 
         trackRequest();
         RequestState.put(RequestState.SERVER, serverId);
@@ -223,7 +224,6 @@ public class OpenStackComputeService extends AbstractCompute {
         checkArg(aclName, "aclName");
 
         connect();
-        Context context = getContext();
 
         trackRequest();
         RequestState.put(RequestState.SERVICE, "Compute");
@@ -262,7 +262,6 @@ public class OpenStackComputeService extends AbstractCompute {
         }
 
         connect();
-        Context context = getContext();
 
         trackRequest();
         RequestState.put(RequestState.SERVER, server);
@@ -486,7 +485,6 @@ public class OpenStackComputeService extends AbstractCompute {
         checkArg(name, "name");
         
         connect();
-        Context context = getContext();
 
         trackRequest();
         RequestState.put(RequestState.SERVICE, "Compute");
@@ -509,7 +507,6 @@ public class OpenStackComputeService extends AbstractCompute {
         checkArg(id, "id");
 
         connect();
-        Context context = getContext();
 
         trackRequest();
         RequestState.put(RequestState.SERVICE, "Compute");
@@ -531,7 +528,6 @@ public class OpenStackComputeService extends AbstractCompute {
         checkArg(rule, "rule");
 
         connect();
-        Context context = getContext();
 
         trackRequest();
         RequestState.put(RequestState.SERVICE, "Compute");
@@ -575,7 +571,6 @@ public class OpenStackComputeService extends AbstractCompute {
         checkArg(serverId, "serverId");
 
         connect();
-        Context context = getContext();
 
         trackRequest();
         RequestState.put(RequestState.SERVER, serverId);
@@ -624,7 +619,6 @@ public class OpenStackComputeService extends AbstractCompute {
         checkArg(deviceName, "deviceName");
 
         connect();
-        Context context = getContext();
 
         trackRequest();
         RequestState.put(RequestState.SERVER, server.getName());
@@ -673,7 +667,6 @@ public class OpenStackComputeService extends AbstractCompute {
         checkArg(volume, "volume");
 
         connect();
-        Context context = getContext();
 
         trackRequest();
         RequestState.put(RequestState.SERVER, server.getName());
@@ -707,7 +700,6 @@ public class OpenStackComputeService extends AbstractCompute {
         checkArg(aclName, "aclName");
 
         connect();
-        Context context = getContext();
 
         trackRequest();
         RequestState.put(RequestState.SERVICE, "Compute");
@@ -738,7 +730,6 @@ public class OpenStackComputeService extends AbstractCompute {
         checkArg(keyPair, "keyPair");
 
         connect();
-        Context context = getContext();
 
         trackRequest();
         RequestState.put(RequestState.SERVICE, "Compute");
@@ -846,7 +837,6 @@ public class OpenStackComputeService extends AbstractCompute {
         checkArg(id, "id");
 
         connect();
-        Context context = getContext();
 
         trackRequest();
         RequestState.put(RequestState.SERVER, id);
@@ -928,7 +918,6 @@ public class OpenStackComputeService extends AbstractCompute {
      */
     public List<String> getExtensions() throws ZoneException {
         connect();
-        Context context = getContext();
 
         trackRequest();
         RequestState.put(RequestState.SERVICE, "Compute");
@@ -1181,7 +1170,6 @@ public class OpenStackComputeService extends AbstractCompute {
     public void pauseServer(String id) throws ZoneException {
         checkArg(id, "id");
         connect();
-        Context context = getContext();
 
         trackRequest();
         RequestState.put(RequestState.SERVER, id);
@@ -1200,19 +1188,18 @@ public class OpenStackComputeService extends AbstractCompute {
      */
     @SuppressWarnings("nls")
     @Override
-    public void prepareResize(Server server, String newTemplateId) throws ZoneException {
+    public void prepareResize(Server server, Template newTemplate) throws ZoneException {
         checkArg(server, "server");
         checkArg(server.getId(), "server id");
 
         connect();
-        Context context = getContext();
 
         trackRequest();
         RequestState.put(RequestState.SERVICE, "Compute");
         RequestState.put(RequestState.SERVICE_URL, nova.getEndpoint());
 
         try {
-            nova.getClient().servers().resize(server.getId(), newTemplateId, null).execute();
+            nova.getClient().servers().resize(server.getId(), newTemplate.getId(), null).execute();
         } catch (OpenStackBaseException ex) {
             ExceptionMapper.mapException(ex);
         }
@@ -1228,7 +1215,6 @@ public class OpenStackComputeService extends AbstractCompute {
         checkArg(server.getId(), "server id");
 
         connect();
-        Context context = getContext();
 
         trackRequest();
         RequestState.put(RequestState.SERVICE, "Compute");
@@ -1254,7 +1240,6 @@ public class OpenStackComputeService extends AbstractCompute {
     public void rebuildServer(Server server) throws ZoneException {
         checkArg(server, "server");
         connect();
-        Context context = getContext();
 
         trackRequest();
         RequestState.put(RequestState.SERVER, server.getId());
@@ -1282,7 +1267,6 @@ public class OpenStackComputeService extends AbstractCompute {
         checkArg(snapshot, "snapshot");
 
         connect();
-        Context context = getContext();
 
         trackRequest();
         RequestState.put(RequestState.SERVER, server.getId());
@@ -1307,7 +1291,6 @@ public class OpenStackComputeService extends AbstractCompute {
         checkArg(server, "server");
 
         connect();
-        Context context = getContext();
 
         trackRequest();
         RequestState.put(RequestState.SERVER, server);
@@ -1342,7 +1325,6 @@ public class OpenStackComputeService extends AbstractCompute {
         checkArg(address, "address");
 
         connect();
-        Context context = getContext();
 
         trackRequest();
         RequestState.put(RequestState.SERVER, serverId);
@@ -1377,7 +1359,6 @@ public class OpenStackComputeService extends AbstractCompute {
         checkArg(id, "id");
 
         connect();
-        Context context = getContext();
 
         trackRequest();
         RequestState.put(RequestState.SERVICE, "Compute");
@@ -1425,7 +1406,6 @@ public class OpenStackComputeService extends AbstractCompute {
         checkArg(id, "id");
 
         connect();
-        Context context = getContext();
 
         trackRequest();
         RequestState.put(RequestState.SERVER, id);
@@ -1471,7 +1451,6 @@ public class OpenStackComputeService extends AbstractCompute {
         checkArg(id, "id");
 
         connect();
-        Context context = getContext();
 
         trackRequest();
         RequestState.put(RequestState.SERVER, id);
@@ -1505,7 +1484,6 @@ public class OpenStackComputeService extends AbstractCompute {
         checkArg(id, "id");
 
         connect();
-        Context context = getContext();
 
         trackRequest();
         RequestState.put(RequestState.SERVER, id);
@@ -1536,7 +1514,6 @@ public class OpenStackComputeService extends AbstractCompute {
         checkArg(id, "id");
 
         connect();
-        Context context = getContext();
 
         trackRequest();
         RequestState.put(RequestState.SERVER, id);
@@ -1558,7 +1535,6 @@ public class OpenStackComputeService extends AbstractCompute {
         checkArg(serverId, "serverId");
 
         connect();
-        Context context = getContext();
 
         trackRequest();
         RequestState.put(RequestState.SERVER, serverId);
@@ -1566,9 +1542,9 @@ public class OpenStackComputeService extends AbstractCompute {
         RequestState.put(RequestState.SERVICE_URL, nova.getEndpoint());
 
         try {
-            OpenStackResponse request = nova.getClient().servers().migrate(serverId).request();
-            if (request == null || request.getStatus() != Status.ACCEPTED.getStatusCode()) {
-                throw new ZoneException(request.getEntity(String.class));
+            OpenStackResponse response = nova.getClient().servers().migrate(serverId).request();
+            if (response == null || response.getStatus() != Status.ACCEPTED.getStatusCode()) {
+                throw new ZoneException(response.getEntity(String.class));
             }
         } catch (OpenStackBaseException ex) {
             ExceptionMapper.mapException(ex);
@@ -1583,7 +1559,6 @@ public class OpenStackComputeService extends AbstractCompute {
         checkArg(serverId, "serverId");
 
         connect();
-        Context context = getContext();
 
         trackRequest();
         RequestState.put(RequestState.SERVER, serverId);
@@ -1687,6 +1662,133 @@ public class OpenStackComputeService extends AbstractCompute {
         } catch (OpenStackConnectException | OpenStackResponseException e) {
             ExceptionMapper.mapException(e);
         }
+    }
+
+    /**
+     * @see com.att.cdp.zones.ComputeService#getHypervisor(java.lang.String)
+     */
+    @Override
+    public Hypervisor getHypervisor(String id) throws ZoneException {
+        checkArg(id, "id");
+        connect();
+        Context context = getContext();
+
+        trackRequest();
+        RequestState.put(RequestState.HYPERVISOR, id);
+        RequestState.put(RequestState.SERVICE, "Compute");
+        RequestState.put(RequestState.SERVICE_URL, nova.getEndpoint());
+
+        try {
+            com.woorea.openstack.nova.model.Hypervisor hypervisor = nova.getClient().hypervisors().show(id).execute();
+            return new OpenStackHypervisor(context, hypervisor);
+        } catch (OpenStackBaseException e) {
+            ExceptionMapper.mapException(e);
+        }
+
+        return null;
+    }
+
+    /**
+     * @see com.att.cdp.zones.ComputeService#getHypervisors()
+     */
+    @Override
+    public List<Hypervisor> getHypervisors() throws ZoneException {
+        connect();
+        Context context = getContext();
+
+        trackRequest();
+        RequestState.put(RequestState.SERVICE, "Compute");
+        RequestState.put(RequestState.SERVICE_URL, nova.getEndpoint());
+
+        ArrayList<Hypervisor> list = new ArrayList<>();
+        try {
+            com.woorea.openstack.nova.model.Hypervisors hypervisors =
+                nova.getClient().hypervisors().list(true).execute();
+            for (com.woorea.openstack.nova.model.Hypervisor h : hypervisors.getList()) {
+                list.add(new OpenStackHypervisor(context, h));
+            }
+        } catch (OpenStackBaseException e) {
+            ExceptionMapper.mapException(e);
+        }
+
+        return list;
+    }
+
+    /**
+     * @see com.att.cdp.zones.ComputeService#refreshHypervisorState(com.att.cdp.zones.model.Hypervisor)
+     */
+    @Override
+    public void refreshHypervisorState(Hypervisor hypervisor) throws ZoneException {
+        checkArg(hypervisor, "hypervisor");
+
+        connect();
+
+        trackRequest();
+        RequestState.put(RequestState.HYPERVISOR, hypervisor);
+        RequestState.put(RequestState.SERVICE, "Compute");
+        RequestState.put(RequestState.SERVICE_URL, nova.getEndpoint());
+
+        try {
+            ((OpenStackHypervisor) hypervisor).mapHypervisorState(nova.getClient().hypervisors()
+                .show(hypervisor.getId()).execute());
+        } catch (OpenStackBaseException ex) {
+            ExceptionMapper.mapException(ex);
+        }
+    }
+
+    /**
+     * @see com.att.cdp.zones.ComputeService#refreshHypervisorStatus(com.att.cdp.zones.model.Hypervisor)
+     */
+    @Override
+    public void refreshHypervisorStatus(Hypervisor hypervisor) throws ZoneException {
+        checkArg(hypervisor, "hypervisor");
+
+        connect();
+
+        trackRequest();
+        RequestState.put(RequestState.HYPERVISOR, hypervisor);
+        RequestState.put(RequestState.SERVICE, "Compute");
+        RequestState.put(RequestState.SERVICE_URL, nova.getEndpoint());
+
+        try {
+            ((OpenStackHypervisor) hypervisor).mapHypervisorStatus(nova.getClient().hypervisors()
+                .show(hypervisor.getId()).execute());
+        } catch (OpenStackBaseException ex) {
+            ExceptionMapper.mapException(ex);
+        }
+    }
+
+    /**
+     * @see com.att.cdp.zones.ComputeService#getHypervisors(java.lang.String)
+     */
+    @Override
+    public List<Hypervisor> getHypervisors(String id) throws ZoneException {
+        connect();
+        Context context = getContext();
+
+        trackRequest();
+        RequestState.put(RequestState.SERVICE, "Compute");
+        RequestState.put(RequestState.SERVICE_URL, nova.getEndpoint());
+        RequestState.put(RequestState.HYPERVISOR, id);
+
+        ArrayList<Hypervisor> list = new ArrayList<>();
+        try {
+            com.woorea.openstack.nova.model.Hypervisors hypervisors =
+                nova.getClient().hypervisors().list(true).execute();
+            for (com.woorea.openstack.nova.model.Hypervisor h : hypervisors.getList()) {
+                if (id != null) {
+                    if (h.getId().matches(id)) {
+                        list.add(new OpenStackHypervisor(context, h));
+                    }
+                } else {
+                    list.add(new OpenStackHypervisor(context, h));
+                }
+            }
+        } catch (OpenStackBaseException e) {
+            ExceptionMapper.mapException(e);
+        }
+
+        return list;
     }
 
 }

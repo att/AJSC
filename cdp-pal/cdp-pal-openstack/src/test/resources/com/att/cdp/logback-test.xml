@@ -2,7 +2,7 @@
     Copyright (c) 2016 AT&T Intellectual Property. All rights reserved.
  -->
  
-<configuration scan="false" debug="false">
+ <configuration scan="false" debug="false">
   <property name="logDirectory" value="./logs" />
 
   <!-- ============================================================================ -->

@@ -11,10 +11,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.codehaus.jackson.annotate.JsonSubTypes;
-import org.codehaus.jackson.annotate.JsonTypeInfo;
-import org.codehaus.jackson.map.JsonDeserializer;
-import org.codehaus.jackson.map.annotate.JsonDeserialize;
 import org.yaml.snakeyaml.Yaml;
 
 import com.att.cdp.openstack.exception.UnmarshallException;
@@ -29,6 +25,10 @@ import com.att.cdp.openstack.heat.model.Template;
 import com.att.cdp.openstack.heat.model.ValuesConstraint;
 import com.att.cdp.pal.util.BeanProperty;
 import com.att.cdp.pal.util.ObjectHelper;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 /**
  * This is a specialized parser that can convert a heat document specified as either yaml or json into a object graph.

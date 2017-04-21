@@ -4,7 +4,6 @@
 
 package com.att.cdp.openstack.model;
 
-import org.codehaus.jackson.annotate.JsonProperty;
 import org.junit.Ignore;
 import org.junit.Test;
 

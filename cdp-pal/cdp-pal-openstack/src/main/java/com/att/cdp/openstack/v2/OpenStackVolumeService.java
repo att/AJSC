@@ -19,6 +19,7 @@ import com.att.cdp.openstack.model.OpenStackSnapshot;
 import com.att.cdp.openstack.model.OpenStackVolume;
 import com.att.cdp.openstack.util.ExceptionMapper;
 import com.att.cdp.zones.Context;
+import com.att.cdp.zones.model.Server;
 import com.att.cdp.zones.model.Snapshot;
 import com.att.cdp.zones.model.Volume;
 import com.att.cdp.zones.spi.AbstractVolume;

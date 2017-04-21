@@ -11,16 +11,15 @@ import java.io.InputStream;
 import java.util.List;
 import java.util.Map;
 
-import org.codehaus.jackson.JsonNode;
-import org.codehaus.jackson.JsonParseException;
-import org.codehaus.jackson.map.DeserializationConfig;
-import org.codehaus.jackson.map.JsonMappingException;
-import org.codehaus.jackson.map.ObjectMapper;
-import org.codehaus.jackson.map.SerializationConfig.Feature;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.woorea.openstack.nova.model.Server;
 import com.woorea.openstack.nova.model.Server.Addresses;
 
@@ -37,8 +36,9 @@ public class TestOpenstackServerMapping {
     @Before
     public void setup() throws IOException {
         om = new ObjectMapper();
-        om.configure(Feature.WRAP_ROOT_VALUE, true);
-        om.configure(DeserializationConfig.Feature.UNWRAP_ROOT_VALUE, true);
+        om.configure(SerializationFeature.WRAP_ROOT_VALUE, true);
+        om.configure(DeserializationFeature.UNWRAP_ROOT_VALUE, true);
+        
         StringBuilder builder = new StringBuilder();
         try (InputStream is = this.getClass().getResourceAsStream("test.json")) {
             byte[] buffer = new byte[4096];

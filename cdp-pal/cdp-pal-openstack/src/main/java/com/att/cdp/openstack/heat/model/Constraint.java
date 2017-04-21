@@ -4,18 +4,12 @@
 
 package com.att.cdp.openstack.heat.model;
 
-import org.codehaus.jackson.annotate.JsonIgnoreProperties;
-import org.codehaus.jackson.annotate.JsonProperty;
-import org.codehaus.jackson.annotate.JsonSubTypes;
-import org.codehaus.jackson.annotate.JsonTypeInfo;
-import org.codehaus.jackson.annotate.JsonSubTypes.Type;
-import org.codehaus.jackson.map.annotate.JsonDeserialize;
-import org.codehaus.jackson.map.annotate.JsonTypeIdResolver;
-import org.codehaus.jackson.map.annotate.JsonTypeResolver;
-
 import com.att.cdp.openstack.heat.ConstraintDeserializer;
 import com.att.cdp.openstack.heat.ConstraintResolver;
 import com.att.cdp.pal.util.ObjectHelper;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * @since Jan 28, 2015
