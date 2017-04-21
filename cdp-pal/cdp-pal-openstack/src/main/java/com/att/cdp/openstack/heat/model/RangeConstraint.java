@@ -4,10 +4,9 @@
 
 package com.att.cdp.openstack.heat.model;
 
-import org.codehaus.jackson.annotate.JsonIgnoreProperties;
-import org.codehaus.jackson.annotate.JsonProperty;
-
 import com.att.cdp.pal.util.ObjectHelper;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * @since Jan 28, 2015

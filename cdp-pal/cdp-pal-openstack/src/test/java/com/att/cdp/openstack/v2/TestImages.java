@@ -12,7 +12,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
-import org.codehaus.jackson.map.ObjectMapper;
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -21,6 +20,9 @@ import com.att.cdp.exceptions.ZoneException;
 import com.att.cdp.zones.Context;
 import com.att.cdp.zones.ImageService;
 import com.att.cdp.zones.model.Image;
+import com.fasterxml.jackson.databind.DeserializationConfig;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.woorea.openstack.glance.model.Images;
 
 /**
@@ -89,7 +91,7 @@ public class TestImages extends AbstractTestCase {
     public void deserializeBadImage() {
         try (InputStream stream = getClass().getResourceAsStream("CEAP.json")) {
             ObjectMapper om = new ObjectMapper();
-            om.disable(org.codehaus.jackson.map.DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES);
+            om.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
             Images images = om.readValue(stream, Images.class);
 
             assertFalse(images.getList().isEmpty());

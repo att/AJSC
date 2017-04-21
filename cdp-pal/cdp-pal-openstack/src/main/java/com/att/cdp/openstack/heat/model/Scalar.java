@@ -8,10 +8,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.codehaus.jackson.annotate.JsonIgnoreProperties;
-import org.codehaus.jackson.annotate.JsonProperty;
-
 import com.att.cdp.pal.util.ObjectHelper;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
  * The definition of a scalar value.

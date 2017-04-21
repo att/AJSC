@@ -12,6 +12,8 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.ws.rs.core.Response.Status;
+
 import com.att.cdp.exceptions.ContextClosedException;
 import com.att.cdp.exceptions.InvalidRequestException;
 import com.att.cdp.exceptions.NotLoggedInException;
@@ -44,7 +46,6 @@ import com.att.cdp.zones.spi.RequestState;
 import com.att.cdp.zones.spi.map.ObjectMapper;
 import com.att.cdp.zones.spi.model.ConnectedServer;
 import com.att.eelf.i18n.EELFResourceManager;
-import com.sun.jersey.api.client.ClientResponse.Status;
 import com.woorea.openstack.base.client.OpenStackBaseException;
 import com.woorea.openstack.base.client.OpenStackConnectException;
 import com.woorea.openstack.base.client.OpenStackResponse;
@@ -1044,9 +1045,12 @@ public class OpenStackComputeService extends AbstractCompute {
      */
     @SuppressWarnings("nls")
     @Override
-    public void prepareResize(Server server, String newTemplateId) throws ZoneException {
+    public void prepareResize(Server server, Template newTemplate) throws ZoneException {
         checkArg(server, "server");
         checkArg(server.getId(), "server id");
+        checkArg(newTemplate, "template");
+        checkArg(newTemplate.getId(), "template id");
+
         connect();
         Context context = getContext();
 
@@ -1055,7 +1059,7 @@ public class OpenStackComputeService extends AbstractCompute {
         RequestState.put(RequestState.SERVICE_URL, nova.getEndpoint());
 
         try {
-            nova.getClient().servers().resize(server.getId(), newTemplateId, null).execute();
+            nova.getClient().servers().resize(server.getId(), newTemplate.getId(), null).execute();
         } catch (OpenStackBaseException ex) {
             ExceptionMapper.mapException(ex);
         }

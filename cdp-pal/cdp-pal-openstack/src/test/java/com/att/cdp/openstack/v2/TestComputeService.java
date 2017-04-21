@@ -10,7 +10,6 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.lang.reflect.Field;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
@@ -27,9 +26,8 @@ import com.att.cdp.openstack.model.OpenStackServer;
 import com.att.cdp.zones.ComputeService;
 import com.att.cdp.zones.Context;
 import com.att.cdp.zones.ContextFactory;
-import com.att.cdp.zones.ImageService;
 import com.att.cdp.zones.model.ACL;
-import com.att.cdp.zones.model.Image;
+import com.att.cdp.zones.model.Hypervisor;
 import com.att.cdp.zones.model.Network;
 import com.att.cdp.zones.model.Server;
 import com.att.cdp.zones.model.Server.Status;
@@ -63,7 +61,7 @@ public class TestComputeService extends AbstractTestCase {
 
     @SuppressWarnings("nls")
     private static final String TEST_SERVER_UUID = "f888f89f-096b-421e-ba36-34f714071551";
-
+    //private static final String TEST_SERVER_UUID = "75dce20c-97f9-454d-abcc-aa904a33df5a";
     @SuppressWarnings("nls")
     private static final String TEST_NETWORK_NAME = "Network2192";
 
@@ -137,6 +135,61 @@ public class TestComputeService extends AbstractTestCase {
                 // Map<String, String> attachments = server.getAttachments();
                 Map<String, Volume> attachments = server.getVolumes();
                 System.out.println("+++No image, volume attachments are: " + attachments.toString());
+            }
+        }
+    }
+
+    /**
+     * This test case is designed to simply list the existing hypervisors.
+     * 
+     * @throws ZoneException
+     *             If something goes horribly wrong
+     */
+    @SuppressWarnings("nls")
+    @Ignore
+    @Test
+    public void testListHypervisors() throws ZoneException {
+        Context context = connect();
+        ComputeService computeService = context.getComputeService();
+        List<Hypervisor> hypervisors = computeService.getHypervisors();
+        for (Hypervisor hypervisor : hypervisors) {
+            System.out.println(hypervisor.toString());
+        }
+    }
+
+    /**
+     * This test case is designed to simply list the details for a hypervisor.
+     * 
+     * @throws ZoneException
+     *             If something goes horribly wrong
+     */
+    @SuppressWarnings("nls")
+    @Ignore
+    @Test
+    public void testGetHypervisor() throws ZoneException {
+        Context context = connect();
+        ComputeService computeService = context.getComputeService();
+        Hypervisor hypervisor = computeService.getHypervisor("1");
+        System.out.println(hypervisor.toString());
+    }
+
+    /**
+     * This test case is designed to test geting the hypervisor for a sever.
+     * 
+     * @throws ZoneException
+     *             If something goes horribly wrong
+     */
+    @SuppressWarnings("nls")
+    @Ignore
+    @Test
+    public void testServerGetHypervisor() throws ZoneException {
+        Context context = connect();
+        ComputeService computeService = context.getComputeService();
+        List<Server> servers = computeService.getServers();
+        for (Server server : servers) {
+            System.out.println(server.toString());
+            if (server.getHypervisor() != null) {
+                System.out.println(server.getHypervisor().toString());
             }
         }
     }

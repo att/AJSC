@@ -13,9 +13,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import org.codehaus.jackson.JsonParseException;
-import org.codehaus.jackson.map.JsonMappingException;
-import org.codehaus.jackson.map.ObjectMapper;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -25,6 +22,9 @@ import com.att.cdp.openstack.exception.UnmarshallException;
 import com.att.cdp.openstack.heat.Unmarshaller;
 import com.att.cdp.pal.util.ResourceHelper;
 import com.att.cdp.pal.util.StreamUtility;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * This class is designed to test the ability to marshall and unmarshall the HOT template between the YAML document and

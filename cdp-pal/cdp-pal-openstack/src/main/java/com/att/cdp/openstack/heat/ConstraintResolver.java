@@ -5,9 +5,12 @@
 
 package com.att.cdp.openstack.heat;
 
-import org.codehaus.jackson.annotate.JsonTypeInfo.Id;
-import org.codehaus.jackson.map.jsontype.TypeIdResolver;
-import org.codehaus.jackson.type.JavaType;
+import java.io.IOException;
+
+import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
+import com.fasterxml.jackson.databind.DatabindContext;
+import com.fasterxml.jackson.databind.JavaType;
+import com.fasterxml.jackson.databind.jsontype.TypeIdResolver;
 
 /**
  * @since Jun 26, 2015
@@ -60,11 +63,11 @@ public class ConstraintResolver implements TypeIdResolver {
      * 
      * @see org.codehaus.jackson.map.jsontype.TypeIdResolver#typeFromId(java.lang.String)
      */
-    @Override
+  /*  @Override
     public JavaType typeFromId(String id) {
         // TODO Auto-generated method stub
         return null;
-    }
+    }*/
 
     /**
      * Accessor for mechanism that this resolver uses for determining type id from type. Mostly informational; not
@@ -76,5 +79,23 @@ public class ConstraintResolver implements TypeIdResolver {
     public Id getMechanism() {
         return Id.CUSTOM;
     }
+
+	@Override
+	public String idFromBaseType() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public JavaType typeFromId(DatabindContext context, String id) throws IOException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getDescForKnownTypeIds() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }

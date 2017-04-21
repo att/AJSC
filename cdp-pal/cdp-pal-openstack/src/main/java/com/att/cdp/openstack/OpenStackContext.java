@@ -80,6 +80,13 @@ public class OpenStackContext extends AbstractContext {
     private static final String VOLUME_SERVICE_CLASSNAME = "com.att.cdp.openstack.%s.OpenStackVolumeService";
 
     /**
+     * This property, if defined, causes the service catalog NOT to fail the login attempt if no region is specified and
+     * there are multiple regions in the service catalog. The result of this is that the login will likely not be
+     * usable, but this can be useful for diagnostic tools.
+     */
+    public static final String ALLOW_UNKNOWN_REGION = "com.att.cdp.openstack.allow_unknown_region";
+
+    /**
      * Initialize the required property keys. This list contains only the keys for the identity service URL and the
      * tenant name. It is possible to obtain the remainder of the URLs when the context is logged in.
      */
@@ -719,10 +726,10 @@ public class OpenStackContext extends AbstractContext {
     }
     
     @Override
-    public void reloadKeyPair(String name, String publicKey, String privateKey,
-    		String fingerprint) throws ZoneException {
-    	throw new NotSupportedException(EELFResourceManager.format(OSMsg.PAL_OS_RESOURCE_UNAVAILABLE, "Reload key pair",
-                getProvider().getName()));
-    	
+    public void reloadKeyPair(String name, String publicKey, String privateKey, String fingerprint)
+        throws ZoneException {
+        throw new NotSupportedException(EELFResourceManager.format(OSMsg.PAL_OS_RESOURCE_UNAVAILABLE,
+            "Reload key pair", getProvider().getName()));
+
     }
 }
