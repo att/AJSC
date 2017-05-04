@@ -32,7 +32,7 @@ import org.springframework.scheduling.annotation.EnableAsync;
 
 @SpringBootApplication
 @ComponentScan(basePackages = {"com"})
-@EnableAutoConfiguration(exclude = {CamundaBpmWebappAutoConfiguration.class, CamundaBpmWebappInitializer.class,HibernateJpaAutoConfiguration.class,JpaRepositoriesAutoConfiguration.class, SecurityAutoConfiguration.class, ManagementWebSecurityAutoConfiguration.class })
+@EnableAutoConfiguration(exclude = {CamundaBpmWebappAutoConfiguration.class, HibernateJpaAutoConfiguration.class,JpaRepositoriesAutoConfiguration.class, SecurityAutoConfiguration.class, ManagementWebSecurityAutoConfiguration.class })
 @EnableAsync
 public class Application extends SpringBootServletInitializer {
 

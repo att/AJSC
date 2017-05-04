@@ -13,12 +13,18 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import com.att.ajsc.demo.service.TestConfiguration;
+
 import ${package}.model.HelloWorld;
 import ${package}.service.rs.RestService;
+import ${package}.Application;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment=WebEnvironment.RANDOM_PORT)
+@ContextConfiguration(classes = { Application.class, TestConfiguration.class})
 public class HelloTest {
 
 	@Autowired
