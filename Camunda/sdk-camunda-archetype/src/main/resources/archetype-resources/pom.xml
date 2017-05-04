@@ -33,7 +33,7 @@
 	<parent>
 		<groupId>com.att.ajsc</groupId>
 		<artifactId>sdk-java-starter-parent</artifactId>
-		<version>6.1.0.3</version>
+		<version>6.1.0.4</version>
 	</parent>
 
 	<properties>
@@ -49,7 +49,7 @@
 		<jsf.version>2.2.11</jsf.version>
 		<csi.logging>6.1.0.6</csi.logging>
 		<sdk.camel.rest>6.2.0.6</sdk.camel.rest>
-		<sdk.camunda.core>6.1.0.3</sdk.camunda.core>
+		<sdk.camunda.core>6.1.0.3-oss</sdk.camunda.core>
 	</properties>
 
 	<dependencies>

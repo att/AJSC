@@ -4,11 +4,11 @@
 
 	<groupId>com.att.ajsc</groupId>
 	<artifactId>sdk-camunda-archetype</artifactId>
-	<version>7.6.2-00</version>
+	<version>7.6.2-00-oss</version>
 	<packaging>maven-archetype</packaging>
 	<name>sdk-camunda-archetype-resources</name>
 	<url>https://github.com/att/AJSC/tree/master/Camunda</url>
-        <description>sdk-camunda-archetype-resources</description>
+    <description>sdk-camunda-archetype-resources</description>
    
      <licenses>
 	  <license>

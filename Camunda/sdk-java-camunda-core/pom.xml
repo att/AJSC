@@ -7,20 +7,20 @@
 
 	<groupId>com.att.ajsc</groupId>
 	<artifactId>sdk-java-camunda-core</artifactId>
-	<version>6.1.0.3</version>
+	<version>6.1.0.3-oss</version>
 	<packaging>jar</packaging>
 	<name>sdk-java-camunda-core</name>
 	<url>https://github.com/att/AJSC/tree/master/Camunda</url>
-        <description>sdk-java-camunda-core</description>
+    <description>sdk-java-camunda-core</description>
 	
 	<parent>		
 		<groupId>com.att.ajsc</groupId>
 		<artifactId>sdk-java-starter-parent</artifactId>
-		<version>6.1.0.3</version>		
+		<version>6.1.0.4</version>		
 	</parent>
 
 	<properties>	  
-	  <spring-boot.version>1.4.2.RELEASE</spring-boot.version>
+	  <spring-boot.version>1.5.1.RELEASE</spring-boot.version>
 		<!--  CAMUNDA SPRING BOOT -->
 		<camunda.spring.boot.version>2.0.0</camunda.spring.boot.version>
 		<!--  CAMUNDA SPRING BOOT -->
