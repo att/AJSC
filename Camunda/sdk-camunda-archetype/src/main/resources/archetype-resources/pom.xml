@@ -9,7 +9,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<artifactId>${artifactId}</artifactId>
-	<version>${version}-oss</version>
+	<version>${version}</version>
 	<name>sdk-camunda-archetype-resources</name>
 	<url>https://github.com/att/AJSC/tree/master/Camunda</url>
     <description>sdk-camunda-archetype-resources</description>
