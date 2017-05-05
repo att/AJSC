@@ -29,7 +29,7 @@ As of this writing, the latest version of ajsc-6 camunda archetype(sdk-camunda-a
 ![alt text](https://github.com/att/AJSC/blob/master/Camunda/images/ajsc6-camunda-add-archetype.jpg "Add Archetype")
 
 2. Create a service project. Please give your Artifact Id/Project Name in small letters only
-![alt text](ajsc6-camunda-maven-project "Create Service Project")
+![alt text](https://github.com/att/AJSC/blob/master/Camunda/images/ajsc6-camunda-maven-project.jpg  "Create Service Project")
 Note: Above screen shot details are provided as an example
 
 docker-registry: <<Give your Docker server>>
