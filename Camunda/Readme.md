@@ -69,6 +69,7 @@ If using STS(Spring Tool suite/Eclipse) right click on pom.xml file and run it a
 ![alt text](https://github.com/att/AJSC/blob/master/Camunda/images/spring_boot_run.jpg "Start Service")
 
 7.Verify the service is running by accessing the context root.
+
          a. Check JAX-RS service http://localhost:8080/restservices/<<artifect-id>>/v1/service/hello
               You should receive JSON response: {"message":"Hello world!"}
          b. Camunda Tasklist page
