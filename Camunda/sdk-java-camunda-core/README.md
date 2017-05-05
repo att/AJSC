@@ -5,6 +5,6 @@ In order to add this feature to your project you need to have this dependency pr
 <dependency>
 	<groupId>com.att.ajsc</groupId>
 	<artifactId>sdk-java-camunda-core</artifactId>
-	<version>6.0-SNAPSHOT</version>
+	<version>6.1.0.3-oss</version>
 </dependency>
 ```
