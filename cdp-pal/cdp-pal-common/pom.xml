@@ -8,13 +8,13 @@
   <parent>
     <groupId>com.att.cdp</groupId>
     <artifactId>cdp-pal</artifactId>
-    <version>1.1.7</version>
+    <version>1.1.7-oss</version>
     <relativePath>..</relativePath>
   </parent>
 
   <artifactId>cdp-pal-common</artifactId>
   <name>CDP - PAL common code</name>
-  <version>1.1.7</version>
+  <version>1.1.7-oss</version>
   <description>Cloud Deployment Platform</description>
   <url>https://github.com/att/AJSC/tree/master/cdp-pal</url>
   
