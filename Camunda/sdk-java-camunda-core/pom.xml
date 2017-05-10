@@ -16,7 +16,7 @@
 	<parent>		
 		<groupId>com.att.ajsc</groupId>
 		<artifactId>sdk-java-starter-parent</artifactId>
-		<version>6.1.0.4</version>		
+		<version>6.1.0.4-oss</version>		
 	</parent>
 
 	<properties>	  
