@@ -18,10 +18,10 @@ node {
 	
 	//sh "${mvnHome}/bin/mvn -f att-camel-dme2-servlet/pom.xml clean deploy"
     //sh "${mvnHome}/bin/mvn -f ajsc5/pom.xml clean deploy"
-    //sh "${mvnHome}/bin/mvn -f cdp-pal/cdp-pal/pom.xml clean deploy"
-    //sh "${mvnHome}/bin/mvn -f cdp-pal/cdp-pal-common/pom.xml clean deploy"
-    //sh "${mvnHome}/bin/mvn -f cdp-pal/cdp-pal-openstack/pom.xml clean deploy"
-    sh "${mvnHome}/bin/mvn -f Camunda/sdk-java-camunda-core/pom.xml clean deploy"
-    sh "${mvnHome}/bin/mvn -f Camunda/sdk-camunda-archetype/pom.xml clean deploy"
+    sh "${mvnHome}/bin/mvn -f cdp-pal/cdp-pal/pom.xml clean deploy"
+    sh "${mvnHome}/bin/mvn -f cdp-pal/cdp-pal-common/pom.xml clean deploy"
+    sh "${mvnHome}/bin/mvn -f cdp-pal/cdp-pal-openstack/pom.xml clean deploy"
+    //sh "${mvnHome}/bin/mvn -f Camunda/sdk-java-camunda-core/pom.xml clean deploy"
+    //sh "${mvnHome}/bin/mvn -f Camunda/sdk-camunda-archetype/pom.xml clean deploy"
     
 } 
