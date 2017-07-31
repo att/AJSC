@@ -155,24 +155,6 @@
 	</configuration>
       </plugin>
       
-      <plugin>
-		<groupId>com.blackducksoftware.integration</groupId>
-		<artifactId>hub-maven-plugin</artifactId>
-		<version>1.0.4</version>
-		<inherited>false</inherited>
-		<configuration>
-		  <target>${project.basedir}</target>
-		</configuration>
-		  <executions>
-		    <execution>
-		    <id>create-bdio-file</id>
-		    <phase>package</phase>
-		    <goals>
-			  <goal>createHubOutput</goal>
-	        </goals>
-	   	  </execution>
-		  </executions>
-		</plugin>
 		 <plugin>
 			  <groupId>org.apache.maven.plugins</groupId>
 			  <artifactId>maven-source-plugin</artifactId>
