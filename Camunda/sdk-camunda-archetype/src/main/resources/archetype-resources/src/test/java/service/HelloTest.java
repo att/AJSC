@@ -16,7 +16,7 @@ import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.att.ajsc.demo.service.TestConfiguration;
+import ${package}.service.TestConfiguration;
 
 import ${package}.model.HelloWorld;
 import ${package}.service.rs.RestService;
