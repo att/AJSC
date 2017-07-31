@@ -303,5 +303,10 @@
 		</build>
 	    </profile>
 	</profiles>
+	
+	<modules>
+        <module>cdp-pal-common</module>
+        <module>cdp-pal-openstack</module>
+    </modules>
 
 </project>
