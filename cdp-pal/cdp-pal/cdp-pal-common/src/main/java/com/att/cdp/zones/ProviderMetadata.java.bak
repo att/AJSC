@@ -143,12 +143,6 @@ public interface ProviderMetadata {
      * @return True if the provider allows direct assignment of an IP address to a virtual NIC or globally to the VM
      */
     boolean isAssignIpSupported();
-    
-    /**
-     * @return True if the provider is actually a AWS (i.e., direct connection to low-level services)
-     *         implementation and not a provider such as OpenStack or VMWare.
-     */
-    boolean isAWSImplementation();
 
     /**
      * @return True if the provider is actually a bare-metal (i.e., direct connection to low-level services)

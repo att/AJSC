@@ -309,34 +309,4 @@ public class Port extends ModelObject {
     public void setName(String name) {
         this.name = name;
     }
-
-    /**
-     * @return the value of routing
-     */
-    public String getRouting() {
-        return routing;
-    }
-
-    /**
-     * @param routingAddress 
-     *           the value for routing
-     */
-    public void setRouting(String routing) {
-        this.routing = routing;
-    }
-
-    /**
-     * @return the value of gateway address
-     */
-    public String getGateway() {
-        return gateway;
-    }
-
-    /**
-     * @param gateway 
-     *          the value for gateway address
-     */
-    public void setGateway(String gateway) {
-        this.gateway = gateway;
-    }
 }

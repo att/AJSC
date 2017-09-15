@@ -1200,37 +1200,4 @@ public class Server extends ModelObject {
         return String.format("Server: id(%s), name(%s), created(%s), updated(%s), status(%s)", id, name, created,
             updated, status);
     }
-    
-    /**
-     * JavaBean accessor to obtain the OS Type 
-     * 
-     * @return the image value
-     */
-    public String getOsType()
-    {
-    	return image==null?null:image.getOsType();
-    }
-
-	public String getClusterName() {
-		return clusterName;
-	}
-
-	public void setClusterName(String clusterName) {
-		this.clusterName = clusterName;
-	}
-
-	/**
-	 * @return the value of note
-     */
-	public String getAnnotation() {
-		return annotation;
-	}
-
-	/**
-     * @param note the value for note
-     */
-	public void setAnnotation(String note) {
-		this.annotation = note;
-	}
-    
 }

@@ -265,11 +265,7 @@ public class ConnectedServer extends Server {
     public List<Port> getPorts() throws ZoneException {
         Context context = getContext();
         ComputeService service = context.getComputeService();
-        List<Port> ports = service.getPorts(this);
-        if (ports == null) {
-            ports = new ArrayList<Port>();
-        }
-        return ports;
+        return service.getPorts(this);
     }
 
     /**
