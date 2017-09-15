@@ -405,18 +405,4 @@ public class TestIPHelper {
         assertTrue(IPHelper.isCIDRRoutable("172.32.0.0/24"));
         assertFalse(IPHelper.isCIDRRoutable("192.168.0.0/24"));
     }
-    
-    @Test
-    public void testGetAddressesInIPv4Subnet() {
-    	List<String> ips = IPHelper.getAddressesInIPv4Subnet("135.40.234.0/24");
-    	assertEquals(254, ips.size());
-    	
-    	List<String> blackList = new ArrayList<String>();
-    	blackList.add("135.40.234.3");
-    	blackList.add(null);
-    	blackList.add("badIP");
-    	List<String> ips2 = IPHelper.getAddressesInIPv4Subnet("135.40.234.0/24", blackList);
-    	assertEquals(253, ips2.size());
-    	assertFalse(ips2.contains("135.40.234.3"));
-    }
 }

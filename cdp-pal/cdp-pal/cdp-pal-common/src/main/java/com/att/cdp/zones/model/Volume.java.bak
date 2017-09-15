@@ -418,19 +418,4 @@ public class Volume extends ModelObject {
         return String.format("Volume: id(%s), name(%s), desc(%s), created(%s), status(%s), size(%d), type(%s)", id,
             name, description, getCreatedDate().toString(), status, size, volumeType);
     }
-
-	/**
-	 
-	 * @return the mount
-	 */
-	public String getMount() {
-		return mount;
-	}
-
-	/**
-	 * @param mount the mount to set
-	 */
-	public void setMount(String mount) {
-		this.mount = mount;
-	}
 }

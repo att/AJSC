@@ -180,16 +180,6 @@ public class DefaultProviderMetadata implements ProviderMetadata {
         return componentVersions.get(VOLUME);
     }
 
-    
-    /**
-     * @see com.att.cdp.zones.ProviderMetadata#isAWSImplementation()
-     */
-    @Override
-    public boolean isAWSImplementation() {
-        return Boolean.parseBoolean(context.getProperties()
-            .getProperty(ProviderProperties.PROPERTY_PROVIDER_AWS, "false").trim());
-    }
-    
     /**
      * @see com.att.cdp.zones.ProviderMetadata#isBareMetalImplementation()
      */

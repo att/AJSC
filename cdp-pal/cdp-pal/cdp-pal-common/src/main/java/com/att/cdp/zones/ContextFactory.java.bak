@@ -313,13 +313,6 @@ public final class ContextFactory {
      * generally available access mechanisms. If not specified, the property defaults to false.
      */
     public static final String PROPERTY_USE_INTERNAL_CONNECTION = "provider.use.internal.connection";
-    
-    /**
-     * This property can be set to a regular expression. 
-     * If set, volumes will be created only onto datastores that match this regular expression.
-     * Within the code, if this property is not set, we will implicitly assume a value of "*".
-     */
-    public static final String PROPERTY_DATASTORES = "provider.datastores";
 
     /**
      * This method is a special case that allows the caller to instantiate the provider directly by supplying the class

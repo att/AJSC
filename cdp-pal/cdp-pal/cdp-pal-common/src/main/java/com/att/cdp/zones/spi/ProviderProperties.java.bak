@@ -96,7 +96,7 @@ public abstract class ProviderProperties {
      * Indicates if the client supports the "stack" service abstraction
      */
     public static final String PROPERTY_PROVIDER_SUPPORTS_STACK = "provider.supports.stack";
-    
+       
     /**
      * Indicates if the provider is a AWS implementation
      */
