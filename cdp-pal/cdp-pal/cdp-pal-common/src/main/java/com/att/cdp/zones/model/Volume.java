@@ -135,7 +135,12 @@ public class Volume extends ModelObject {
      * The unitNumber
      */
     private String unitNumber;
+    
+    /**
+     * The mountpoint for which the volume would be used. This field is used to spread the volumes across multiple data stores.
+     */
 
+    private String mount;
   
 	/**
      * Creates a disconnected model of a Volume that can be initialized using the setters
