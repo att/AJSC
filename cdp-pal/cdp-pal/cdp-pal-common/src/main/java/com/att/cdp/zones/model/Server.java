@@ -180,6 +180,12 @@ public class Server extends ModelObject {
      * The name of the server. Typically, this is how the server is seen in any consoles or user interfaces.
      */
     private String name;
+    
+    /**
+     * The domain that the server will be on. 
+     * Typically, this is the suffix of the server's FQDN.
+     */
+    private String domain;
 
     /**
      * The list of networks that this server is attached to (virtual NIC interfaces)
