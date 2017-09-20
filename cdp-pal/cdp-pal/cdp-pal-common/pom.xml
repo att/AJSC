@@ -55,7 +55,12 @@
       <artifactId>commons-lang3</artifactId>
       <version>3.0</version>
     </dependency>
-
+	<!-- Added for SubnetUtils, to generate list of addresses in a subnet -->
+	<dependency>
+	  <groupId>commons-net</groupId>
+	  <artifactId>commons-net</artifactId>
+	  <version>3.5</version>
+	</dependency>
     <dependency>
       <groupId>com.att.eelf</groupId>
       <artifactId>eelf-core</artifactId>
