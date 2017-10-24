@@ -9,6 +9,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
 
 import java.util.Map;
 
@@ -171,5 +172,39 @@ public class TestServiceCatalog extends AbstractTestCase {
         assertNull(catalog.resolvePackageNode("fake"));
 
         logout(context);
+    }
+    
+    @Test
+    public void testConnectionOnly(){
+           // test basic url
+           String url = "http://simplestack:9000/identity/v2.0";             
+           String value = ServiceCatalog.connectionOnly(url);         
+           assertEquals("http://simplestack:9000", value);
+           
+           //test url with tenant id
+           url = "http://simplestack:9000/v2.0/tenant_id";            
+           value = ServiceCatalog.connectionOnly(url);          
+           assertEquals("http://simplestack:9000", value);      
+
+           //test url with tenant id
+           url = "http://simplestack:9000/compute/v2.1/0a06842a-4ec4-4918-b046-399f6b38f5f9/servers/0a06842a-4ec4-4918-b046-399f6b38f5f9/action";             
+           value = ServiceCatalog.connectionOnly(url);          
+           assertEquals("http://simplestack:9000", value);            
+           
+           //test "identity" url with proxy host 
+           url = "http://10.0.14.1:9005/api/multicloud-titanium_cloud/v0/pod25_RegionOne/identity/v3";            
+           value = ServiceCatalog.connectionOnly(url);          
+           assertEquals("http://10.0.14.1:9005/api/multicloud-titanium_cloud/v0/pod25_RegionOne",value);
+           
+           //test "compute" url with tenant id
+           url = "http://10.0.14.1:9005/api/multicloud-titanium_cloud/v0/pod25_RegionOne/compute/v2.1/0a06842a-4ec4-4918-b046-399f6b38f5f9/servers/0a06842a-4ec4-4918-b046-399f6b38f5f9/action";             
+           value = ServiceCatalog.connectionOnly(url);          
+           assertEquals("http://10.0.14.1:9005/api/multicloud-titanium_cloud/v0/pod25_RegionOne", value);
+           
+         //test "compute" url with tenant id
+           url = "http://10.0.14.1:9005/api/multicloud-titanium_cloud/v0/pod25_RegionOne/v2.1/0a06842a-4ec4-4918-b046-399f6b38f5f9/servers/0a06842a-4ec4-4918-b046-399f6b38f5f9/compute/";             
+           value = ServiceCatalog.connectionOnly(url);          
+           assertEquals("http://10.0.14.1:9005/api/multicloud-titanium_cloud/v0/pod25_RegionOne/v2.1/0a06842a-4ec4-4918-b046-399f6b38f5f9/servers/0a06842a-4ec4-4918-b046-399f6b38f5f9", value);
+
     }
 }
