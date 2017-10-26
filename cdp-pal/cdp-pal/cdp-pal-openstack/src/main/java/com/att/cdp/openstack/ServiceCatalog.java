@@ -893,42 +893,23 @@ public class ServiceCatalog {
         if (url == null) {
             return url;
         }
-        //ad681s - ONAP CDP-PAL Issue.sn
-        boolean subStringIndexFound = false;
-		String subStringIndexStr = "";
-		
-		if(url.contains("/" + OS_COMPUTE_SERVICE_TYPE + "/")) {
-			subStringIndexFound = true;
-			subStringIndexStr = "/" + OS_COMPUTE_SERVICE_TYPE + "/";
-		} else if(url.contains("/" + OS_NETWORK_SERVICE_TYPE + "/")) {
-			subStringIndexFound = true;
-			subStringIndexStr = "/" + OS_NETWORK_SERVICE_TYPE + "/";
-		} else if(url.contains("/" + OS_IMAGE_SERVICE_TYPE + "/")) {
-			subStringIndexFound = true;
-			subStringIndexStr = "/" + OS_IMAGE_SERVICE_TYPE + "/";
-		} else if(url.contains("/" + OS_VOLUME_SERVICE_TYPE + "/")) {
-			subStringIndexFound = true;
-			subStringIndexStr = "/" + OS_VOLUME_SERVICE_TYPE + "/";
-		} else if(url.contains("/" + OS_STACK_SERVICE_TYPE + "/")) {
-			subStringIndexFound = true;
-			subStringIndexStr = "/" + OS_STACK_SERVICE_TYPE + "/";
-		} else if(url.contains("/" + OS_IDENTITY_SERVICE_TYPE + "/")) {
-			subStringIndexFound = true;
-			subStringIndexStr = "/" + OS_IDENTITY_SERVICE_TYPE + "/";
+        
+        // First try to match on the last occurrence of a API version
+		String versionRegx= "(.+?(?=/v[0-9]+))+";
+		Pattern versionPattern =Pattern.compile(versionRegx, Pattern.CASE_INSENSITIVE);
+		Matcher versionMatcher = versionPattern.matcher(url.trim());
+				
+		if(versionMatcher.find()) {
+			System.out.println("IAAS_URL changed from: "+ url + " to :" + versionMatcher.group(0));
+			return versionMatcher.group(0);
 		}
 		
-		if(subStringIndexFound) {
-			int lastIndex = url.lastIndexOf(subStringIndexStr);
-			if(lastIndex != -1) {
-				url = url.substring(0, lastIndex);
-				return url.trim();
-			}
-		}
-		//ad681s - ONAP CDP-PAL Issue.en
+		// Otherwise parse to protocol host and port
 		String regex = "(http(s)?://[a-z0-9_.\\-]+(:[0-9]+)?)(/.*)?"; //$NON-NLS-1$
         Pattern pattern = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(url.trim());
         if (matcher.find()) {
+        	System.out.println("IAAS_URL changed from: "+ url + "to :" + versionMatcher.group(1));
             return matcher.group(1);
         }
         return url.trim();
