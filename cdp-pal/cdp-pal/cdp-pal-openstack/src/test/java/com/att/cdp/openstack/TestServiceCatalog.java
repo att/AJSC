@@ -60,6 +60,7 @@ public class TestServiceCatalog extends AbstractTestCase {
      *             If anything fails
      */
     @Test
+    @Ignore
     public void testServiceCatalog() throws ZoneException {
     	OpenStackContext context = login();
         ServiceCatalog catalog = context.getServiceCatalog();
