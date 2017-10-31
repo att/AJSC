@@ -900,7 +900,6 @@ public class ServiceCatalog {
 		Matcher versionMatcher = versionPattern.matcher(url.trim());
 				
 		if(versionMatcher.find()) {
-			System.out.println("IAAS_URL changed from: "+ url + " to :" + versionMatcher.group(0));
 			return versionMatcher.group(0);
 		}
 		
@@ -909,7 +908,6 @@ public class ServiceCatalog {
         Pattern pattern = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(url.trim());
         if (matcher.find()) {
-        	System.out.println("IAAS_URL changed from: "+ url + "to :" + versionMatcher.group(1));
             return matcher.group(1);
         }
         return url.trim();
