@@ -192,12 +192,6 @@
       <version>${OpenStack-API-version}</version>
     </dependency>
     
-    <dependency>
-      <groupId>com.att.woorea</groupId>
-      <artifactId>base-client</artifactId>
-      <version>${OpenStack-API-version}</version>
-    </dependency>
-
    <dependency>
 	    <groupId>org.glassfish.jersey.media</groupId>
 	    <artifactId>jersey-media-json-jackson</artifactId>
