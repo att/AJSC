@@ -285,7 +285,7 @@ public class OpenStackComputeService extends AbstractCompute {
         if (name == null) {
             return false;
         }
-        Pattern pattern = Pattern.compile("/dev/(?:(?:sd)|(?:hd)|(?:vd))(.)(/)?");
+        Pattern pattern = Pattern.compile("/dev/(?:(?:sd)|(?:hd)|(?:vd))(.)(/*)?");
         Matcher matcher = pattern.matcher(name);
 
         if (!matcher.matches()) {

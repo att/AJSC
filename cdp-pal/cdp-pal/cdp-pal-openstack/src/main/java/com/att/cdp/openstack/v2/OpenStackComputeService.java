@@ -106,8 +106,8 @@ public class OpenStackComputeService extends AbstractCompute {
     private static boolean checkDeviceName(String name) {
         if (name == null) {
             return false;
-        }
-        Pattern pattern = Pattern.compile("/dev/(?:(?:sd)|(?:hd)|(?:vd))(.)(/)?");
+        }                               
+        Pattern pattern = Pattern.compile("/dev/(?:(?:sd)|(?:hd)|(?:vd))(.)(/*)?");
         Matcher matcher = pattern.matcher(name);
 
         if (!matcher.matches()) {
@@ -120,7 +120,7 @@ public class OpenStackComputeService extends AbstractCompute {
 
         return true;
     }
-
+    
     /**
      * @see com.att.cdp.zones.ComputeService#abortResize(com.att.cdp.zones.model.Server)
      */
