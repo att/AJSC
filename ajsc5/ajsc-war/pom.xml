@@ -8,7 +8,7 @@
 	<parent>
 		<groupId>com.att.ajsc</groupId>
 		<artifactId>ajsc-bom</artifactId>
-		<version>2.0.0</version>
+		<version>3.0.1-oss</version>
 		<relativePath>../ajsc-bom</relativePath>
 	</parent>
 	<artifactId>ajsc-war</artifactId>
@@ -82,6 +82,7 @@
 			<groupId>ch.qos.logback</groupId>
 			<artifactId>logback-classic</artifactId>
 			<scope>${dependency.scope}</scope>
+			<version>1.2.0</version>
 			<exclusions>
 				<exclusion>
 					<artifactId>slf4j-api</artifactId>
@@ -144,5 +145,6 @@
 			<artifactId>janino</artifactId>
 			<scope>${dependency.scope}</scope>
 		</dependency>
+		
 	</dependencies>
 </project>

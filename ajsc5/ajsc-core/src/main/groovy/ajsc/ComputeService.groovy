@@ -496,7 +496,7 @@ class ComputeService implements ApplicationContextAware {
 
 
 		//Initialize Http Camel component
-		org.apache.camel.component.http.HttpComponent httpComponent=new org.apache.camel.component.http.HttpComponent();
+		org.apache.camel.component.http4.HttpComponent httpComponent=new org.apache.camel.component.http4.HttpComponent();
 		httpComponent.setHeaderFilterStrategy(httpFilterStrategy)
 		//	 if(camelHttpMaxTotalConnections) httpComponent.setMaxTotalConnections(Integer.valueOf(camelHttpMaxTotalConnections))
 		//	 if(camelHttpConnectionsPerRoute) httpComponent.setConnectionsPerRoute(Integer.valueOf(camelHttpConnectionsPerRoute))
