@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- 
- Copyright (c) 2016 AT&T Intellectual Property. All rights reserved.
--->
+<!-- Copyright (c) 2016 AT&T Intellectual Property. All rights reserved. -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
@@ -9,7 +7,7 @@
 	<parent>
 		<groupId>com.att.ajsc</groupId>
 		<artifactId>ajsc</artifactId>
-		<version>2.0.0</version>
+		<version>3.0.1-oss</version>
 	</parent>
 	<artifactId>ajsc-bom</artifactId>
 	<packaging>pom</packaging>
@@ -20,166 +18,166 @@
 	</properties>
 
 	<build>
-			<plugins>
-				<!--This plugin's configuration is used to store Eclipse m2e settings 
-					only. It has no influence on the Maven build itself. -->
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-surefire-plugin</artifactId>
-					<version>2.19.1</version>
-				</plugin>
-				<plugin>
-					<groupId>org.apache.felix</groupId>
-					<artifactId>maven-bundle-plugin</artifactId>
-					<version>2.3.7</version>
-				</plugin>
-				<plugin>
-					<groupId>org.codehaus.groovy.maven</groupId>
-					<artifactId>gmaven-plugin</artifactId>
-					<version>1.0</version>
-				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-war-plugin</artifactId>
-					<version>2.4</version>
-				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-antrun-plugin</artifactId>
-					<version>1.7</version>
-				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-compiler-plugin</artifactId>
-					<version>3.1</version>
-					<configuration>
-						<compilerId>groovy-eclipse-compiler</compilerId>
-						<verbose>true</verbose>
-						<source>1.8</source>
-						<target>1.8</target>
-					</configuration>
-					<dependencies>
-						<dependency>
-							<groupId>org.codehaus.groovy</groupId>
-							<artifactId>groovy-eclipse-compiler</artifactId>
-							<version>2.9.0-01</version>
-						</dependency>
-						<dependency>
-							<groupId>org.codehaus.groovy</groupId>
-							<artifactId>groovy-eclipse-batch</artifactId>
-							<version>2.3.4-01</version>
-						</dependency>
-					</dependencies>
-				</plugin>
-				<plugin>
-					<groupId>org.codehaus.groovy</groupId>
-					<artifactId>groovy-eclipse-compiler</artifactId>
-					<version>2.9.0-01</version>
-					<extensions>true</extensions>
-				</plugin>
-				<plugin>
-					<groupId>org.codehaus.mojo</groupId>
-					<artifactId>exec-maven-plugin</artifactId>
-					<version>1.2.1</version>
-				</plugin>
-				<plugin>
-					<groupId>org.codehaus.mojo</groupId>
-					<artifactId>build-helper-maven-plugin</artifactId>
-					<version>1.9</version>
-				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-source-plugin</artifactId>
-					<version>2.2.1</version>
-				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-javadoc-plugin</artifactId>
-					<version>2.9.1</version>
-				</plugin>
-				<plugin>
-					<groupId>${jettyGroupId}</groupId>
-					<artifactId>jetty-maven-plugin</artifactId>
-					<version>${jettyPluginVersion}</version>
-				</plugin>
-				<plugin>
-					<artifactId>maven-shade-plugin</artifactId>
-					<version>2.2</version>
-				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-dependency-plugin</artifactId>
-					<version>2.8</version>
-				</plugin>
-				<plugin>
-					<groupId>com.google.code.maven-replacer-plugin</groupId>
-					<artifactId>replacer</artifactId>
-					<version>1.5.2</version>
-				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-assembly-plugin</artifactId>
-					<version>2.4</version>
-				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-jar-plugin</artifactId>
-					<version>2.6</version>
-				</plugin>
-				<plugin>
-					<groupId>org.codehaus.mojo</groupId>
-					<artifactId>cobertura-maven-plugin</artifactId>
-					<version>2.7</version>
-					<configuration>
-						<instrumentation>
-							<ignores>
-								<ignore>com.example.boringcode.*</ignore>
-							</ignores>
-							<excludes>
-								<exclude>**/*$*.class</exclude>
-							</excludes>
-						</instrumentation>
-						<formats>
-							<format>xml</format>
-						</formats>
-					</configuration>
-					<executions>
-						<execution>
-							<phase>package</phase>
-							<goals>
-								<goal>cobertura</goal>
-							</goals>
-						</execution>
-					</executions>
-				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-gpg-plugin</artifactId>
-					<version>1.5</version>
-					<inherited>false</inherited>
-					<executions>
-						<execution>
-							<id>sign-artifacts</id>
-							<phase>verify</phase>
-							<goals>
-								<goal>sign</goal>
-							</goals>
-						</execution>
-					</executions>
-			  	</plugin> 
-			  	<plugin>
-					<groupId>org.sonatype.plugins</groupId>
-					<artifactId>nexus-staging-maven-plugin</artifactId>
-					<version>1.6.7</version>
-					<inherited>false</inherited>
-					<extensions>true</extensions>
-						<configuration>
-							<serverId>ossrhajsc</serverId>
-							<nexusUrl>https://oss.sonatype.org/</nexusUrl>
-							<autoReleaseAfterClose>true</autoReleaseAfterClose>
-						</configuration>
-				</plugin>
-			</plugins>
+		<plugins>
+			<!--This plugin's configuration is used to store Eclipse m2e settings 
+				only. It has no influence on the Maven build itself. -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.19.1</version>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>maven-bundle-plugin</artifactId>
+				<version>2.3.7</version>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.groovy.maven</groupId>
+				<artifactId>gmaven-plugin</artifactId>
+				<version>1.0</version>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>2.4</version>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<version>1.7</version>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.1</version>
+				<configuration>
+					<compilerId>groovy-eclipse-compiler</compilerId>
+					<verbose>true</verbose>
+					<source>1.8</source>
+					<target>1.8</target>
+				</configuration>
+				<dependencies>
+					<dependency>
+						<groupId>org.codehaus.groovy</groupId>
+						<artifactId>groovy-eclipse-compiler</artifactId>
+						<version>2.9.0-01</version>
+					</dependency>
+					<dependency>
+						<groupId>org.codehaus.groovy</groupId>
+						<artifactId>groovy-eclipse-batch</artifactId>
+						<version>2.3.4-01</version>
+					</dependency>
+				</dependencies>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.groovy</groupId>
+				<artifactId>groovy-eclipse-compiler</artifactId>
+				<version>2.9.0-01</version>
+				<extensions>true</extensions>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
+				<version>1.2.1</version>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>build-helper-maven-plugin</artifactId>
+				<version>1.9</version>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<version>2.2.1</version>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>2.9.1</version>
+			</plugin>
+			<plugin>
+				<groupId>${jettyGroupId}</groupId>
+				<artifactId>jetty-maven-plugin</artifactId>
+				<version>${jettyPluginVersion}</version>
+			</plugin>
+			<plugin>
+				<artifactId>maven-shade-plugin</artifactId>
+				<version>2.2</version>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<version>2.8</version>
+			</plugin>
+			<plugin>
+				<groupId>com.google.code.maven-replacer-plugin</groupId>
+				<artifactId>replacer</artifactId>
+				<version>1.5.2</version>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<version>2.4</version>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>2.6</version>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>cobertura-maven-plugin</artifactId>
+				<version>2.7</version>
+				<configuration>
+					<instrumentation>
+						<ignores>
+							<ignore>com.example.boringcode.*</ignore>
+						</ignores>
+						<excludes>
+							<exclude>**/*$*.class</exclude>
+						</excludes>
+					</instrumentation>
+					<formats>
+						<format>xml</format>
+					</formats>
+				</configuration>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>cobertura</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-gpg-plugin</artifactId>
+				<version>1.5</version>
+				<inherited>false</inherited>
+				<executions>
+					<execution>
+						<id>sign-artifacts</id>
+						<phase>verify</phase>
+						<goals>
+							<goal>sign</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.sonatype.plugins</groupId>
+				<artifactId>nexus-staging-maven-plugin</artifactId>
+				<version>1.6.7</version>
+				<inherited>false</inherited>
+				<extensions>true</extensions>
+				<configuration>
+					<serverId>ossrhajsc</serverId>
+					<nexusUrl>https://oss.sonatype.org/</nexusUrl>
+					<autoReleaseAfterClose>true</autoReleaseAfterClose>
+				</configuration>
+			</plugin>
+		</plugins>
 	</build>
 
 	<dependencyManagement>
@@ -242,11 +240,11 @@
 				<artifactId>discovery-clt</artifactId>
 				<version>5.1.3-01</version>
 				<exclusions>
-				<exclusion>
-					<artifactId>commons-lang</artifactId>
-					<groupId>org.apache.commons.lang</groupId>
-				</exclusion>
-			</exclusions>
+					<exclusion>
+						<artifactId>commons-lang</artifactId>
+						<groupId>org.apache.commons.lang</groupId>
+					</exclusion>
+				</exclusions>
 			</dependency>
 			<dependency>
 				<groupId>com.att.aft.fusion</groupId>
@@ -285,6 +283,11 @@
 				<artifactId>groovy-all</artifactId>
 				<version>${groovy.version}</version>
 			</dependency>
+			<dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.5.3</version>
+        </dependency>
 
 			<dependency>
 				<groupId>org.mockito</groupId>
@@ -440,7 +443,7 @@
 					</exclusion>
 				</exclusions>
 			</dependency>
-			<dependency>
+			<!-- <dependency>
 				<groupId>org.codehaus.jackson</groupId>
 				<artifactId>jackson-mapper-asl</artifactId>
 				<version>1.9.13</version>
@@ -449,7 +452,7 @@
 				<groupId>org.codehaus.jackson</groupId>
 				<artifactId>jackson-core-asl</artifactId>
 				<version>1.9.13</version>
-			</dependency>
+			</dependency> -->
 			<dependency>
 				<groupId>org.springframework</groupId>
 				<artifactId>spring-context</artifactId>
@@ -552,7 +555,7 @@
 			<dependency>
 				<groupId>ch.qos.logback</groupId>
 				<artifactId>logback-classic</artifactId>
-				<version>1.1.7</version>
+				<version>1.2.0</version>
 			</dependency>
 			<dependency>
 				<groupId>org.slf4j</groupId>
@@ -593,11 +596,6 @@
 
 			<!--ajsc-archetype-parent -->
 			<dependency>
-				<groupId>com.fasterxml.jackson.core</groupId>
-				<artifactId>jackson-core</artifactId>
-				<version>2.4.3</version>
-			</dependency>
-			<dependency>
 				<groupId>org.eclipse.jetty</groupId>
 				<artifactId>jetty-maven-plugin</artifactId>
 				<version>${jetty.version}</version>
@@ -608,9 +606,73 @@
 				<version>2.2.6</version>
 			</dependency>
 			<dependency>
+				<groupId>com.fasterxml.jackson.core</groupId>
+				<artifactId>jackson-core</artifactId>
+				<version>2.8.11</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.fasterxml.jackson.core</groupId>
+				<artifactId>jackson-databind</artifactId>
+				<version>2.8.11.1</version>
+			</dependency>
+			<dependency>
 				<groupId>org.json</groupId>
 				<artifactId>json</artifactId>
 				<version>20090211</version>
+			</dependency>
+			<dependency>
+				<groupId>org.codehaus.plexus</groupId>
+				<artifactId>plexus-utils</artifactId>
+				<version>3.0.24</version>
+			</dependency>
+			<dependency>
+				<groupId>org.grails</groupId>
+				<artifactId>grails-bootstrap</artifactId>
+				<version>2.5.3</version>
+				<scope>compile</scope>
+				<exclusions>
+					<exclusion>
+						<artifactId>ant</artifactId>
+						<groupId>org.apache.ant</groupId>
+					</exclusion>
+					<exclusion>
+						<artifactId>jna</artifactId>
+						<groupId>net.java.dev.jna</groupId>
+					</exclusion>
+					<exclusion>
+						<artifactId>ant-trax</artifactId>
+						<groupId>org.apache.ant</groupId>
+					</exclusion>
+					<exclusion>
+						<artifactId>gant_groovy1.8</artifactId>
+						<groupId>org.codehaus.gant</groupId>
+					</exclusion>
+					<exclusion>
+						<artifactId>ant-launcher</artifactId>
+						<groupId>org.apache.ant</groupId>
+					</exclusion>
+					<exclusion>
+						<artifactId>jline</artifactId>
+						<groupId>jline</groupId>
+					</exclusion>
+					<exclusion>
+						<artifactId>ivy</artifactId>
+						<groupId>org.apache.ivy</groupId>
+					</exclusion>
+					<exclusion>
+						<artifactId>jansi</artifactId>
+						<groupId>org.fusesource.jansi</groupId>
+					</exclusion>
+					<exclusion>
+						<artifactId>commons-logging</artifactId>
+						<groupId>commons-logging</groupId>
+					</exclusion>
+					<exclusion>
+						<artifactId>ant-junit</artifactId>
+						<groupId>org.apache.ant</groupId>
+					</exclusion>
+				</exclusions>
 			</dependency>
 			<dependency>
 				<groupId>org.springframework</groupId>
@@ -655,13 +717,14 @@
 			<dependency>
 				<groupId>commons-validator</groupId>
 				<artifactId>commons-validator</artifactId>
-				<version>1.3.1</version>
+				<version>1.4.0</version>
 			</dependency>
 			<dependency>
 				<groupId>org.apache.camel</groupId>
 				<artifactId>camel-ejb</artifactId>
 				<version>${camel.version}</version>
 			</dependency>
+			
 			<dependency>
 				<groupId>org.apache.openejb</groupId>
 				<artifactId>openejb-core</artifactId>
@@ -717,21 +780,11 @@
 			<artifactId>backport-util-concurrent</artifactId>
 			<scope>${dependency.scope}</scope>
 		</dependency>
-	<!--	<dependency>
-			<groupId>com.att.aft.discovery</groupId>
-			<artifactId>discovery-clt</artifactId>
-			<scope>${dependency.scope}</scope>
-		</dependency>
-		<dependency>
-			<groupId>com.att.aft.fusion</groupId>
-			<artifactId>ctx-factory</artifactId>
-			<scope>${dependency.scope}</scope>
-		</dependency>
-		<dependency>
-			<groupId>com.att.aft.discovery</groupId>
-			<artifactId>discovery-ctx</artifactId>
-			<scope>${dependency.scope}</scope>
-		</dependency>-->
+		<!-- <dependency> <groupId>com.att.aft.discovery</groupId> <artifactId>discovery-clt</artifactId> 
+			<scope>${dependency.scope}</scope> </dependency> <dependency> <groupId>com.att.aft.fusion</groupId> 
+			<artifactId>ctx-factory</artifactId> <scope>${dependency.scope}</scope> </dependency> 
+			<dependency> <groupId>com.att.aft.discovery</groupId> <artifactId>discovery-ctx</artifactId> 
+			<scope>${dependency.scope}</scope> </dependency> -->
 		<dependency>
 			<groupId>org.apache.camel</groupId>
 			<artifactId>camel-core</artifactId>
@@ -901,7 +954,7 @@
 			<artifactId>spring-security-oauth2</artifactId>
 			<scope>${dependency.scope}</scope>
 		</dependency>
-		<dependency>
+		<!-- <dependency>
 			<groupId>org.codehaus.jackson</groupId>
 			<artifactId>jackson-mapper-asl</artifactId>
 			<scope>${dependency.scope}</scope>
@@ -910,7 +963,7 @@
 			<groupId>org.codehaus.jackson</groupId>
 			<artifactId>jackson-core-asl</artifactId>
 			<scope>${dependency.scope}</scope>
-		</dependency>
+		</dependency> -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>
@@ -1006,6 +1059,10 @@
 					<groupId>commons-collections</groupId>
 					<artifactId>commons-collections</artifactId>
 				</exclusion>
+				<exclusion>
+					<groupId>org.apache.camel</groupId>
+					<artifactId>camel-http</artifactId>
+				</exclusion>
 			</exclusions>
 		</dependency>
 
@@ -1072,6 +1129,10 @@
 				<exclusion>
 					<groupId>commons-collections</groupId>
 					<artifactId>commons-collections</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>commons-beanutils</groupId>
+					<artifactId>commons-beanutils</artifactId>
 				</exclusion>
 			</exclusions>
 		</dependency>

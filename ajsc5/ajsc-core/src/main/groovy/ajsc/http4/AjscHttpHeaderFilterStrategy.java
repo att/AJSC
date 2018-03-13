@@ -3,7 +3,7 @@
  *******************************************************************************/
 package ajsc.http4;
 
-import org.apache.camel.component.http4.HttpHeaderFilterStrategy;
+import org.apache.camel.http.common.HttpHeaderFilterStrategy;
 
 public class AjscHttpHeaderFilterStrategy 
 extends HttpHeaderFilterStrategy {
