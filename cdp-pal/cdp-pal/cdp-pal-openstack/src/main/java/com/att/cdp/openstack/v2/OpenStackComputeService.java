@@ -15,7 +15,6 @@ import java.util.regex.Pattern;
 import javax.ws.rs.core.Response.Status;
 
 import org.apache.commons.codec.binary.Base64;
-
 import com.att.cdp.exceptions.ContextClosedException;
 import com.att.cdp.exceptions.InvalidRequestException;
 import com.att.cdp.exceptions.NotLoggedInException;
@@ -114,8 +113,8 @@ public class OpenStackComputeService extends AbstractCompute {
             return false;
         }
 
-        if (matcher.group(1).equals("a") || matcher.group(1).equals("b")) {
-            return false;
+        if (matcher.group(1).equals("a")) {
+        	  return false;
         }
 
         return true;
@@ -257,6 +256,8 @@ public class OpenStackComputeService extends AbstractCompute {
         checkArg(server, "server");
         checkArg(volume, "volume");
         checkArg(deviceName, "deviceName");
+        
+        
         if (!checkDeviceName(deviceName)) {
             throw new InvalidRequestException(EELFResourceManager.format(OSMsg.PAL_OS_INVALID_DEVICE_NAME, deviceName));
         }
@@ -1790,5 +1791,6 @@ public class OpenStackComputeService extends AbstractCompute {
 
         return list;
     }
-
+    
+    
 }
