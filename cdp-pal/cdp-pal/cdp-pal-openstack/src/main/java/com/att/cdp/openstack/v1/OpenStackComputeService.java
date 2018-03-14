@@ -13,7 +13,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.ws.rs.core.Response.Status;
-
 import com.att.cdp.exceptions.ContextClosedException;
 import com.att.cdp.exceptions.InvalidRequestException;
 import com.att.cdp.exceptions.NotLoggedInException;
@@ -228,6 +227,7 @@ public class OpenStackComputeService extends AbstractCompute {
         checkArg(server, "server");
         checkArg(volume, "volume");
         checkArg(deviceName, "deviceName");
+        
         if (!checkDeviceName(deviceName)) {
             throw new InvalidRequestException(EELFResourceManager.format(OSMsg.PAL_OS_INVALID_DEVICE_NAME, deviceName));
         }
@@ -282,6 +282,11 @@ public class OpenStackComputeService extends AbstractCompute {
      */
     @SuppressWarnings("nls")
     private static boolean checkDeviceName(String name) {
+    	
+    	
+    	
+    	
+
         if (name == null) {
             return false;
         }
@@ -292,7 +297,7 @@ public class OpenStackComputeService extends AbstractCompute {
             return false;
         }
 
-        if (matcher.group(1).equals("a") || matcher.group(1).equals("b")) {
+        if (matcher.group(1).equals("a")) {
             return false;
         }
 
@@ -1537,6 +1542,7 @@ public class OpenStackComputeService extends AbstractCompute {
         try {
             if (targetHostId != null && targetHostId.length() > 0) {
                 nova.getClient().servers().evacuate(serverId, targetHostId).execute();
+               
             } else {
                 nova.getClient().servers().evacuate(serverId).execute();
             }
@@ -1544,6 +1550,8 @@ public class OpenStackComputeService extends AbstractCompute {
             ExceptionMapper.mapException(ex);
         }
     }
+    
+   
 
     /**
      * @see com.att.cdp.zones.Service#getURL()
@@ -1632,5 +1640,5 @@ public class OpenStackComputeService extends AbstractCompute {
             ExceptionMapper.mapException(e);
         }
     }
-
+   
 }
