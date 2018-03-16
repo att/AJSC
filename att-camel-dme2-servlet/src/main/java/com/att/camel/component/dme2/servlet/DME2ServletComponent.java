@@ -18,10 +18,10 @@ package com.att.camel.component.dme2.servlet;
 
 import java.util.Map;
 import org.apache.camel.SuspendableService;
-import org.apache.camel.component.http.HttpConsumer;
 import org.apache.camel.component.servlet.HttpRegistry;
 import org.apache.camel.component.servlet.ServletComponent;
 import org.apache.camel.component.servlet.ServletEndpoint;
+import org.apache.camel.http.common.HttpConsumer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

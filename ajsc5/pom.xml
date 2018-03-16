@@ -5,7 +5,7 @@
 
 	<groupId>com.att.ajsc</groupId>
 	<artifactId>ajsc</artifactId>
-	<version>3.0.2-oss</version>
+	<version>3.0.3-oss</version>
 	<packaging>pom</packaging>
 
 	<name>AJSC</name>
@@ -35,7 +35,7 @@
 		<jettyGroupId>org.eclipse.jetty</jettyGroupId>
 		<jettyPluginVersion>7.6.10.v20130312</jettyPluginVersion>
 		<jetty.version>9.2.9.v20150224</jetty.version>
-		<ATTCamelComponent.version>2.15.5</ATTCamelComponent.version>
+		<ATTCamelComponent.version>2.16.2-oss</ATTCamelComponent.version>
 		<spring.version>4.2.5.RELEASE</spring.version>
 		<spring.security.version>4.0.4.RELEASE</spring.security.version>
 		<groovy.version>2.4.4</groovy.version>
