@@ -292,5 +292,16 @@ public class ConnectedServer extends Server {
         ComputeService service = context.getComputeService();
         service.detachPort(this, port);
     }
-
+    
+    /**
+     * This method reboot the given server
+     * @param rebootType
+     * @throws ZoneException
+     */
+    public void reboot(String rebootType) throws ZoneException {
+        Context context = getContext();
+        context.getComputeService().rebootServer(this,rebootType);
+    }
+    
+   
 }
