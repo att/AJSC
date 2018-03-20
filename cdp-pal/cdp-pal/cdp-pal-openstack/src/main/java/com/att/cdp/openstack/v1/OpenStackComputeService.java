@@ -13,6 +13,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.ws.rs.core.Response.Status;
+
 import com.att.cdp.exceptions.ContextClosedException;
 import com.att.cdp.exceptions.InvalidRequestException;
 import com.att.cdp.exceptions.NotLoggedInException;
@@ -1641,4 +1642,31 @@ public class OpenStackComputeService extends AbstractCompute {
         }
     }
    
+    /* (non-Javadoc)
+     * @see com.att.cdp.zones.ComputeService#rebootServer(java.lang.String, java.lang.String)
+     */
+    @Override
+    public void rebootServer(String serverId,String rebootType) throws ZoneException {
+        checkArg(serverId, "serverId");  
+        
+        connect();
+
+        trackRequest();
+        RequestState.put(RequestState.SERVER, serverId);
+        RequestState.put(RequestState.SERVICE, "Compute");
+        RequestState.put(RequestState.SERVICE_URL, nova.getEndpoint());
+        
+        nova.getClient().servers().reboot(serverId, rebootType);
+         
+       
+    }
+    
+    @Override
+	public void rebootServer(Server server, String rebootType)
+			throws ZoneException {
+			checkArg(server, "server");
+	        checkArg(server.getId(), "server id");
+			rebootServer(server.getId(),rebootType);
+		
+	}
 }
