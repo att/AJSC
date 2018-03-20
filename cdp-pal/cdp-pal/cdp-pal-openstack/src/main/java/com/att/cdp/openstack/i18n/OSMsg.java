@@ -142,8 +142,14 @@ public enum OSMsg implements EELFResolvableErrorEnum {
     /**
      * Service {0} version {1} is not supported and the appropriate version will be detected and loaded
      */
-    PAL_OS_VERSION_OVERRIDE_FAILED;
+    PAL_OS_VERSION_OVERRIDE_FAILED,
 
+    
+    /**
+     *  Reboot Type [{0}] is invalid 
+     */
+    PAL_OS_INVALID_REBOOT_TYPE;
+    
     /**
      * Static initializer to ensure the resource bundles for this class are loaded...
      */

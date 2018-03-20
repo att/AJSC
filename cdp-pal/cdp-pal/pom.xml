@@ -9,7 +9,7 @@
   <packaging>pom</packaging>
   <name>CDP - Provider Abstraction Layer</name>
   <description>Cloud Deployment Platform</description>
-  <version>1.1.25.7-oss</version>
+  <version>1.1.25.8-oss-SNAPSHOT</version>
   <url>https://github.com/att/AJSC/tree/master/cdp-pal</url>
 
   <!-- ================================================================================== -->
