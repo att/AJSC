@@ -15,6 +15,7 @@ import java.util.regex.Pattern;
 import javax.ws.rs.core.Response.Status;
 
 import org.apache.commons.codec.binary.Base64;
+
 import com.att.cdp.exceptions.ContextClosedException;
 import com.att.cdp.exceptions.InvalidRequestException;
 import com.att.cdp.exceptions.NotLoggedInException;
@@ -1791,6 +1792,43 @@ public class OpenStackComputeService extends AbstractCompute {
 
         return list;
     }
+    
+    /* (non-Javadoc)
+     * @see com.att.cdp.zones.ComputeService#rebootServer(java.lang.String, java.lang.String)
+     */
+    @Override
+    public void rebootServer(String serverId,String rebootType) throws ZoneException {
+    	if ("HARD".equals(rebootType) ||"SOFT".equals(rebootType)) {
+			throw new InvalidRequestException(EELFResourceManager.format(
+					OSMsg.PAL_OS_INVALID_REBOOT_TYPE, rebootType));
+		}
+    	
+    	checkArg(serverId, "serverId");  
+        
+        connect();
+
+        trackRequest();
+        RequestState.put(RequestState.SERVER, serverId);
+        RequestState.put(RequestState.SERVICE, "Compute");
+        RequestState.put(RequestState.SERVICE_URL, nova.getEndpoint());
+        
+        try {
+			nova.getClient().servers().reboot(serverId, rebootType).execute();
+		} catch (OpenStackConnectException | OpenStackResponseException e) {
+			ExceptionMapper.mapException(e);
+		}
+         
+       
+    }
+
+	@Override
+	public void rebootServer(Server server, String rebootType)
+			throws ZoneException {
+			checkArg(server, "server");
+	        checkArg(server.getId(), "server id");
+			rebootServer(server.getId(),rebootType);
+		
+	}
     
     
 }

@@ -429,4 +429,18 @@ public class DummyCompute extends AbstractCompute {
         // TODO Auto-generated method stub
 
     }
+
+	@Override
+	public void rebootServer(String serverId, String rebootType)
+			throws ZoneException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void rebootServer(Server server, String rebootType)
+			throws ZoneException {
+		// TODO Auto-generated method stub
+		
+	}
 }

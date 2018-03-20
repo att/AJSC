@@ -784,4 +784,23 @@ public interface ComputeService extends Service {
      */
     void waitForStateChange(int pollInterval, int timeout, Server server, Server.Status... status)
         throws TimeoutException, NotNavigableException, InvalidRequestException, ContextClosedException, ZoneException;
+
+    /**
+     * This method is used to reboot given server.
+     * @param server
+     * @param rebootType
+     * @throws ZoneException
+     */
+    void rebootServer(Server server, String rebootType) throws ZoneException;
+    
+    
+    
+	/**
+	 *  This method is used to reboot given server id.
+     * 
+	 * @param serverId
+	 * @param rebootType
+	 * @throws ZoneException
+	 */
+    void rebootServer(String serverId, String rebootType) throws ZoneException;
 }
