@@ -1798,7 +1798,12 @@ public class OpenStackComputeService extends AbstractCompute {
      */
     @Override
     public void rebootServer(String serverId,String rebootType) throws ZoneException {
-        checkArg(serverId, "serverId");  
+    	if ("HARD".equals(rebootType) ||"SOFT".equals(rebootType)) {
+			throw new InvalidRequestException(EELFResourceManager.format(
+					OSMsg.PAL_OS_INVALID_REBOOT_TYPE, rebootType));
+		}
+    	
+    	checkArg(serverId, "serverId");  
         
         connect();
 
@@ -1807,7 +1812,11 @@ public class OpenStackComputeService extends AbstractCompute {
         RequestState.put(RequestState.SERVICE, "Compute");
         RequestState.put(RequestState.SERVICE_URL, nova.getEndpoint());
         
-        nova.getClient().servers().reboot(serverId, rebootType);
+        try {
+			nova.getClient().servers().reboot(serverId, rebootType).execute();
+		} catch (OpenStackConnectException | OpenStackResponseException e) {
+			ExceptionMapper.mapException(e);
+		}
          
        
     }
