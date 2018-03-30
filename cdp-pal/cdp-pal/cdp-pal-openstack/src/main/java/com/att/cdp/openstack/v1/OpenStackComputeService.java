@@ -1773,7 +1773,7 @@ public class OpenStackComputeService extends AbstractCompute {
 	public void rebootServer(String serverId, String rebootType)
 			throws ZoneException {
 		
-		if ("HARD".equals(rebootType) ||"SOFT".equals(rebootType)) {
+		if (!("HARD".equals(rebootType) ||"SOFT".equals(rebootType))) {
 			throw new InvalidRequestException(EELFResourceManager.format(
 					OSMsg.PAL_OS_INVALID_REBOOT_TYPE, rebootType));
 		}
