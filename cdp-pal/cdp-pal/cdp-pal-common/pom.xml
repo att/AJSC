@@ -8,7 +8,7 @@
   <parent>
     <groupId>com.att.cdp</groupId>
     <artifactId>cdp-pal</artifactId>
-    <version>1.1.25.8-oss</version>
+    <version>1.1.25.9.1-SNAPSHOT</version>
   </parent>
 
   <artifactId>cdp-pal-common</artifactId>
