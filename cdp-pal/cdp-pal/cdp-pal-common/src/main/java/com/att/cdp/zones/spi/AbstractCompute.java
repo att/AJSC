@@ -129,7 +129,7 @@ System.out.println("AbstractCompute.waitForStateChange() -allowedStates-> "+allo
          */
         System.out.println("AbstractCompute.waitForStateChange()-checking to see if the server is connected");
         if (!server.isConnected()) {
-        	System.out.println("AbstractCompute.waitForStateChange()-Server is not connected");
+        	System.out.println("AbstractCompute.waitForStateChange() -Server is not connected");
             throw new NotNavigableException(EELFResourceManager.format(Msg.NOT_NAVIGABLE));
         }
 
