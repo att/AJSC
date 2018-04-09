@@ -37,7 +37,7 @@
 		<jetty.version>9.2.22.v20170606</jetty.version>
 		<ATTCamelComponent.version>2.16.2-oss</ATTCamelComponent.version>
 		<spring.version>4.2.5.RELEASE</spring.version>
-		<spring.webmvc.version>4.2.4.Release</spring.webmvc.version>
+		<spring.web.version>3.2.18.RELEASE</spring.web.version>
 		<spring.security.version>4.1.4.RELEASE</spring.security.version>
 		<groovy.version>2.4.4</groovy.version>
 		<restlet.version>2.2.1</restlet.version>
