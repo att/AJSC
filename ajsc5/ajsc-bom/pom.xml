@@ -7,7 +7,7 @@
 	<parent>
 		<groupId>com.att.ajsc</groupId>
 		<artifactId>ajsc</artifactId>
-		<version>3.0.5-oss</version>
+		<version>3.0.6-oss</version>
 	</parent>
 	<artifactId>ajsc-bom</artifactId>
 	<packaging>pom</packaging>
@@ -372,6 +372,11 @@
 				<version>${camel.version}</version>
 			</dependency>
 			<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-messaging</artifactId>
+			<version>4.1.9.RELEASE</version>
+		</dependency>
+			<dependency>
 				<groupId>org.apache.camel</groupId>
 				<artifactId>camel-script</artifactId>
 				<version>${camel.version}</version>
@@ -389,7 +394,7 @@
 			<dependency>
 				<groupId>org.springframework</groupId>
 				<artifactId>spring-core</artifactId>
-				<version>${spring.version}</version>
+				<version>4.3.15.RELEASE</version>
 			</dependency>
 			<dependency>
 				<groupId>org.springframework</groupId>
@@ -399,7 +404,7 @@
 			<dependency>
 				<groupId>org.springframework</groupId>
 				<artifactId>spring-expression</artifactId>
-				<version>${spring.version}</version>
+				<version>4.3.15.RELEASE</version>
 			</dependency>
 			<dependency>
 				<groupId>org.restlet.jee</groupId>
@@ -423,12 +428,12 @@
 			<dependency>
 				<groupId>org.springframework</groupId>
 				<artifactId>spring-web</artifactId>
-				<version>${spring.web.version}</version>
+				<version>4.3.15.RELEASE</version>
 			</dependency>
 			<dependency>
 				<groupId>org.springframework</groupId>
 				<artifactId>spring-webmvc</artifactId>
-				<version>${spring.web.version}</version>
+				<version>4.3.15.RELEASE</version>
 			</dependency>
 
 			<!-- OAuth 2.0 dependencies -->
@@ -797,6 +802,16 @@
 			</exclusions>
 		</dependency>
 		<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-web</artifactId>
+				<version>4.3.15.RELEASE</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-webmvc</artifactId>
+				<version>4.3.15.RELEASE</version>
+			</dependency>
+		<dependency>
 			<groupId>org.apache.camel</groupId>
 			<artifactId>camel-quartz</artifactId>
 			<scope>${dependency.scope}</scope>
@@ -927,8 +942,15 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-expression</artifactId>
+			<version>4.3.15.RELEASE</version>
 			<scope>${dependency.scope}</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-messaging</artifactId>
+			<scope>${dependency.scope}</scope>
+			<version>4.1.9.RELEASE</version>
+			</dependency>
 		<dependency>
 			<groupId>org.restlet.jee</groupId>
 			<artifactId>org.restlet</artifactId>
