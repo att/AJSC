@@ -705,7 +705,11 @@ public class OpenStackContext extends AbstractContext {
      *            The connector to be updated with the new token
      */
     public synchronized void refreshIfStale(Connector connector) {
+    	String logId = "PAL-5558";
+    	Logger appLogger = getLogger();
+    	appLogger.debug(logId+":OpenStackContext.refreshIfStale - in");
         if (isStale()) {
+        	appLogger.debug(logId+":OpenStackContext.refreshIfStale - Connection is stale");
             try {
                 logout();
                 relogin();
@@ -714,7 +718,10 @@ public class OpenStackContext extends AbstractContext {
             }
 
         }
+        appLogger.debug(logId+":OpenStackContext.refreshIfStale - old token -"+connector.getAccess().getToken().getId());
         connector.updateToken();
+        appLogger.debug(logId+":OpenStackContext.refreshIfStale - new token -"+connector.getAccess().getToken().getId());
+        
     }
 
     /**
