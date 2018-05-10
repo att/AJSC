@@ -9,12 +9,14 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.ws.rs.core.Response.Status;
 
 import org.apache.commons.codec.binary.Base64;
+import org.slf4j.Logger;
 
 import com.att.cdp.exceptions.ContextClosedException;
 import com.att.cdp.exceptions.InvalidRequestException;
@@ -81,6 +83,7 @@ public class OpenStackComputeService extends AbstractCompute {
      * The Nova connector object.
      */
     private NovaConnector nova;
+	private Logger logger;
 
     /**
      * Create the OpenStack compute service implementation for the specified context
@@ -90,6 +93,8 @@ public class OpenStackComputeService extends AbstractCompute {
      */
     public OpenStackComputeService(Context context) {
         super(context);
+        logger=super.getLogger();
+        
     }
 
     /**
@@ -310,13 +315,16 @@ public class OpenStackComputeService extends AbstractCompute {
      *             If the user attempts an operation after the context is closed
      */
     private void connect() throws NotLoggedInException, ContextClosedException {
-        Context context = getContext();
+    	String logId = "PAL-5557";
+    	logger.debug(logId+":OpenStackComputeService.connect()");
+    	Context context = getContext();
 
         checkLogin();
         checkOpen();
-
+        logger.debug(logId+":OpenStackComputeService.connect() : Calling refreshIfStale : Before");
         nova = ((OpenStackContext) context).getNovaConnector();
         ((OpenStackContext) context).refreshIfStale(nova);
+        logger.debug(logId+":OpenStackComputeService.connect() : Calling refreshIfStale : After");
     }
 
     /**
@@ -1290,18 +1298,30 @@ public class OpenStackComputeService extends AbstractCompute {
     @SuppressWarnings("nls")
     @Override
     public void refreshServerStatus(Server server) throws ZoneException {
-        checkArg(server, "server");
-
+    	UUID idOne = UUID.randomUUID();
+        String logId = "PAL-55556-"+idOne;
+        logger.debug(logId+":OpenStackComputeService.refreshServerStatus() -server:"+server.getName()+" : "+server.getId());
+    	checkArg(server, "server");
+    	
+    
         connect();
-
+        logger.debug(logId+":OpenStackComputeService.refreshServerStatus() -trackRequest in");
+    	
         trackRequest();
+        logger.debug(logId+":OpenStackComputeService.refreshServerStatus() -trackRequest out");
         RequestState.put(RequestState.SERVER, server);
         RequestState.put(RequestState.SERVICE, "Compute");
         RequestState.put(RequestState.SERVICE_URL, nova.getEndpoint());
-
+        logger.debug(logId+":OpenStackComputeService.refreshServerStatus() -server:"+server.getName()+" : "+server.getId());
+        logger.debug(logId+":OpenStackComputeService.refreshServerStatus() -nova endpoint:"+nova.getEndpoint());
+        
         try {
+        	logger.debug(logId+":OpenStackComputeService.refreshServerStatus() -mapServerStatus - in");
+            
             ((OpenStackServer) server).mapServerStatus(nova.getClient().servers().show(server.getId()).execute());
+            logger.debug(logId+":OpenStackComputeService.refreshServerStatus() -mapServerStatus - out");
         } catch (OpenStackBaseException ex) {
+        	logger.debug(logId+":OpenStackComputeService.refreshServerStatus() -mapServerStatus - mapException..");
             ExceptionMapper.mapException(ex);
         }
     }
