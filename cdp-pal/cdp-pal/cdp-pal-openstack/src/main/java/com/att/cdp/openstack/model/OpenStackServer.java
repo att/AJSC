@@ -630,6 +630,7 @@ public class OpenStackServer extends ConnectedServer {
         /*
          * Refresh the cached nova model with the new server object
          */
+    	LOG.debug("OpenStackServer.mapServerStatus : in");
         novaModel = server;
 
         /*
