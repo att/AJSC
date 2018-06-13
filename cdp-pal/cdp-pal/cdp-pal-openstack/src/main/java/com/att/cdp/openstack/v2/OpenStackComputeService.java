@@ -6,6 +6,7 @@ package com.att.cdp.openstack.v2;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -316,15 +317,15 @@ public class OpenStackComputeService extends AbstractCompute {
      */
     private void connect() throws NotLoggedInException, ContextClosedException {
     	String logId = "PAL-5557";
-    	logger.debug(logId+":OpenStackComputeService.connect()");
+    	 logger.info(new Date().toString()+ " " +logId+":OpenStackComputeService.connect()");
     	Context context = getContext();
 
         checkLogin();
         checkOpen();
-        logger.debug(logId+":OpenStackComputeService.connect() : Calling refreshIfStale : Before");
+        logger.info(new Date().toString()+ " " +logId+":OpenStackComputeService.connect() : Calling refreshIfStale : Before");
         nova = ((OpenStackContext) context).getNovaConnector();
         ((OpenStackContext) context).refreshIfStale(nova);
-        logger.debug(logId+":OpenStackComputeService.connect() : Calling refreshIfStale : After");
+        logger.info(new Date().toString()+ " " +logId+":OpenStackComputeService.connect() : Calling refreshIfStale : After");
     }
 
     /**
@@ -1300,28 +1301,28 @@ public class OpenStackComputeService extends AbstractCompute {
     public void refreshServerStatus(Server server) throws ZoneException {
     	UUID idOne = UUID.randomUUID();
         String logId = "PAL-55556-"+idOne;
-        logger.debug(logId+":OpenStackComputeService.refreshServerStatus() -server:"+server.getName()+" : "+server.getId());
+        logger.info(new Date().toString()+ " " +logId+":OpenStackComputeService.refreshServerStatus() -server:"+server.getName()+" : "+server.getId());
     	checkArg(server, "server");
     	
     
         connect();
-        logger.debug(logId+":OpenStackComputeService.refreshServerStatus() -trackRequest in");
+        logger.info(new Date().toString()+ " " +logId+":OpenStackComputeService.refreshServerStatus() -trackRequest in");
     	
         trackRequest();
-        logger.debug(logId+":OpenStackComputeService.refreshServerStatus() -trackRequest out");
+        logger.info(new Date().toString()+ " " +logId+":OpenStackComputeService.refreshServerStatus() -trackRequest out");
         RequestState.put(RequestState.SERVER, server);
         RequestState.put(RequestState.SERVICE, "Compute");
         RequestState.put(RequestState.SERVICE_URL, nova.getEndpoint());
-        logger.debug(logId+":OpenStackComputeService.refreshServerStatus() -server:"+server.getName()+" : "+server.getId());
-        logger.debug(logId+":OpenStackComputeService.refreshServerStatus() -nova endpoint:"+nova.getEndpoint());
+        logger.info(new Date().toString()+ " " +logId+":OpenStackComputeService.refreshServerStatus() -server:"+server.getName()+" : "+server.getId());
+        logger.info(new Date().toString()+ " " +logId+":OpenStackComputeService.refreshServerStatus() -nova endpoint:"+nova.getEndpoint());
         
         try {
-        	logger.debug(logId+":OpenStackComputeService.refreshServerStatus() -mapServerStatus - in");
+        	 logger.info(new Date().toString()+ " " +logId+":OpenStackComputeService.refreshServerStatus() -mapServerStatus - in");
             
             ((OpenStackServer) server).mapServerStatus(nova.getClient().servers().show(server.getId()).execute());
-            logger.debug(logId+":OpenStackComputeService.refreshServerStatus() -mapServerStatus - out");
+            logger.info(new Date().toString()+ " " +logId+":OpenStackComputeService.refreshServerStatus() -mapServerStatus - out");
         } catch (OpenStackBaseException ex) {
-        	logger.debug(logId+":OpenStackComputeService.refreshServerStatus() -mapServerStatus - mapException..");
+        	 logger.info(new Date().toString()+ " " +logId+":OpenStackComputeService.refreshServerStatus() -mapServerStatus - mapException..");
             ExceptionMapper.mapException(ex);
         }
     }
