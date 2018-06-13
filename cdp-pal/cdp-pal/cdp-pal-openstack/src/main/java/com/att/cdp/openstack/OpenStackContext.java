@@ -6,6 +6,7 @@ package com.att.cdp.openstack;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Properties;
@@ -707,9 +708,9 @@ public class OpenStackContext extends AbstractContext {
     public synchronized void refreshIfStale(Connector connector) {
     	String logId = "PAL-5558";
     	Logger appLogger = getLogger();
-    	appLogger.debug(logId+":OpenStackContext.refreshIfStale - in");
+    	appLogger.info(new Date().toString()+ " " + logId+":OpenStackContext.refreshIfStale - in");
         if (isStale()) {
-        	appLogger.debug(logId+":OpenStackContext.refreshIfStale - Connection is stale");
+        	appLogger.info(new Date().toString()+ " " +logId+":OpenStackContext.refreshIfStale - Connection is stale");
             try {
                 logout();
                 relogin();
@@ -718,9 +719,9 @@ public class OpenStackContext extends AbstractContext {
             }
 
         }
-        appLogger.debug(logId+":OpenStackContext.refreshIfStale - old token -"+connector.getAccess().getToken().getId());
+        appLogger.info(new Date().toString()+ " " +logId+":OpenStackContext.refreshIfStale - old token -"+connector.getAccess().getToken().getId());
         connector.updateToken();
-        appLogger.debug(logId+":OpenStackContext.refreshIfStale - new token -"+connector.getAccess().getToken().getId());
+        appLogger.info(new Date().toString()+ " " +logId+":OpenStackContext.refreshIfStale - new token -"+connector.getAccess().getToken().getId());
         
     }
 

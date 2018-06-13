@@ -11,6 +11,7 @@ import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.X509Certificate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -596,7 +597,8 @@ public class ServiceCatalog {
 
         boolean result = false;
         Logger logger = context.getLogger();
-
+        
+        logger.info(new Date().toString()+" PAL-TEST-5555: ServiceCatalog.processEndpoint: type="+type);
         /*
          * DH: Check if the "use internal" property is set and use the internal URL if so, or the public URL if not.
          */
@@ -604,21 +606,27 @@ public class ServiceCatalog {
             Boolean.parseBoolean(context.getProperties()
                 .getProperty(ContextFactory.PROPERTY_USE_INTERNAL_CONNECTION, Boolean.FALSE.toString()).trim());
         String serviceUrl = useInternal ? serviceEndpoint.getInternalUrl() : serviceEndpoint.getPublicUrl();
+        logger.info(new Date().toString()+" PAL-TEST-5555: ServiceCatalog.processEndpoint: serviceUrl="+serviceUrl);
 
         /*
          * Check is service version is overridden
          */
         String property = SERVICE_VERSION_MAP.get(type);
+        logger.info(new Date().toString()+" PAL-TEST-5555: ServiceCatalog.processEndpoint: property="+property);
         if (property != null) {
             String userDefinedVersion = context.getProperties().getProperty(property);
+            logger.info(new Date().toString()+" PAL-TEST-5555: ServiceCatalog.processEndpoint: userDefinedVersion="+userDefinedVersion);
             if (userDefinedVersion != null && !userDefinedVersion.isEmpty()) {
-
+               
                 for (SupportedVersion entry : supportedVersions) {
+                	logger.info(new Date().toString()+" PAL-TEST-5555: ServiceCatalog.processEndpoint: supportedVersion="+entry.toString());
                     if (entry.isMatch(userDefinedVersion)) {
+                    	logger.info(new Date().toString()+" PAL-TEST-5555: ServiceCatalog.processEndpoint: serviceUrl="+serviceUrl+" | urlnode="+entry.getUrlNode());
                         resolvedUrlMap.put(type, rewriteURL(serviceUrl, entry.getUrlNode()));
                         resolvedVersionMap.put(type, entry);
                         logger.info(EELFResourceManager.format(OSMsg.PAL_OS_SERVICE_VERSION_SUPPORTED, type,
                             entry.getPackageNode()));
+                        logger.info(new Date().toString()+" PAL-TEST-5555: returning true");
                         return true;
                     }
 
@@ -628,8 +636,11 @@ public class ServiceCatalog {
             }
         }
 
+        logger.info(new Date().toString()+" PAL-TEST-5555: ServiceCatalog.processEndpoint: property is null");
         try {
             URL url = new URL(serviceUrl);
+            logger.info(new Date().toString()+" PAL-TEST-5555: url="+url.toString());
+            
 
             HttpClientBuilder clientBuilder = HttpClients.custom();
             if (url.getProtocol().equalsIgnoreCase(HTTPS)) {
@@ -688,21 +699,27 @@ public class ServiceCatalog {
                         case HttpStatus.SC_MULTIPLE_CHOICES:
                         case HttpStatus.SC_OK:
                             List<String> versions = getVersionsFromResponse(type, serviceUrl, stream);
+                            logger.info(new Date().toString()+" PAL-TEST-5555: SC-OK :ServiceCatalog.processEndpoint: All versions ="+versions);
                             for (SupportedVersion entry : supportedVersions) {
+                            	logger.info(new Date().toString()+" PAL-TEST-5555: SC-OK :ServiceCatalog.processEndpoint: supportedVersion ="+entry.toString());
                                 for (String version : versions) {
                                     if (entry.isMatch(version)) {
+                                    	logger.info(new Date().toString()+" PAL-TEST-5555: SC-OK : ServiceCatalog.processEndpoint: found a match with version ="+version);
                                         resolvedUrlMap.put(type, rewriteURL(serviceUrl, entry.getUrlNode()));
                                         resolvedVersionMap.put(type, entry);
                                         logger.info(EELFResourceManager.format(OSMsg.PAL_OS_SERVICE_VERSION_SUPPORTED,
                                             type, entry.getPackageNode()));
+                                        logger.info(new Date().toString()+" PAL-TEST-5555: SC-OK : Returning True");
                                         return true;
                                     }
                                 }
                             }
                         default:
-                            selectDefaultVersion(type, serviceUrl, supportedVersions);
+                        	logger.info(new Date().toString()+" PAL-TEST-5555: default : selecting default version");
+                        	selectDefaultVersion(type, serviceUrl, supportedVersions);
                             logger.info(EELFResourceManager.format(OSMsg.PAL_OS_SERVICE_VERSION_SUPPORTED, type,
-                                resolvedVersionMap.get(type).getPackageNode()));
+                            resolvedVersionMap.get(type).getPackageNode()));
+                            logger.info(new Date().toString()+" PAL-TEST-5555: default : returning true");
                             return true;
                     }
                 } catch (IOException e) {
