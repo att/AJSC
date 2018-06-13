@@ -6,6 +6,7 @@ package com.att.cdp.zones.spi;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -115,10 +116,10 @@ public abstract class AbstractCompute extends AbstractService implements Compute
         UUID idOne = UUID.randomUUID();
         String logId = "PAL-55555-"+idOne;
         
-        logger.debug(logId+":AbstractCompute.waitForStateChange() -pollInterval-> "+pollInterval);
-        logger.debug(logId+":AbstractCompute.waitForStateChange() -timeout-> "+timeout);
-        logger.debug(logId+":AbstractCompute.waitForStateChange() -server-> "+server.getName());
-        logger.debug(logId+":AbstractCompute.waitForStateChange() -allowedStates-> "+Arrays.toString(allowedStates));
+        logger.info(new Date().toString()+ " " + logId+":AbstractCompute.waitForStateChange() -pollInterval-> "+pollInterval);
+        logger.info(new Date().toString()+ " " + logId+":AbstractCompute.waitForStateChange() -timeout-> "+timeout);
+        logger.info(new Date().toString()+ " " + logId+":AbstractCompute.waitForStateChange() -server-> "+server.getName());
+        logger.info(new Date().toString()+ " " + logId+":AbstractCompute.waitForStateChange() -allowedStates-> "+Arrays.toString(allowedStates));
        /*
          * Check that the poll interval and timeout are both positive, non-zero values, and that the timeout >= poll
          * interval.
@@ -135,9 +136,9 @@ public abstract class AbstractCompute extends AbstractService implements Compute
         /*
          * Make sure that the server is connected
          */
-        logger.debug(logId+":AbstractCompute.waitForStateChange()-checking to see if the server is connected");
+        logger.info(new Date().toString()+ " " + logId+":AbstractCompute.waitForStateChange()-checking to see if the server is connected");
         if (!server.isConnected()) {
-        	logger.debug(logId+":AbstractCompute.waitForStateChange() -Server is not connected");
+        	 logger.info(new Date().toString()+ " " + logId+":AbstractCompute.waitForStateChange() -Server is not connected");
             throw new NotNavigableException(EELFResourceManager.format(Msg.NOT_NAVIGABLE));
         }
 
@@ -151,23 +152,23 @@ public abstract class AbstractCompute extends AbstractService implements Compute
                 states.add(allowedState);
             }
         }
-        logger.debug(logId+":AbstractCompute.waitForStateChange()- What are Allowed States -> "+states);
+        logger.info(new Date().toString()+ " " + logId+":AbstractCompute.waitForStateChange()- What are Allowed States -> "+states);
         /*
          * Compute the time limit for the operation. This is checked after each poll interval is completed.
          */
         long delay = pollInterval * 1000L;
-        logger.debug(logId+":AbstractCompute.waitForStateChange() - delay->"+delay);
+        logger.info(new Date().toString()+ " " + logId+":AbstractCompute.waitForStateChange() - delay->"+delay);
         long limit = System.currentTimeMillis() + (timeout * 1000L);
-        logger.debug(logId+":AbstractCompute.waitForStateChange() - CurrentTime->"+System.currentTimeMillis());
-        logger.debug(logId+":AbstractCompute.waitForStateChange() - limit-> "+limit);
+        logger.info(new Date().toString()+ " " + logId+":AbstractCompute.waitForStateChange() - CurrentTime->"+System.currentTimeMillis());
+        logger.info(new Date().toString()+ " " + logId+":AbstractCompute.waitForStateChange() - limit-> "+limit);
         boolean found = false;
         outer: do {
-        	logger.debug(logId+":AbstractCompute.waitForStateChange() - refreshStatus: before->"+server.getStatus());
+        	 logger.info(new Date().toString()+ " " + logId+":AbstractCompute.waitForStateChange() - refreshStatus: before->"+server.getStatus());
             server.refreshStatus();
-            logger.debug(logId+":AbstractCompute.waitForStateChange() - refreshStatus: after-> "+server.getStatus());
+            logger.info(new Date().toString()+ " " + logId+":AbstractCompute.waitForStateChange() - refreshStatus: after-> "+server.getStatus());
             for (Server.Status state : states) {
                 if (state.equals(server.getStatus())) {
-                	logger.debug(logId+":AbstractCompute.waitForStateChange() - state:"+state+"  : : server status:"+server.getStatus());
+                	 logger.info(new Date().toString()+ " " + logId+":AbstractCompute.waitForStateChange() - state:"+state+"  : : server status:"+server.getStatus());
                     found = true;
                     break outer;
                 }
@@ -175,10 +176,10 @@ public abstract class AbstractCompute extends AbstractService implements Compute
 
             try {
                 Thread.sleep(delay);
-                logger.debug(logId+":AbstractCompute.waitForStateChange() - Thread.sleep ->delay->"+delay);
+                logger.info(new Date().toString()+ " " + logId+":AbstractCompute.waitForStateChange() - Thread.sleep ->delay->"+delay);
             } catch (InterruptedException e) {
                 // ignore
-            	logger.debug(logId+":AbstractCompute.waitForStateChange() - InterrruptedException");
+            	 logger.info(new Date().toString()+ " " + logId+":AbstractCompute.waitForStateChange() - InterrruptedException");
             }
 
         } while (timeout == 0 || System.currentTimeMillis() < limit);
@@ -187,7 +188,7 @@ public abstract class AbstractCompute extends AbstractService implements Compute
          * Check to see if we found the server in one of the allowed states?
          */
         if (!found) {
-        	logger.debug(logId+":AbstractCompute.waitForStateChange() - didnt find the status");
+        	 logger.info(new Date().toString()+ " " + logId+":AbstractCompute.waitForStateChange() - didnt find the status");
             
             StringBuilder builder = new StringBuilder("[");
             for (Server.Status state : states) {
@@ -199,7 +200,7 @@ public abstract class AbstractCompute extends AbstractService implements Compute
             throw new TimeoutException(EELFResourceManager.format(Msg.SERVER_TIMEOUT, server.getName(),
                 Integer.toString(timeout), server.getId(), server.getStatus().name(), builder.toString()));
         }
-        logger.debug(logId+":AbstractCompute.waitForStateChange() - timeout ="+timeout);
+        logger.info(new Date().toString()+ " " + logId+":AbstractCompute.waitForStateChange() - timeout ="+timeout);
     }
 
     /**
