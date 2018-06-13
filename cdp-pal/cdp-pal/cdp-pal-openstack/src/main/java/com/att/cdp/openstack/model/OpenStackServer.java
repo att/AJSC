@@ -7,6 +7,7 @@ package com.att.cdp.openstack.model;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -525,19 +526,24 @@ public class OpenStackServer extends ConnectedServer {
             if (novaModel.getImage() != null) {
                 try {
                     String serverImageId = novaModel.getImage().getId();
+                    LOG.info(new Date().toString()+" PAL-TEST-5555: serverImageId(from novaModel) :"+serverImageId);
                     ImageService imageService = context.getImageService();
                     List<Image> images = imageService.listImages();
+                    LOG.info(new Date().toString()+" PAL-TEST-5555: Images :"+images);
                     for (Image image : images) {
                         if (image.getId().equals(serverImageId)) {
-                            bootImage = image;
+                        	bootImage = image;
+                            LOG.info(new Date().toString()+" PAL-TEST-5555: bootImage :"+image.getId());
                         }
                         if (image.getImageType().equals(Image.Type.SNAPSHOT) && getId().equals(image.getInstanceId())) {
+                        	 LOG.info(new Date().toString()+" PAL-TEST-5555: Snapshot Image :"+image.getId());
                             getSnapshots().add(image);
                         }
                     }
                 } catch (Exception e) {
                     LOG.error(String.format("Unexpected exception %s retrieving images for server %s", e.getClass()
                         .getSimpleName(), getId()));
+                    LOG.error("PAL-TEST-5555: Exception",e);
                     LOG.error(EELFResourceManager.format(e));
                 }
             }
