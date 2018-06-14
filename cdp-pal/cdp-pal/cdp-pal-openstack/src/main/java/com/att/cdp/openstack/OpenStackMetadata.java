@@ -4,6 +4,10 @@
 
 package com.att.cdp.openstack;
 
+import java.util.Date;
+
+import org.slf4j.Logger;
+
 import com.att.cdp.exceptions.NotLoggedInException;
 import com.att.cdp.zones.ContextFactory;
 import com.att.cdp.zones.spi.DefaultProviderMetadata;
@@ -40,7 +44,8 @@ import com.att.cdp.zones.spi.DefaultProviderMetadata;
 
 public class OpenStackMetadata extends DefaultProviderMetadata {
 
-    /**
+	private Logger logger;
+	/**
      * Construct the metadata object that describes the provider
      * 
      * @param osContext
@@ -48,6 +53,7 @@ public class OpenStackMetadata extends DefaultProviderMetadata {
      */
     public OpenStackMetadata(OpenStackContext osContext) {
         super(osContext);
+        logger = osContext.getLogger();
     }
 
     /**
@@ -107,11 +113,14 @@ public class OpenStackMetadata extends DefaultProviderMetadata {
      */
     @Override
     public String getImageVersion() throws NotLoggedInException {
+    	logger.info(new Date().toString()+" PAL-TEST-5555: OpenStackMetadata.getImageVersion");
         if (getComponentVersion(IMAGE) == null) {
             OpenStackContext context = (OpenStackContext) getContext();
             ServiceCatalog catalog = context.getServiceCatalog();
+            logger.info(new Date().toString()+" PAL-TEST-5555: OpenStackMetadata.getImageVersion :: Url Map ->"+catalog.getResolvedURLMap().toString());
             setComponentVersion(IMAGE, catalog.resolvePackageNode(ServiceCatalog.OS_IMAGE_SERVICE_TYPE));
             String url = catalog.resolveServiceURL(ServiceCatalog.OS_IMAGE_SERVICE_TYPE);
+            logger.info(new Date().toString()+" PAL-TEST-5555: OpenStackMetadata.getImageVersion :: url ->"+url);
             if (url != null) {
                 context.updateProperty(ContextFactory.PROPERTY_IMAGE_URL, url);
             }
