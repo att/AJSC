@@ -113,7 +113,7 @@ public class OpenStackMetadata extends DefaultProviderMetadata {
      */
     @Override
     public String getImageVersion() throws NotLoggedInException {
-    	logger.info(new Date().toString()+" PAL-TEST-5555: OpenStackMetadata.getImageVersion");
+    	logger.info(new Date().toString()+" PAL-TEST-5555: OpenStackMetadata.getImageVersion ");
         if (getComponentVersion(IMAGE) == null) {
             OpenStackContext context = (OpenStackContext) getContext();
             ServiceCatalog catalog = context.getServiceCatalog();
