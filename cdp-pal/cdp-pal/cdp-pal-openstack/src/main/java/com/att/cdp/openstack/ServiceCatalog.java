@@ -476,7 +476,7 @@ public class ServiceCatalog {
                         
                     	logger.info(new Date().toString()+" PAL-TEST-5555: ServiceCatalog.registerServices: region ="+region);                    	
                         processEndpoint(type, serviceEndpoint, supportedVersions);
-                        logger.info(new Date().toString()+" PAL-TEST-5555: ServiceCatalog.registerServices: ProcessEndPoint completed");
+                        logger.info(new Date().toString()+" PAL-TEST-5555: ServiceCatalog.registerServices: ProcessEndPoint completed ");
                         found = true;
                         continue servicesLoop;
                     }
