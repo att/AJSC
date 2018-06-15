@@ -471,16 +471,16 @@ public class ServiceCatalog {
 
                 boolean found = false;
                 for (ServiceEndpoint serviceEndpoint : service.getEndpoints()) {
-                    if (region == null) {
+                    if (region == null || region.equals(serviceEndpoint.getRegion())) {
+                    	logger.info(new Date().toString()+" PAL-TEST-5555: ServiceCatalog.registerServices: ServiceEndpoint-> public url ="+serviceEndpoint.getPublicUrl());                    	
+                        
+                    	logger.info(new Date().toString()+" PAL-TEST-5555: ServiceCatalog.registerServices: region ="+region);                    	
                         processEndpoint(type, serviceEndpoint, supportedVersions);
+                        logger.info(new Date().toString()+" PAL-TEST-5555: ServiceCatalog.registerServices: ProcessEndPoint completed ");
                         found = true;
                         continue servicesLoop;
                     }
-                    if (region.equals(serviceEndpoint.getRegion())) {
-                        processEndpoint(type, serviceEndpoint, supportedVersions);
-                        found = true;
-                        continue servicesLoop;
-                    }
+                    
                 }
 
                 /*
@@ -640,8 +640,9 @@ public class ServiceCatalog {
         try {
             URL url = new URL(serviceUrl);
             logger.info(new Date().toString()+" PAL-TEST-5555: url="+url.toString());
-            
-
+            logger.info(new Date().toString()+" PAL-TEST-5555: proxyHost="+proxyHost);
+            logger.info(new Date().toString()+" PAL-TEST-5555: proxyPort="+proxyPort);
+           
             HttpClientBuilder clientBuilder = HttpClients.custom();
             if (url.getProtocol().equalsIgnoreCase(HTTPS)) {
                 processTrustedHostsList();
@@ -672,9 +673,12 @@ public class ServiceCatalog {
             HttpResponse response = null;
             HttpEntity entity = null;
             int attempts = 0;
+            logger.info(new Date().toString()+" PAL-TEST-5555: Going to execute http request..");
             while (attempts < context.getRetryLimit()) {
                 try {
+                	logger.info(new Date().toString()+" PAL-TEST-5555: Before calling client.execute***");
                     response = client.execute(target, request);
+                    logger.info(new Date().toString()+" PAL-TEST-5555: After calling client.execute***");
                     entity = response.getEntity();
                     break;
                 } catch (Throwable e) {
@@ -683,6 +687,7 @@ public class ServiceCatalog {
                         Integer.toString(attempts + 1), Integer.toString(context.getRetryLimit()),
                         Integer.toString(context.getRetryDelay())));
                     try {
+                    	logger.info(new Date().toString()+" PAL-TEST-5555: Error Executing the httpget");
                         Thread.sleep(context.getRetryDelay() * 1000L);
                     } catch (InterruptedException ex) {
                         // ignore
@@ -690,7 +695,7 @@ public class ServiceCatalog {
                     attempts++;
                 }
             }
-
+            logger.info(new Date().toString()+" PAL-TEST-5555: retry attempt ="+attempts);
             if (response != null && response.getStatusLine() != null) {
                 int status = response.getStatusLine().getStatusCode();
 
@@ -705,7 +710,9 @@ public class ServiceCatalog {
                                 for (String version : versions) {
                                     if (entry.isMatch(version)) {
                                     	logger.info(new Date().toString()+" PAL-TEST-5555: SC-OK : ServiceCatalog.processEndpoint: found a match with version ="+version);
+                                    	logger.info(new Date().toString()+" PAL-TEST-5555: SC-OK : ServiceCatalog.processEndpoint: url Before rewrite ="+resolvedUrlMap.get(type));
                                         resolvedUrlMap.put(type, rewriteURL(serviceUrl, entry.getUrlNode()));
+                                        logger.info(new Date().toString()+" PAL-TEST-5555: SC-OK : ServiceCatalog.processEndpoint: url after rewrite ="+resolvedUrlMap.get(type));
                                         resolvedVersionMap.put(type, entry);
                                         logger.info(EELFResourceManager.format(OSMsg.PAL_OS_SERVICE_VERSION_SUPPORTED,
                                             type, entry.getPackageNode()));

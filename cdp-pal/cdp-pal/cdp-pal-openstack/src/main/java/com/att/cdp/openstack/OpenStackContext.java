@@ -376,6 +376,7 @@ public class OpenStackContext extends AbstractContext {
         if (super.getImageService() == null) {
             try {
                 String version = providerMetadata.getImageVersion();
+                getLogger().debug(new Date().toString()+" PAL-TEST-5555: OpenStackContext.getImageService() :: Version :"+version);
                 com.att.cdp.zones.Service service = loadServiceImplementation(IMAGE_SERVICE_CLASSNAME, version);
                 setImageService((ImageService) service);
             } catch (NotLoggedInException e) {
