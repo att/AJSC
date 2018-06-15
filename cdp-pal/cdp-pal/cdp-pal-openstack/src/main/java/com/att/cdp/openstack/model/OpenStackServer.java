@@ -526,7 +526,7 @@ public class OpenStackServer extends ConnectedServer {
             if (novaModel.getImage() != null) {
                 try {
                     String serverImageId = novaModel.getImage().getId();
-                    LOG.info(new Date().toString()+" PAL-TEST-5555: serverImageId(from novaModel) :"+serverImageId);
+                    LOG.info(new Date().toString()+" PAL-TEST-5555: serverImageId(from novaModel)  :"+serverImageId);
                     ImageService imageService = context.getImageService();
                     List<Image> images = imageService.listImages();
                     LOG.info(new Date().toString()+" PAL-TEST-5555: Images :"+images);
