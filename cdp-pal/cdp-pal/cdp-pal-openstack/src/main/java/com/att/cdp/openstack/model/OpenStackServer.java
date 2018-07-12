@@ -526,24 +526,24 @@ public class OpenStackServer extends ConnectedServer {
             if (novaModel.getImage() != null) {
                 try {
                     String serverImageId = novaModel.getImage().getId();
-                    LOG.info(new Date().toString()+" PAL-TEST-5555: serverImageId(from novaModel)  :"+serverImageId);
+                    
+                    LOG.info(new Date().toString()+":serverImageId(from novaModel)  :"+serverImageId);
                     ImageService imageService = context.getImageService();
                     List<Image> images = imageService.listImages();
-                    LOG.info(new Date().toString()+" PAL-TEST-5555: Images :"+images);
+                    LOG.info(new Date().toString()+":"+images);
                     for (Image image : images) {
                         if (image.getId().equals(serverImageId)) {
                         	bootImage = image;
-                            LOG.info(new Date().toString()+" PAL-TEST-5555: bootImage :"+image.getId());
+                            LOG.info(new Date().toString()+": bootImage :"+image.getId());
                         }
                         if (image.getImageType().equals(Image.Type.SNAPSHOT) && getId().equals(image.getInstanceId())) {
-                        	 LOG.info(new Date().toString()+" PAL-TEST-5555: Snapshot Image :"+image.getId());
+                        	 LOG.info(new Date().toString()+": Snapshot Image :"+image.getId());
                             getSnapshots().add(image);
                         }
                     }
                 } catch (Exception e) {
                     LOG.error(String.format("Unexpected exception %s retrieving images for server %s", e.getClass()
                         .getSimpleName(), getId()));
-                    LOG.error("PAL-TEST-5555: Exception",e);
                     LOG.error(EELFResourceManager.format(e));
                 }
             }
@@ -567,13 +567,18 @@ public class OpenStackServer extends ConnectedServer {
             }
 
             if (bootImage == null) {
+                setBootSource(ServerBootSource.UNKNOWN);
+                setImage(null);
+            } 
+            else if(volumeAttachmentsProcessed.get()){
                 setBootSource(ServerBootSource.VOLUME);
                 setImage(null);
-            } else {
+            }
+            else {
                 if (bootImage.getImageType().equals(Image.Type.SNAPSHOT)) {
                     setBootSource(ServerBootSource.SNAPSHOT);
-                } else {
-                    setBootSource(ServerBootSource.IMAGE);
+                } else{
+                setBootSource(ServerBootSource.IMAGE);
                 }
                 setImage(bootImage);
             }

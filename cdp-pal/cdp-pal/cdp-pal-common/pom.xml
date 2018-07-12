@@ -13,7 +13,7 @@
 
   <artifactId>cdp-pal-common</artifactId>
   <name> CDP - PAL common code </name>
-  <version>1.1.25.9-oss</version>
+  <version>1.1.25.10-oss</version>
   <description>Cloud Deployment Platform</description>
   <url>https://github.com/att/AJSC/tree/master/cdp-pal</url>
   
