@@ -664,7 +664,10 @@ public class ServiceCatalog {
             RequestConfig.Builder builder = RequestConfig.custom();
             builder.setConnectionRequestTimeout(30000);
             builder.setConnectTimeout(30000);
-            builder.setRedirectsEnabled(true);
+            
+            builder.setSocketTimeout(120000); 
+         
+            builder.setRedirectsEnabled(true); 
             RequestConfig rc = builder.build();
 
             HttpGet request = new HttpGet();
