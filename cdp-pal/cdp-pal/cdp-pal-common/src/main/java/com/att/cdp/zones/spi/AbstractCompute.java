@@ -10,6 +10,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+import javax.ws.rs.ProcessingException;
+
 import org.slf4j.Logger;
 
 import com.att.cdp.exceptions.ContextClosedException;
@@ -162,7 +164,10 @@ public abstract class AbstractCompute extends AbstractService implements Compute
         logger.info(new Date().toString()+ " " + logId+":AbstractCompute.waitForStateChange() - CurrentTime->"+System.currentTimeMillis());
         logger.info(new Date().toString()+ " " + logId+":AbstractCompute.waitForStateChange() - limit-> "+limit);
         boolean found = false;
+        
+        try {
         outer: do {
+        	
         	 logger.info(new Date().toString()+ " " + logId+":AbstractCompute.waitForStateChange() - refreshStatus: before->"+server.getStatus());
             server.refreshStatus();
             logger.info(new Date().toString()+ " " + logId+":AbstractCompute.waitForStateChange() - refreshStatus: after-> "+server.getStatus());
@@ -174,21 +179,28 @@ public abstract class AbstractCompute extends AbstractService implements Compute
                 }
             }
 
-            try {
+           
                 Thread.sleep(delay);
                 logger.info(new Date().toString()+ " " + logId+":AbstractCompute.waitForStateChange() - Thread.sleep ->delay->"+delay);
-            } catch (InterruptedException e) {
-                // ignore
-            	 logger.info(new Date().toString()+ " " + logId+":AbstractCompute.waitForStateChange() - InterrruptedException");
-            }
+         
+        	 
 
         } while (timeout == 0 || System.currentTimeMillis() < limit);
 
+        } catch (InterruptedException e) {
+                  	 logger.info(new Date().toString()+ " " + logId+":AbstractCompute.waitForStateChange() - InterrruptedException");
+        }
+    	 catch (ProcessingException e) {
+             // ignore
+         	 logger.info(new Date().toString()+ " " + logId+":AbstractCompute.waitForStateChange() - ProcessingException");
+         	throw new TimeoutException(EELFResourceManager.format(Msg.SERVER_TIMEOUT, server.getName(),
+                    Integer.toString(timeout), server.getId(), server.getStatus().name(), server.getStatus().name()));
+         }
         /*
          * Check to see if we found the server in one of the allowed states?
          */
         if (!found) {
-        	 logger.info(new Date().toString()+ " " + logId+":AbstractCompute.waitForStateChange() - didnt find the status");
+        	 logger.info(new Date().toString()+ " " + logId+":AbstractCompute.waitForStateChange() - did not find the status");
             
             StringBuilder builder = new StringBuilder("[");
             for (Server.Status state : states) {
