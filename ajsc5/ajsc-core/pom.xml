@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>com.att.ajsc</groupId>
 		<artifactId>ajsc-bom</artifactId>
-		<version>3.0.7-oss</version>
+		<version>3.0.8-oss</version>
 		<relativePath>../ajsc-bom</relativePath>
 	</parent>
 
@@ -24,7 +24,7 @@
 		<dependency>
 			<groupId>org.codehaus.groovy</groupId>
 			<artifactId>groovy-all</artifactId>
-			<version>2.4.4</version>
+			<version>2.4.8</version>
 		</dependency>
 		<dependency>
 			<groupId>org.grails</groupId>
@@ -191,6 +191,12 @@
 						<artifactId>groovy-eclipse-compiler</artifactId>
 						<version>2.9.0-01</version>
 					</dependency>
+					<dependency>
+		<groupId>com.jcraft</groupId>
+		<artifactId>jsch</artifactId>
+		<version>0.1.27</version>
+		<scope>runtime</scope>
+	</dependency>
 					<dependency>
 						<groupId>org.codehaus.groovy</groupId>
 						<artifactId>groovy-eclipse-batch</artifactId>

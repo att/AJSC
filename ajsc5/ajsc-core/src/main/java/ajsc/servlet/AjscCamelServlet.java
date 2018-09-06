@@ -17,7 +17,7 @@ import org.slf4j.LoggerFactory;
 
 @SuppressWarnings("serial")
 public class AjscCamelServlet extends
-		org.apache.camel.component.servlet.CamelHttpTransportServlet {
+		org.apache.camel.component.servlet.CamelHttpTransportServlet {/*
 	static final Logger logger = LoggerFactory
 			.getLogger(AjscCamelServlet.class);
 
@@ -67,4 +67,4 @@ public class AjscCamelServlet extends
 		}
 
 	}
-}
+*/}

@@ -600,7 +600,7 @@ class ComputeService implements ApplicationContextAware {
 			}
 
 			ctx.getShutdownStrategy().shutdown()
-			ctx.destroy()
+			ctx.stop()
 
 
 			//shutdown the OpenEJB container & clean up if the default context is restarted
