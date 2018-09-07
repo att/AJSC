@@ -533,13 +533,16 @@ public class OpenStackServer extends ConnectedServer {
                     LOG.info(new Date().toString()+":"+images);
                     for (Image image : images) {
                         if (image.getId().equals(serverImageId)) {
-                        	bootImage = image;
+                        	 bootImage = image;
                             LOG.info(new Date().toString()+": bootImage :"+image.getId());
                         }
                         if (image.getImageType().equals(Image.Type.SNAPSHOT) && getId().equals(image.getInstanceId())) {
-                        	 LOG.info(new Date().toString()+": Snapshot Image :"+image.getId());
+                        	 LOG.info(new Date().toString()+": Snapshot Image  :"+image.getId());
                             getSnapshots().add(image);
+                            bootImage = image;
+                           
                         }
+                       
                     }
                 } catch (Exception e) {
                     LOG.error(String.format("Unexpected exception %s retrieving images for server %s", e.getClass()
