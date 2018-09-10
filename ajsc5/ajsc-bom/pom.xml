@@ -7,7 +7,7 @@
 	<parent>
 		<groupId>com.att.ajsc</groupId>
 		<artifactId>ajsc</artifactId>
-		<version>3.0.8-oss</version>
+		<version>3.0.9-oss</version>
 	</parent>
 	<artifactId>ajsc-bom</artifactId>
 	<packaging>pom</packaging>
@@ -65,7 +65,7 @@
 	<dependency>
 		<groupId>com.jcraft</groupId>
 		<artifactId>jsch</artifactId>
-		<version>0.1.27</version>
+		<version>0.1.54</version>
 		<scope>runtime</scope>
 	</dependency>
 					<dependency>
@@ -287,7 +287,7 @@
 			<dependency>
 		<groupId>com.jcraft</groupId>
 		<artifactId>jsch</artifactId>
-		<version>0.1.27</version>
+		<version>0.1.54</version>
 		<scope>runtime</scope>
 	</dependency>
 			<dependency>
@@ -796,7 +796,7 @@
 		<dependency>
 		<groupId>com.jcraft</groupId>
 		<artifactId>jsch</artifactId>
-		<version>0.1.27</version>
+		<version>0.1.54</version>
 		<scope>${dependency.scope}</scope>
 	</dependency>
 		
@@ -1106,18 +1106,11 @@
 			<artifactId>xmlbeans-xmlpublic</artifactId>
 			<scope>${dependency.scope}</scope>
 		</dependency>
-		<!-- <dependency>
-			<groupId>org.apache.cxf</groupId>
-			<artifactId>cxf-rt-transports-http</artifactId>
-			<version>3.2.2</version>
-			<scope>${dependency.scope}</scope>
-			<exclusions>
-				<exclusion>
-					<groupId>org.apache.cxf</groupId>
-					<artifactId>cxf-core</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency> -->
+		<dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-transports-http</artifactId>
+            <version>3.2.5</version>
+           </dependency>
 
 		<!-- ajsc war dependencies -->
 
@@ -1155,6 +1148,12 @@
 			<groupId>com.github.fge</groupId>
 			<artifactId>json-schema-validator</artifactId>
 			<scope>${dependency.scope}</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>javax.mail</groupId>
+					<artifactId>mailapi</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.json</groupId>
