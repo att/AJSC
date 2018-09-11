@@ -5,7 +5,7 @@
 
 	<groupId>com.att.ajsc</groupId>
 	<artifactId>ajsc</artifactId>
-	<version>3.0.9-oss</version>
+	<version>3.0.10-oss</version>
 	<packaging>pom</packaging>
 
 	<name>AJSC</name>

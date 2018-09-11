@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>com.att.ajsc</groupId>
 		<artifactId>ajsc-bom</artifactId>
-		<version>3.0.9-oss</version>
+		<version>3.0.10-oss</version>
 		<relativePath>../ajsc-bom</relativePath>
 	</parent>
 

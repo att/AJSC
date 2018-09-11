@@ -3,7 +3,7 @@
   <parent>
     <artifactId>ajsc-bom</artifactId>
     <groupId>com.att.ajsc</groupId>
-    <version>3.0.9-oss</version>
+    <version>3.0.10-oss</version>
     <relativePath>../ajsc-bom/pom.xml</relativePath>
   </parent>
   <modelVersion>4.0.0</modelVersion>
@@ -124,7 +124,7 @@
     <dependency>
       <groupId>com.att.ajsc</groupId>
       <artifactId>ajsc-war</artifactId>
-      <version>3.0.9-oss</version>
+      <version>3.0.10-oss</version>
       <type>war</type>
       <scope>compile</scope>
       <exclusions>
@@ -249,16 +249,16 @@
           <groupId>org.slf4j</groupId>
         </exclusion>
         <exclusion>
-          <artifactId>quartz</artifactId>
-          <groupId>org.quartz-scheduler</groupId>
-        </exclusion>
-        <exclusion>
           <artifactId>jaxb-core</artifactId>
           <groupId>com.sun.xml.bind</groupId>
         </exclusion>
         <exclusion>
           <artifactId>jaxb-impl</artifactId>
           <groupId>com.sun.xml.bind</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>quartz</artifactId>
+          <groupId>org.quartz-scheduler</groupId>
         </exclusion>
       </exclusions>
     </dependency>
@@ -305,20 +305,20 @@
           <groupId>commons-logging</groupId>
         </exclusion>
         <exclusion>
-          <artifactId>camel-http-common</artifactId>
-          <groupId>org.apache.camel</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>org.restlet.ext.httpclient</artifactId>
-          <groupId>org.restlet.jee</groupId>
-        </exclusion>
-        <exclusion>
           <artifactId>jaxb-core</artifactId>
           <groupId>com.sun.xml.bind</groupId>
         </exclusion>
         <exclusion>
           <artifactId>jaxb-impl</artifactId>
           <groupId>com.sun.xml.bind</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>camel-http-common</artifactId>
+          <groupId>org.apache.camel</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>org.restlet.ext.httpclient</artifactId>
+          <groupId>org.restlet.jee</groupId>
         </exclusion>
       </exclusions>
     </dependency>
@@ -333,16 +333,16 @@
           <groupId>commons-logging</groupId>
         </exclusion>
         <exclusion>
-          <artifactId>camel-http-common</artifactId>
-          <groupId>org.apache.camel</groupId>
-        </exclusion>
-        <exclusion>
           <artifactId>jaxb-core</artifactId>
           <groupId>com.sun.xml.bind</groupId>
         </exclusion>
         <exclusion>
           <artifactId>jaxb-impl</artifactId>
           <groupId>com.sun.xml.bind</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>camel-http-common</artifactId>
+          <groupId>org.apache.camel</groupId>
         </exclusion>
       </exclusions>
     </dependency>
@@ -357,20 +357,20 @@
           <groupId>commons-logging</groupId>
         </exclusion>
         <exclusion>
-          <artifactId>httpclient</artifactId>
-          <groupId>org.apache.httpcomponents</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>camel-http-common</artifactId>
-          <groupId>org.apache.camel</groupId>
-        </exclusion>
-        <exclusion>
           <artifactId>jaxb-core</artifactId>
           <groupId>com.sun.xml.bind</groupId>
         </exclusion>
         <exclusion>
           <artifactId>jaxb-impl</artifactId>
           <groupId>com.sun.xml.bind</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>httpclient</artifactId>
+          <groupId>org.apache.httpcomponents</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>camel-http-common</artifactId>
+          <groupId>org.apache.camel</groupId>
         </exclusion>
       </exclusions>
     </dependency>
@@ -397,20 +397,20 @@
       <scope>provided</scope>
       <exclusions>
         <exclusion>
-          <artifactId>twitter4j-core</artifactId>
-          <groupId>org.twitter4j</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>twitter4j-stream</artifactId>
-          <groupId>org.twitter4j</groupId>
-        </exclusion>
-        <exclusion>
           <artifactId>jaxb-core</artifactId>
           <groupId>com.sun.xml.bind</groupId>
         </exclusion>
         <exclusion>
           <artifactId>jaxb-impl</artifactId>
           <groupId>com.sun.xml.bind</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>twitter4j-core</artifactId>
+          <groupId>org.twitter4j</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>twitter4j-stream</artifactId>
+          <groupId>org.twitter4j</groupId>
         </exclusion>
       </exclusions>
     </dependency>
@@ -445,20 +445,20 @@
           <groupId>org.slf4j</groupId>
         </exclusion>
         <exclusion>
-          <artifactId>jsmpp</artifactId>
-          <groupId>org.jsmpp</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>commons-codec</artifactId>
-          <groupId>commons-codec</groupId>
-        </exclusion>
-        <exclusion>
           <artifactId>jaxb-core</artifactId>
           <groupId>com.sun.xml.bind</groupId>
         </exclusion>
         <exclusion>
           <artifactId>jaxb-impl</artifactId>
           <groupId>com.sun.xml.bind</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>jsmpp</artifactId>
+          <groupId>org.jsmpp</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>commons-codec</artifactId>
+          <groupId>commons-codec</groupId>
         </exclusion>
       </exclusions>
     </dependency>
@@ -469,20 +469,20 @@
       <scope>provided</scope>
       <exclusions>
         <exclusion>
-          <artifactId>spring-jms</artifactId>
-          <groupId>org.springframework</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>geronimo-jms_2.0_spec</artifactId>
-          <groupId>org.apache.geronimo.specs</groupId>
-        </exclusion>
-        <exclusion>
           <artifactId>jaxb-core</artifactId>
           <groupId>com.sun.xml.bind</groupId>
         </exclusion>
         <exclusion>
           <artifactId>jaxb-impl</artifactId>
           <groupId>com.sun.xml.bind</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>spring-jms</artifactId>
+          <groupId>org.springframework</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>geronimo-jms_2.0_spec</artifactId>
+          <groupId>org.apache.geronimo.specs</groupId>
         </exclusion>
       </exclusions>
     </dependency>
@@ -509,6 +509,14 @@
       <scope>provided</scope>
       <exclusions>
         <exclusion>
+          <artifactId>jaxb-core</artifactId>
+          <groupId>com.sun.xml.bind</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>jaxb-impl</artifactId>
+          <groupId>com.sun.xml.bind</groupId>
+        </exclusion>
+        <exclusion>
           <artifactId>jxmpp-jid</artifactId>
           <groupId>org.jxmpp</groupId>
         </exclusion>
@@ -527,14 +535,6 @@
         <exclusion>
           <artifactId>smack-im</artifactId>
           <groupId>org.igniterealtime.smack</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>jaxb-core</artifactId>
-          <groupId>com.sun.xml.bind</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>jaxb-impl</artifactId>
-          <groupId>com.sun.xml.bind</groupId>
         </exclusion>
       </exclusions>
     </dependency>
@@ -561,16 +561,16 @@
           <groupId>commons-collections</groupId>
         </exclusion>
         <exclusion>
-          <artifactId>velocity-engine-core</artifactId>
-          <groupId>org.apache.velocity</groupId>
-        </exclusion>
-        <exclusion>
           <artifactId>jaxb-core</artifactId>
           <groupId>com.sun.xml.bind</groupId>
         </exclusion>
         <exclusion>
           <artifactId>jaxb-impl</artifactId>
           <groupId>com.sun.xml.bind</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>velocity-engine-core</artifactId>
+          <groupId>org.apache.velocity</groupId>
         </exclusion>
       </exclusions>
     </dependency>
@@ -737,6 +737,14 @@
       <scope>provided</scope>
       <exclusions>
         <exclusion>
+          <artifactId>jaxb-core</artifactId>
+          <groupId>com.sun.xml.bind</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>jaxb-impl</artifactId>
+          <groupId>com.sun.xml.bind</groupId>
+        </exclusion>
+        <exclusion>
           <artifactId>camel-cxf-transport</artifactId>
           <groupId>org.apache.camel</groupId>
         </exclusion>
@@ -759,14 +767,6 @@
         <exclusion>
           <artifactId>camel-http-common</artifactId>
           <groupId>org.apache.camel</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>jaxb-core</artifactId>
-          <groupId>com.sun.xml.bind</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>jaxb-impl</artifactId>
-          <groupId>com.sun.xml.bind</groupId>
         </exclusion>
       </exclusions>
     </dependency>
@@ -811,6 +811,14 @@
           <groupId>org.apache.camel</groupId>
         </exclusion>
         <exclusion>
+          <artifactId>jaxb-core</artifactId>
+          <groupId>com.sun.xml.bind</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>jaxb-impl</artifactId>
+          <groupId>com.sun.xml.bind</groupId>
+        </exclusion>
+        <exclusion>
           <artifactId>camel-package-maven-plugin</artifactId>
           <groupId>org.apache.camel</groupId>
         </exclusion>
@@ -821,14 +829,6 @@
         <exclusion>
           <artifactId>camel-http-common</artifactId>
           <groupId>org.apache.camel</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>jaxb-core</artifactId>
-          <groupId>com.sun.xml.bind</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>jaxb-impl</artifactId>
-          <groupId>com.sun.xml.bind</groupId>
         </exclusion>
       </exclusions>
     </dependency>
