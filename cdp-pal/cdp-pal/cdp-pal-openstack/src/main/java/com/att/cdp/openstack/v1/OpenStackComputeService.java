@@ -243,12 +243,17 @@ public class OpenStackComputeService extends AbstractCompute {
 			throws ZoneException {
 		checkArg(server, "server");
 		checkArg(volume, "volume");
-		checkArg(deviceName, "deviceName");
-
-		if (!checkDeviceName(deviceName)) {
-			throw new InvalidRequestException(EELFResourceManager.format(
-					OSMsg.PAL_OS_INVALID_DEVICE_NAME, deviceName));
+		//1811 release deviceName can be left as null for auto assignment by OpenStack. 
+		//Hence validating the deviceName only if its not null
+		if(deviceName != null){
+			checkArg(deviceName, "deviceName");
+		
+			if (!checkDeviceName(deviceName)) {
+					throw new InvalidRequestException(EELFResourceManager.format(
+							OSMsg.PAL_OS_INVALID_DEVICE_NAME, deviceName));
+			}
 		}
+		
 
 		connect();
 		Context context = getContext();
@@ -265,9 +270,11 @@ public class OpenStackComputeService extends AbstractCompute {
 		 * name is already used
 		 */
 		Map<String, String> attachments = getAttachments(server);
-		if (attachments.containsKey(deviceName)) {
-			throw new InvalidRequestException(EELFResourceManager.format(
-					OSMsg.PAL_OS_INVALID_DEVICE_NAME, deviceName));
+		if(deviceName != null){
+			if (attachments.containsKey(deviceName)) {
+				throw new InvalidRequestException(EELFResourceManager.format(
+						OSMsg.PAL_OS_INVALID_DEVICE_NAME, deviceName));
+			}
 		}
 
 		/*
