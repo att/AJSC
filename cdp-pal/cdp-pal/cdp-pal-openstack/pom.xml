@@ -7,12 +7,12 @@
 	<parent>
 		<groupId>com.att.cdp</groupId>
 		<artifactId>cdp-pal</artifactId>
-		<version>1.1.25.15-oss</version>
+		<version>1.1.25.16-oss</version>
 	</parent>
 
 	<artifactId>cdp-pal-openstack</artifactId>
 	<name>CDP - PAL  Openstack implementation</name>
-	<version>1.1.25.15-oss</version>
+	<version>1.1.25.16-oss</version>
 	<description>Cloud Delivery Platform </description>
 	<packaging>jar</packaging>
 	<url>https://github.com/att/AJSC/tree/master/cdp-pal</url>

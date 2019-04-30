@@ -9,7 +9,7 @@
   <packaging>pom</packaging>
   <name>CDP - Provider  Abstraction Layer</name>
   <description>Cloud Deployment Platform</description>
-  <version>1.1.25.15-oss</version>
+  <version>1.1.25.16-oss</version>
   <url>https://github.com/att/AJSC/tree/master/cdp-pal</url>
 
   <!-- ================================================================================== -->
@@ -194,7 +194,7 @@
       <dependency>
         <groupId>com.att.eelf</groupId>
         <artifactId>eelf-core</artifactId>
-        <version>0.0.1</version>
+        <version>2.0.0-oss</version>
       </dependency>
 
       <dependency>
