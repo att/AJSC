@@ -2,9 +2,9 @@
     
     <appender name="Audit-Record-Queue" class="ajsc.JMSQueueAppender">
         <param name="InitialContextFactoryName" value="com.ibm.mq.jms.context.WMQInitialContextFactory"/>
-        <param name="ProviderURL" value="tcp://q27csi1c3.vci.att.com:27812"/>
-        <param name="userName" value="sg"/>
-        <param name="password" value="its4test"/>
+        <param name="ProviderURL" value="ProviderURL"/>
+        <param name="userName" value="userName"/>
+        <param name="password" value="password"/>
         <QueueBindingName>pub.m2e.AJSC.Audit.logger.queue</QueueBindingName>
     </appender>
     <logger name="AuditRecord" level="INFO" additivity="FALSE">
@@ -12,9 +12,9 @@
   	</logger>
   	<appender name="Performance-Tracker-Queue" class="ajsc.JMSQueueAppender">
         <param name="InitialContextFactoryName" value="com.ibm.mq.jms.context.WMQInitialContextFactory"/>
-        <param name="ProviderURL" value="tcp://q27csi1c3.vci.att.com:27812"/>
-        <param name="userName" value="sg"/>
-        <param name="password" value="its4test"/>
+        <param name="ProviderURL" value="ProviderURL"/>
+        <param name="userName" value="userName"/>
+        <param name="password" value="password"/>
         
         <QueueBindingName>pub.m2e.AJSC.Perf.logger.queue</QueueBindingName>
     </appender>
@@ -26,9 +26,9 @@
   	
   	<appender name="Timer-Log-Queue" class="ajsc.JMSQueueAppender">
         <param name="InitialContextFactoryName" value="com.ibm.mq.jms.context.WMQInitialContextFactory"/>
-        <param name="ProviderURL" value="tcp://q27csi1c3.vci.att.com:27812"/>
-        <param name="userName" value="sg"/>
-        <param name="password" value="its4test"/>
+        <param name="ProviderURL" value="ProviderURL"/>
+        <param name="userName" value="userName"/>
+        <param name="password" value="password"/>
         
         <QueueBindingName>pub.m2e.AJSC.Timer.logger.queue</QueueBindingName>
     </appender>
