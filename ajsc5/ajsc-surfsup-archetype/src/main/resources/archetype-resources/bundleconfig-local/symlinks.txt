@@ -1,7 +1,0 @@
-#Copyright (c) 2016 AT&T Intellectual Property. All rights reserved.
-#This file provides the definitions of sym-links to CSTEM that will be used by your project once installed on a CSI node.
-
-link_jre=ajsc-shared-config
-link_csi-csm=ajsc-shared-config
-link_csi-dme=ajsc-shared-config
-link_introscope=ajsc-shared-config

@@ -1,4 +1,0 @@
-<route xmlns="http://camel.apache.org/schema/spring" trace="true">
-    <from uri="restlet:/SurfsUp/v1/returnXml"/>
-    <to uri="bean:helloAjsc?method=returnXml"/>
-</route>

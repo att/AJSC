@@ -1,4 +1,0 @@
-<route xmlns="http://camel.apache.org/schema/spring" trace="true">
-  <from uri="att-dme2-servlet:///SurfsUp/v1/jaxrsExample?matchOnUriPrefix=true" />
-  <to uri="cxfbean:jaxrsServices" />
-</route>

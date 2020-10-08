@@ -1,1 +1,0 @@
-{"shiroRoleClass":"ajsc.auth.ShiroRole","shiroRoleId":"ajscadmin","name":"ajscadmin","permissions":"[ajscadmin:*, ajsc:*]"}
